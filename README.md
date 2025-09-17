@@ -17,13 +17,14 @@ Before you begin, ensure you have the following:
 * A Google Cloud project with the **Cloud SQL Admin API** enabled.
 * IAM Permissions:
   * Cloud SQL Client (`roles/cloudsql.client`)
+  * Cloud SQL Admin (`roles/cloudsql.admin`)
 
 ## Installation
 
 To install the extension, use the command:
 
 ```bash
-gemini extensions install github.com/gemini-cli-extensions/cloud-sql-postgresql.git
+gemini extensions install github.com/gemini-cli-extensions/cloud-sql-postgresql
 ```
 
 ## Configuration
@@ -38,6 +39,8 @@ Set the following environment variables before starting the Gemini CLI:
 * `CLOUD_SQL_POSTGRES_PASSWORD`: (Optional) The password for the database user.
 * `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) The IP Type.
 
+> [!NOTE]
+> When using private IPs with AlloyDB, you must use a Virtual Private Cloud (VPC) network.
 ## Usage Examples
 
 Interact with Cloud SQL for PostgreSQL using natural language right from your IDE:
@@ -51,22 +54,24 @@ Interact with Cloud SQL for PostgreSQL using natural language right from your ID
 
 ## Supported Tools
 
-* `list-tables`: Use this tool to list tables and descriptions.
-* `execute-sql`: Use this tool to execute any SQL statement.
+*   **Data:**
+    * `list-tables`: Use this tool to list tables and descriptions.
+    * `execute-sql`: Use this tool to execute any SQL statement.
 
-🚧 `cloudsql-wait-for-operation`: Polls the operations API until an operation is complete.
-🚧 `cloudsql-user-create`: Use this tool to create a new user for a Cloud SQL instance.
-🚧 `cloudsql-database-list`: Use this tool to list databases within a Cloud SQL instance.
-🚧 `cloudsql-database-create`: Use this tool to create a new database within a Cloud SQL instance.
-🚧 `cloudsql-instance-list`: Use this tool to list Cloud SQL instances in a given project and location.
-🚧 `cloudsql-instance-get`: Use this tool to get details about a specific Cloud SQL instance.
-🚧 `cloudsql-instance-create`: Use this tool to create (insert) a new Cloud SQL instance.
-🔜 `csql-postgresql-system-metrics`: Use this tool to retrieve system metrics for a Cloud SQL for PostgreSQL instance.
-🔜 `csql-postgresql-query-metrics`: Use this tool to retrieve query-related metrics for a Cloud SQL for PostgreSQL instance.
+*   **Admin:**
+    * `wait_for_operation`: Polls the operations API until an operation is complete.
+    * `user_create`: Use this tool to create a new user for a Cloud SQL instance.
+    * `database_list`: Use this tool to list databases within a Cloud SQL instance.
+    * `database_create`: Use this tool to create a new database within a Cloud SQL instance.
+    * `instance_list`: Use this tool to list Cloud SQL instances in a given project and location.
+    * `instance_get`: Use this tool to get details about a specific Cloud SQL instance.
+    * `instance_create`: Use this tool to create (insert) a new Cloud SQL instance.
+    * `system_metrics`: Use this tool to retrieve system metrics for a Cloud SQL for PostgreSQL instance.
+    * `query_metrics`: Use this tool to retrieve query-related metrics for a Cloud SQL for PostgreSQL instance.```
 
 ## Additional Extensions
 
-Find additional extensions to support your entire software development lifecycle at [github.com/gemini-cli-extensions](https://github.com/gemini-cli-extensions).
+Find additional extensions to support your entire software development lifecycle at [github.com/gemini-cli-extensions](https://github.com/gemini-cli-extensions), including a generic [PostgreSQL extension](https://github.com/gemini-cli-extensions/postgres).
 
 ## Troubleshooting
 
