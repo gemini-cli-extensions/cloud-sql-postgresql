@@ -40,7 +40,7 @@ Set the following environment variables before starting the Gemini CLI:
 * `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) The IP Type.
 
 > [!NOTE]
-> When using private IPs with AlloyDB, you must use a Virtual Private Cloud (VPC) network.
+> When using private IPs with Cloud SQL for PostgreSQL, you must use a Virtual Private Cloud (VPC) network.
 ## Usage Examples
 
 Interact with Cloud SQL for PostgreSQL using natural language right from your IDE:
