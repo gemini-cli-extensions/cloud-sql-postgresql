@@ -57,18 +57,30 @@ Interact with Cloud SQL for PostgreSQL using natural language:
 
 ## Supported Tools
 
-*   **Data:**
-    * `list-tables`: Use this tool to list tables and descriptions.
-    * `execute-sql`: Use this tool to execute any SQL statement.
-
 *   **Admin:**
-    * `wait_for_operation`: Use this tool to polls the operations API until an operation is complete.
-    * `user_create`: Use this tool to create a new user for a Cloud SQL instance.
-    * `database_list`: Use this tool to list databases within a Cloud SQL instance.
-    * `database_create`: Use this tool to create a new database within a Cloud SQL instance.
-    * `instance_list`: Use this tool to list Cloud SQL instances in a given project and location.
-    * `instance_get`: Use this tool to get details about a specific Cloud SQL instance.
-    * `instance_create`: Use this tool to create (insert) a new Cloud SQL instance.
+   	* `create_cluster`: Use this tool to create an AlloyDB cluster.
+   	* `create_instance`: Use this tool to create an AlloyDB instance (PRIMARY, READ-POOL, or SECONDARY).
+   	* `create_user`: Use this tool to create ALLOYDB-BUILT-IN or IAM-based users for an AlloyDB cluster.
+    * `get_cluster`: Use this tool to get details about an AlloyDB cluster.
+   	* `get_instance`: Use this tool to get details about an AlloyDB instance.
+   	* `get_user`: Use this tool to get details about a user in an AlloyDB cluster.
+   	* `list_clusters`: Use this tool to list clusters in a given project and location.
+   	* `list_instances`: Use this tool to list instances in a given project and location.
+   	* `list_users`: Use this tool to list users in a given project and location.
+    * `wait_for_operation`: Use this tool to poll the operations API until the operation is done.
+
+*   **Data:**
+    * `list_tables`: Use this tool to lists tables in the database.
+    * `execute_sql`: Use this tool to executes a SQL query.
+    * `list_active_queries`: Use this tool to list currently running queries.
+    * `list_available_extensions`: Use this tool to list available extensions for installation.
+    * `list_installed_extensions`: Use this tool to list installed extensions.
+    * `get_query_plan`: Use this tool to get query plan.
+    * `list_autovacuum_configurations`: Use this tool to list autovacuum configurations and its value.
+    * `list_memory_configuration`s: Use this tool to list memory configurations and its value.
+    * `list_top_bloated_tables`: Use this tool to list top bloated tables.
+    * `list_replication_slots`: Use this tool to list replication slots.
+    * `list_invalid_indexes`: Use this tool to list invalid indexes.
 
 ## Additional Extensions
 
