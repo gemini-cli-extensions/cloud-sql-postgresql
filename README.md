@@ -58,13 +58,10 @@ Interact with Cloud SQL for PostgreSQL using natural language:
 ## Supported Tools
 
 *   **Admin:**
-   	* `create_cluster`: Use this tool to create an AlloyDB cluster.
-   	* `create_instance`: Use this tool to create an AlloyDB instance (PRIMARY, READ-POOL, or SECONDARY).
-   	* `create_user`: Use this tool to create ALLOYDB-BUILT-IN or IAM-based users for an AlloyDB cluster.
-    * `get_cluster`: Use this tool to get details about an AlloyDB cluster.
-   	* `get_instance`: Use this tool to get details about an AlloyDB instance.
-   	* `get_user`: Use this tool to get details about a user in an AlloyDB cluster.
-   	* `list_clusters`: Use this tool to list clusters in a given project and location.
+   	* `create_instance`: Use this tool to create an Postgres instance.
+   	* `create_user`: Use this tool to create Postgres-BUILT-IN or IAM-based users.
+   	* `get_instance`: Use this tool to get details about an Postgres instance.
+   	* `get_user`: Use this tool to get details about a user.
    	* `list_instances`: Use this tool to list instances in a given project and location.
    	* `list_users`: Use this tool to list users in a given project and location.
     * `wait_for_operation`: Use this tool to poll the operations API until the operation is done.
