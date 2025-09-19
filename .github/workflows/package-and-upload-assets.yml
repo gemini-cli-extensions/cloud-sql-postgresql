@@ -16,9 +16,9 @@ name: Package and Upload Release Assets
 
 # Global variables
 env:
-  PACKAGE_NAME: "biqquery-data-analytics"
+  PACKAGE_NAME: "cloud-sql-postgresql"
   FILES_TO_PACKAGE: "gemini-extension.json CLOUD-SQL-POSTGRESQL.md LICENSE"
-  GCS_BUCKET_URL: "https://storage.googleapis.com/genai-toolbox-extensions"
+  GCS_BUCKET_URL: "https://storage.googleapis.com/genai-toolbox/geminicli"
 
 on:
   release:
