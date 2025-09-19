@@ -1,12 +1,14 @@
 # Gemini CLI Extension - Cloud SQL for PostgreSQL
 
-This Gemini CLI extension provides a set of tools to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. It allows you to manage your databases, execute queries, and explore schemas directly from the [Gemini CLI](https://google-gemini.github.io/gemini-cli/), using natural language prompts.
+This Gemini CLI extension provides a set of tools to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. It allows you to manage your databases, execute queries, explore schemas, and troubleshoot issues directly from the [Gemini CLI](https://google-gemini.github.io/gemini-cli/), using natural language prompts.
+
+Learn more about [Gemini CLI Extensions](https://github.com/google-gemini/gemini-cli/blob/main/docs/extension.md).
 
 ## Why Use the Cloud SQL for PostgreSQL Extension?
 
-* **Natural Language Management:** Stop wrestling with complex commands. Explore schemas and query data by describing what you want in plain English.
 * **Seamless Workflow:** As a Google-developed extension, it integrates seamlessly into the Gemini CLI environment. No need to constantly switch contexts for common database tasks.
-*   **Full Lifecycle Control:** Manage the entire lifecycle of your database, from creating instances to exploring schemas and running queries.
+* **Natural Language Queries:** Stop wrestling with complex commands. Explore schemas and query data by describing what you want in plain English.
+* **Full Lifecycle Control:** Manage the entire lifecycle of your database, from creating instances to exploring schemas and running queries.
 * **Code Generation:** Accelerate development by asking Gemini to generate data classes and other code snippets based on your table schemas.
 
 ## Prerequisites
@@ -40,11 +42,15 @@ Set the following environment variables before starting the Gemini CLI:
 * `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) The IP Type.
 
 > [!NOTE]
-> When using private IPs with AlloyDB, you must use a Virtual Private Cloud (VPC) network.
+> When using private IPs with Cloud SQL for PostgreSQL, you must use a Virtual Private Cloud (VPC) network.
+
 ## Usage Examples
 
-Interact with Cloud SQL for PostgreSQL using natural language right from your IDE:
+Interact with Cloud SQL for PostgreSQL using natural language:
 
+*   **Provision Infrastructure:**
+    * "Create a new CLoud SQL for Postgres instance named 'e-commerce-prod' in the 'my-gcp-project' project."
+    * "Create a new user named 'analyst' with read access to all tables."
 * **Explore Schemas and Data:**
   * "Show me all tables in the 'orders' database."
   * "What are the columns in the 'products' table?"
@@ -54,20 +60,27 @@ Interact with Cloud SQL for PostgreSQL using natural language right from your ID
 
 ## Supported Tools
 
-*   **Data:**
-    * `list-tables`: Use this tool to list tables and descriptions.
-    * `execute-sql`: Use this tool to execute any SQL statement.
-
 *   **Admin:**
-    * `wait_for_operation`: Polls the operations API until an operation is complete.
-    * `user_create`: Use this tool to create a new user for a Cloud SQL instance.
-    * `database_list`: Use this tool to list databases within a Cloud SQL instance.
-    * `database_create`: Use this tool to create a new database within a Cloud SQL instance.
-    * `instance_list`: Use this tool to list Cloud SQL instances in a given project and location.
-    * `instance_get`: Use this tool to get details about a specific Cloud SQL instance.
-    * `instance_create`: Use this tool to create (insert) a new Cloud SQL instance.
-    * `system_metrics`: Use this tool to retrieve system metrics for a Cloud SQL for PostgreSQL instance.
-    * `query_metrics`: Use this tool to retrieve query-related metrics for a Cloud SQL for PostgreSQL instance.```
+   	* `create_instance`: Use this tool to create an Postgres instance.
+   	* `create_user`: Use this tool to create Postgres-BUILT-IN or IAM-based users.
+   	* `get_instance`: Use this tool to get details about an Postgres instance.
+   	* `get_user`: Use this tool to get details about a user.
+   	* `list_instances`: Use this tool to list instances in a given project and location.
+   	* `list_users`: Use this tool to list users in a given project and location.
+    * `wait_for_operation`: Use this tool to poll the operations API until the operation is done.
+
+*   **Data:**
+    * `list_tables`: Use this tool to lists tables in the database.
+    * `execute_sql`: Use this tool to executes a SQL query.
+    * `list_active_queries`: Use this tool to list currently running queries.
+    * `list_available_extensions`: Use this tool to list available extensions for installation.
+    * `list_installed_extensions`: Use this tool to list installed extensions.
+    * `get_query_plan`: Use this tool to get query plan.
+    * `list_autovacuum_configurations`: Use this tool to list autovacuum configurations and its value.
+    * `list_memory_configuration`s: Use this tool to list memory configurations and its value.
+    * `list_top_bloated_tables`: Use this tool to list top bloated tables.
+    * `list_replication_slots`: Use this tool to list replication slots.
+    * `list_invalid_indexes`: Use this tool to list invalid indexes.
 
 ## Additional Extensions
 
