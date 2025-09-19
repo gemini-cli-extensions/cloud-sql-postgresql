@@ -48,6 +48,9 @@ Set the following environment variables before starting the Gemini CLI:
 
 Interact with Cloud SQL for PostgreSQL using natural language:
 
+*   **Provision Infrastructure:**
+    * "Create a new CLoud SQL for Postgres instance named 'e-commerce-prod' in the 'my-gcp-project' project."
+    * "Create a new user named 'analyst' with read access to all tables."
 * **Explore Schemas and Data:**
   * "Show me all tables in the 'orders' database."
   * "What are the columns in the 'products' table?"
