@@ -5,7 +5,7 @@
 
 This Gemini CLI extension provides a set of tools to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. It allows you to manage your databases, execute queries, explore schemas, and troubleshoot issues directly from the [Gemini CLI](https://google-gemini.github.io/gemini-cli/), using natural language prompts.
 
-Learn more about [Gemini CLI Extensions](https://github.com/google-gemini/gemini-cli/blob/main/docs/extension.md).
+Learn more about [Gemini CLI Extensions](https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/index.md).
 
 ## Why Use the Cloud SQL for PostgreSQL Extension?
 
@@ -24,7 +24,9 @@ Before you begin, ensure you have the following:
   * Cloud SQL Client (`roles/cloudsql.client`)
   * Cloud SQL Admin (`roles/cloudsql.admin`)
 
-## Installation
+## Getting Started
+
+### Installation
 
 To install the extension, use the command:
 
@@ -32,7 +34,7 @@ To install the extension, use the command:
 gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-postgresql
 ```
 
-## Configuration
+### Configuration
 
 Set the following environment variables before starting the Gemini CLI.
 This configuration is not required if utilizing the [Admin toolset](#supported-tools).
@@ -48,13 +50,26 @@ This configuration is not required if utilizing the [Admin toolset](#supported-t
 Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 
 > [!NOTE]
-> When using private IPs with Cloud SQL for PostgreSQL, you must use a Virtual Private Cloud (VPC) network.
+> If your Cloud SQL for PostgreSQL instance uses private IPs, you must run Gemini CLI in the same Virtual Private Cloud (VPC) network.
+
+### Start Gemini CLI
+
+To start the Gemini CLI, use the following command:
+
+```bash
+gemini
+```
+
+> [!WARNING]
+> **Changing Instance & Database Connections**
+> Currently, the database connection must be configured before starting the Gemini CLI and can not be changed during a session.
+> To save and resume conversation history use command: `/chat save <tag>` and `/chat resume <tag>`.
 
 ## Usage Examples
 
 Interact with Cloud SQL for PostgreSQL using natural language:
 
-*   **Provision Infrastructure:**
+* **Provision Infrastructure:**
     * "Create a new CLoud SQL for Postgres instance named 'e-commerce-prod' in the 'my-gcp-project' project."
     * "Create a new user named 'analyst' with read access to all tables."
 * **Explore Schemas and Data:**
@@ -69,10 +84,10 @@ Interact with Cloud SQL for PostgreSQL using natural language:
 *   **Admin:**
    	* `create_instance`: Use this tool to create an Postgres instance.
    	* `create_user`: Use this tool to create Postgres-BUILT-IN or IAM-based users.
+    * `create_database`: Creates a new database in a Cloud SQL instance.
    	* `get_instance`: Use this tool to get details about an Postgres instance.
-   	* `get_user`: Use this tool to get details about a user.
    	* `list_instances`: Use this tool to list instances in a given project and location.
-   	* `list_users`: Use this tool to list users in a given project and location.
+    * `list_databases`: Lists all databases for a Cloud SQL instance.
     * `wait_for_operation`: Use this tool to poll the operations API until the operation is done.
 
 *   **Data:**
@@ -90,8 +105,13 @@ Interact with Cloud SQL for PostgreSQL using natural language:
 
 ## Additional Extensions
 
-Find additional extensions to support your entire software development lifecycle at [github.com/gemini-cli-extensions](https://github.com/gemini-cli-extensions), including a generic [PostgreSQL extension](https://github.com/gemini-cli-extensions/postgres).
+Find additional extensions to support your entire software development lifecycle at [github.com/gemini-cli-extensions](https://github.com/gemini-cli-extensions), including:
+* [Generic PostgreSQL extension](https://github.com/gemini-cli-extensions/postgres)
+* [Cloud SQL for PostgreSQL Observability extension](https://github.com/gemini-cli-extensions/cloud-sql-postgresql-observability)
+* and more!
 
 ## Troubleshooting
 
-* "cannot execute binary file": Ensure the correct binary for your OS/Architecture has been downloaded. See [Installing the server](https://googleapis.github.io/genai-toolbox/getting-started/introduction/#installing-the-server) for more information.
+* "✖ Error during discovery for server: MCP error -32000: Connection closed": The database connection has not been established. Ensure your configuration is set via environment variables.
+* "✖ MCP ERROR: Error: spawn /Users/<USER>/.gemini/extensions/cloud-sql-postgresql/toolbox ENOENT": The Toolbox binary did not download correctly. Ensure you are using Gemini CLI v0.6.0+.
+* "cannot execute binary file": The Toolbox binary did not download correctly. Ensure the correct binary for your OS/Architecture has been downloaded. See [Installing the server](https://googleapis.github.io/genai-toolbox/getting-started/introduction/#installing-the-server) for more information.
