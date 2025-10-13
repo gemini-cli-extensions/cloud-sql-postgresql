@@ -45,7 +45,7 @@ This configuration is not required if utilizing the [Admin toolset](#supported-t
 * `CLOUD_SQL_POSTGRES_DATABASE`: The name of the database to connect to.
 * `CLOUD_SQL_POSTGRES_USER`: (Optional) The database username.
 * `CLOUD_SQL_POSTGRES_PASSWORD`: (Optional) The password for the database user.
-* `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) The IP Type.
+* `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) The IP Type i.e. "PUBLIC", "PRIVATE", or "PSC" (Default: "PUBLIC")
 
 Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 
