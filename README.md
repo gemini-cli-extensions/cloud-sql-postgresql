@@ -48,13 +48,15 @@ gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-pos
 Set the following environment variables before starting the Gemini CLI. These variables can be loaded from a `.env` file.
 This configuration is not required if utilizing the [Admin toolset](#supported-tools).
 
-* `CLOUD_SQL_POSTGRES_PROJECT`: The GCP project ID.
-* `CLOUD_SQL_POSTGRES_REGION`: The region of your Cloud SQL instance.
-* `CLOUD_SQL_POSTGRES_INSTANCE`: The ID of your Cloud SQL instance.
-* `CLOUD_SQL_POSTGRES_DATABASE`: The name of the database to connect to.
-* `CLOUD_SQL_POSTGRES_USER`: (Optional) The database username.
-* `CLOUD_SQL_POSTGRES_PASSWORD`: (Optional) The password for the database user.
-* `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) The IP Type i.e. "PUBLIC", "PRIVATE", or "PSC" (Default: "PUBLIC")
+```bash
+export CLOUD_SQL_POSTGRES_PROJECT="<your-gcp-project-id>"
+export CLOUD_SQL_POSTGRES_REGION="<your-cloud-sql-region>"
+export CLOUD_SQL_POSTGRES_INSTANCE="<your-cloud-sql-instance-id>"
+export CLOUD_SQL_POSTGRES_DATABASE="<your-database-name>"
+export CLOUD_SQL_POSTGRES_USER="<your-database-user>"  # Optional
+export CLOUD_SQL_POSTGRES_PASSWORD="<your-database-password>"  # Optional
+export CLOUD_SQL_POSTGRES_IP_TYPE="PUBLIC" # Optional: `PUBLIC`, `PRIVATE`, `PSC`. Defaults to `PUBLIC`.
+```
 
 Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 
