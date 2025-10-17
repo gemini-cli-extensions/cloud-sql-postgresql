@@ -102,7 +102,10 @@ The release process is automated using `release-please`. It consists of an autom
 
 #### Automated Changelog Enrichment
 
-Before a Release PR is even created, a special workflow automatically mirrors relevant changelogs from the core `googleapis/genai-toolbox` dependency. This ensures that the release notes for this extension accurately reflect important upstream changes.
+Before a Release PR is even created, a special workflow automatically mirrors
+relevant changelogs from the core `googleapis/genai-toolbox` dependency. This
+ensures that the release notes for this extension accurately reflect important
+upstream changes.
 
 The process is handled by the [`mirror-changelog.yml`](.github/workflows/mirror-changelog.yml) workflow:
 
@@ -111,8 +114,8 @@ The process is handled by the [`mirror-changelog.yml`](.github/workflows/mirror-
 2. **Parsing:** It reads the detailed release notes that Renovate includes in
    the PR body.
 3. **Filtering:** These release notes are filtered to include only changes
-   relevant to this extension. The relevance is determined by a keyword (e.g., `postgres`), passed
-   as an environment variable in the workflow file.
+   relevant to this extension. The relevance is determined by a keyword (e.g.,
+   `postgres`), passed as an environment variable in the workflow file.
 4. **Changelog Injection:** The script formats the filtered entries as
    conventional commits and injects them into the PR body within a
    `BEGIN_COMMIT_OVERRIDE` block.
