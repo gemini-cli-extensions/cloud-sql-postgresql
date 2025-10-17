@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.2...0.1.3) (2025-10-17)
+
+
+### Bug Fixes
+
+* update context for install instructions ([#46](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/46)) ([47feef9](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/47feef9cc6c9078c1febcac44940a69effb69ea8))
+
 ## [0.1.2](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.1...0.1.2) (2025-10-13)
 
 
