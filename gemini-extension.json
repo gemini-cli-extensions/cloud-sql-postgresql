@@ -19,12 +19,34 @@
         "--stdio"
       ],
       "env": {
-        "CLOUD_SQL_POSTGRESQL_PROJECT": "${CLOUD_SQL_POSTGRESQL_PROJECT}",
-        "CLOUD_SQL_POSTGRESQL_REGION": "${CLOUD_SQL_POSTGRESQL_REGION}",
-        "CLOUD_SQL_POSTGRESQL_INSTANCE": "${CLOUD_SQL_POSTGRESQL_INSTANCE}",
-        "CLOUD_SQL_POSTGRESQL_DATABASE": "${CLOUD_SQL_POSTGRESQL_DATABASE}"
+        "CLOUD_SQL_POSTGRES_PROJECT": "${CLOUD_SQL_POSTGRES_PROJECT}",
+        "CLOUD_SQL_POSTGRES_REGION": "${CLOUD_SQL_POSTGRES_REGION}",
+        "CLOUD_SQL_POSTGRES_INSTANCE": "${CLOUD_SQL_POSTGRES_INSTANCE}",
+        "CLOUD_SQL_POSTGRES_DATABASE": "${CLOUD_SQL_POSTGRES_DATABASE}"
       }
     }
   },
-  "contextFileName": "CLOUD-SQL-POSTGRESQL.md"
+  "contextFileName": "CLOUD-SQL-POSTGRESQL.md",
+  "settings": [
+    {
+      "name": "Project",
+      "description": "The Google Cloud project ID",
+      "envVar": "CLOUD_SQL_POSTGRES_PROJECT"
+    },
+    {
+      "name": "Region",
+      "description": "The region of your Cloud SQL instance",
+      "envVar": "CLOUD_SQL_POSTGRES_REGION"
+    },
+    {
+      "name": "Instance",
+      "description": "The ID of your Cloud SQL instance",
+      "envVar": "CLOUD_SQL_POSTGRES_INSTANCE"
+    },
+    {
+      "name": "Database name",
+      "description": "The name of the database to connect to",
+      "envVar": "CLOUD_SQL_POSTGRES_DATABASE"
+    }
+  ]
 }
