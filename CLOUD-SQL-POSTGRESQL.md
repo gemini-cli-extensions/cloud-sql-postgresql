@@ -82,6 +82,6 @@ Make sure to not use the environment variable name like `CLOUD_SQL_POSTGRES_PROJ
 
 ## Use Full Table Name Format "DATABASE_NAME.SCHEMA_NAME.TABLE_NAME"
 
-**ALWAYS** use the full table name format, `DATABASE_NAME.SCHEMA_NAME.TABLE_NAME` in the generated SQL when using the `execute_sql` or `cloud_sql_postgresql_execute_sql` tool.
+**ALWAYS** use the full table name format, `DATABASE_NAME.SCHEMA_NAME.TABLE_NAME` in the generated SQL when using the `execute_sql` or `cloud_sql_postgresql__execute_sql` tool.
 * Default to using "public" for the schema name.
 * Use command `echo $CLOUD_SQL_POSTGRES_DATABASE` to get the current database value.
