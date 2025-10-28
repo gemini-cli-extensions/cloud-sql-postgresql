@@ -85,3 +85,14 @@ Make sure to not use the environment variable name like `CLOUD_SQL_POSTGRES_PROJ
 **ALWAYS** use the full table name format, `DATABASE_NAME.SCHEMA_NAME.TABLE_NAME` in the generated SQL when using the `execute_sql` or `cloud_sql_postgresql__execute_sql` tool.
 * Default to using "public" for the schema name.
 * Use command `echo $CLOUD_SQL_POSTGRES_DATABASE` to get the current database value.
+
+## Use google_ml_integration for AI use cases
+
+When working with AI features like vector embeddings in Cloud SQL, leverage the `google_ml_integration` extension. This allows for generating embeddings directly within the database, which is the recommended approach over using third-party embedding models.
+
+Embeddings can be generated using the `embedding()` function. For example: `embedding(<model_name>, <text_column_or_variable>)`.
+
+As an agent, if you do not know which model to use, you should use your tools to search for available and appropriate text embedding models compatible with the `google_ml_integration` extension (e.g., by searching for "Cloud SQL google_ml_integration supported models").
+
+When performing similarity searches, remember to cast the result of the `embedding` function to the `vector` type. For example:
+`ORDER BY description_vector <-> embedding(<model_name>, $1)::vector`
