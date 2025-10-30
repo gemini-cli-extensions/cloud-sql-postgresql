@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.3...0.1.4) (2025-10-30)
+
+
+### Features
+
+* Adding google_ml_integration instructions ([#63](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/63)) ([56185e7](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/56185e732ee4b6e34aa47d59def6cede48379486))
+
 ## [0.1.3](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.2...0.1.3) (2025-10-17)
 
 
