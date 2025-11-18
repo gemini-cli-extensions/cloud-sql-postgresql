@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.5](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.4...0.1.5) (2025-11-18)
+
+
+### Features
+
+* **source/alloydb, source/cloud-sql-postgres,source/cloud-sql-mysql,source/cloud-sql-mssql:** Use project from env for alloydb and cloud sql control plane tools ([genai-toolbox#​1588](https://redirect.github.com/googleapis/genai-toolbox/issues/1588)) ([12bdd95](https://redirect.github.com/googleapis/genai-toolbox/commit/12bdd954597e49d3ec6b247cc104584c5a4d1943)) ([acdefd8](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/acdefd83bc467d29273e7617ff61eb15647dcdc1))
+* **tools/postgres:** Add `list_triggers`, `database_overview` tools for postgres ([genai-toolbox#​1912](https://redirect.github.com/googleapis/genai-toolbox/issues/1912)) ([a4c9287](https://redirect.github.com/googleapis/genai-toolbox/commit/a4c9287aecf848faa98d973a9ce5b13fa309a58e)) ([acdefd8](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/acdefd83bc467d29273e7617ff61eb15647dcdc1))
+* **tools/postgres:** Add list\_indexes, list\_sequences tools for postgres ([genai-toolbox#​1765](https://redirect.github.com/googleapis/genai-toolbox/issues/1765)) ([897c63d](https://redirect.github.com/googleapis/genai-toolbox/commit/897c63dcea43226262d2062088c59f2d1068fca7)) ([acdefd8](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/acdefd83bc467d29273e7617ff61eb15647dcdc1))
+* Added prompt support for toolbox ([genai-toolbox#​1798](https://redirect.github.com/googleapis/genai-toolbox/issues/1798)) ([cd56ea4](https://redirect.github.com/googleapis/genai-toolbox/commit/cd56ea44fbdd149fcb92324e70ee36ac747635db)) ([acdefd8](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/acdefd83bc467d29273e7617ff61eb15647dcdc1))
+
 ## [0.1.4](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.3...0.1.4) (2025-11-07)
 
 
