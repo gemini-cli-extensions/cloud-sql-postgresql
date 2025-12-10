@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.7](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.6...0.1.7) (2025-12-08)
+
+
+### Features
+
+* **prebuilt/cloud-sql:** Add clone instance tool for cloud sql ([genai-toolbox#​1845](https://redirect.github.com/googleapis/genai-toolbox/issues/1845)) ([5e43630](https://redirect.github.com/googleapis/genai-toolbox/commit/5e43630907aa2d7bc6818142483a33272eab060b)) ([3d737a6](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/3d737a613970cb8b7a4b584f6b19c7064463c90b))
+* **tools/cloudsqlpg:** Add CloudSQL PostgreSQL pre-check tool ([genai-toolbox#​1722](https://redirect.github.com/googleapis/genai-toolbox/issues/1722)) ([8752e05](https://redirect.github.com/googleapis/genai-toolbox/commit/8752e05ab6e98812d95673a6f1ff67e9a6ae48d2)) ([3d737a6](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/3d737a613970cb8b7a4b584f6b19c7064463c90b))
+* **tools/postgres-list-publication-tables:** Add new postgres-list-publication-tables tool ([genai-toolbox#​1919](https://redirect.github.com/googleapis/genai-toolbox/issues/1919)) ([f4b1f0a](https://redirect.github.com/googleapis/genai-toolbox/commit/f4b1f0a68000ca2fc0325f55a1905705417c38a2)) ([3d737a6](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/3d737a613970cb8b7a4b584f6b19c7064463c90b))
+* **tools/postgres-list-tablespaces:** Add new postgres-list-tablespaces tool ([genai-toolbox#​1934](https://redirect.github.com/googleapis/genai-toolbox/issues/1934)) ([5ad7c61](https://redirect.github.com/googleapis/genai-toolbox/commit/5ad7c6127b3e47504fc4afda0b7f3de1dff78b8b)) ([3d737a6](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/3d737a613970cb8b7a4b584f6b19c7064463c90b))
+* **tools/postgres:** Add list-query-stats and get-column-cardinality functions ([genai-toolbox#​1976](https://redirect.github.com/googleapis/genai-toolbox/issues/1976)) ([9f76026](https://redirect.github.com/googleapis/genai-toolbox/commit/9f760269253a8cc92a357e995c6993ccc4a0fb7b)) ([3d737a6](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/3d737a613970cb8b7a4b584f6b19c7064463c90b))
+
 ## [0.1.6](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.5...0.1.6) (2025-11-26)
 
 
