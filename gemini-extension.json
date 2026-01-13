@@ -1,6 +1,6 @@
 {
-  "name": "cloud-sql-postgresql",
-  "version": "0.1.3",
+  "name": "cloud-sql-postgresql2",
+  "version": "0.1.4",
   "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
   "mcpServers": {
     "cloud_sql_postgresql_admin": {
@@ -17,14 +17,45 @@
         "--prebuilt",
         "cloud-sql-postgres",
         "--stdio"
-      ],
-      "env": {
-        "CLOUD_SQL_POSTGRESQL_PROJECT": "${CLOUD_SQL_POSTGRESQL_PROJECT}",
-        "CLOUD_SQL_POSTGRESQL_REGION": "${CLOUD_SQL_POSTGRESQL_REGION}",
-        "CLOUD_SQL_POSTGRESQL_INSTANCE": "${CLOUD_SQL_POSTGRESQL_INSTANCE}",
-        "CLOUD_SQL_POSTGRESQL_DATABASE": "${CLOUD_SQL_POSTGRESQL_DATABASE}"
-      }
+      ]
     }
   },
-  "contextFileName": "CLOUD-SQL-POSTGRESQL.md"
+  "contextFileName": "CLOUD-SQL-POSTGRESQL.md",
+  "settings": [
+    {
+      "name": "Project ID",
+      "description": "ID of the Google Cloud project",
+      "envVar": "CLOUD_SQL_POSTGRES_PROJECT"
+    },
+    {
+      "name": "Region",
+      "description": "Region of the Cloud SQL instance",
+      "envVar": "CLOUD_SQL_POSTGRES_REGION"
+    },
+    {
+      "name": "Instance ID",
+      "description": "ID of the Cloud SQL instance",
+      "envVar": "CLOUD_SQL_POSTGRES_INSTANCE"
+    },
+    {
+      "name": "Database Name",
+      "description": "Name of the database",
+      "envVar": "CLOUD_SQL_POSTGRES_DATABASE"
+    },
+    {
+      "name": "User",
+      "description": "(Optional) Username of the database user",
+      "envVar": "CLOUD_SQL_POSTGRES_USER"
+    },
+    {
+      "name": "Password",
+      "description": "(Optional) Password of the database user",
+      "envVar": "CLOUD_SQL_POSTGRES_PASSWORD"
+    },
+    {
+      "name": "IP Type",
+      "description": "(Optional) Type of the IP address (PUBLIC or PRIVATE)",
+      "envVar": "CLOUD_SQL_POSTGRES_IP_TYPE"
+    }
+  ]
 }
