@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.7...0.1.8) (2026-01-14)
+
+
+### Features
+
+* **deps:** update dependency googleapis/genai-toolbox to v0.25.0 ([#80](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/80)) ([ac9886c](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/ac9886c7ac60b9e6ceeb3bf7b6af261e9f52c8e0))
+
 ## [0.1.7](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.6...0.1.7) (2025-12-08)
 
 
