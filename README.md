@@ -32,7 +32,7 @@ Before you begin, ensure you have the following:
 * IAM Permissions:
   * Cloud SQL Client (`roles/cloudsql.client`)
   * Cloud SQL Admin (`roles/cloudsql.admin`)
-
+> **Note:** For instructions on how to configure IAM authentication and add these roles, please see the official [Google Cloud IAM Authentication Guide](https://cloud.google.com/sql/docs/postgres/iam-authentication#configure-iam-authentication).
 ## Getting Started
 
 ### Installation
