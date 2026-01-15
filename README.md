@@ -32,7 +32,11 @@ Before you begin, ensure you have the following:
 * IAM Permissions:
   * Cloud SQL Client (`roles/cloudsql.client`)
   * Cloud SQL Admin (`roles/cloudsql.admin`)
-> **Note:** For instructions on how to configure IAM authentication and add these roles, please see the official [Google Cloud IAM Authentication Guide](https://cloud.google.com/sql/docs/postgres/iam-authentication#configure-iam-authentication).
+> **Note:** 
+> 1.For instructions on how to configure IAM authentication and add these roles, please see the official [Google Cloud IAM Authentication Guide](https://cloud.google.com/sql/docs/postgres/iam-authentication#configure-iam-authentication).
+> 2. You must also add the IAM user to your Cloud SQL instance. See [Creating a database user](https://cloud.google.com/sql/docs/postgres/add-manage-iam-users#creating-a-database-user).
+> 3. If you do not configure a specific `CLOUD_SQL_POSTGRES_USER` or `PASSWORD`, this extension defaults to using the active local IAM user credentials.
+
 ## Getting Started
 
 ### Installation
