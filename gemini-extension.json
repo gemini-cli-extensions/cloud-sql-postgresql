@@ -1,6 +1,6 @@
 {
-  "name": "cloud-sql-postgresql2",
-  "version": "0.1.4",
+  "name": "cloud-sql-postgresql",
+  "version": "0.1.3",
   "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
   "mcpServers": {
     "cloud_sql_postgresql_admin": {
@@ -28,7 +28,7 @@
       "envVar": "CLOUD_SQL_POSTGRES_PROJECT"
     },
     {
-      "name": "Region",
+      "name": "Location",
       "description": "Region of the Cloud SQL instance",
       "envVar": "CLOUD_SQL_POSTGRES_REGION"
     },
@@ -54,7 +54,7 @@
     },
     {
       "name": "IP Type",
-      "description": "(Optional) Type of the IP address (PUBLIC or PRIVATE)",
+      "description": "(Optional) Type of the IP address (PUBLIC, PRIVATE, or PSC)",
       "envVar": "CLOUD_SQL_POSTGRES_IP_TYPE"
     }
   ]
