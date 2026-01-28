@@ -32,6 +32,8 @@ Before you begin, ensure you have the following:
 * IAM Permissions:
   * Cloud SQL Client (`roles/cloudsql.client`)
   * Cloud SQL Admin (`roles/cloudsql.admin`)
+> [!NOTE]
+> If you do not configure a specific `CLOUD_SQL_POSTGRES_USER` or `CLOUD_SQL_POSTGRES_PASSWORD`, this extension defaults to using the active local IAM user credentials. You must also add the IAM user to your Cloud SQL instance, see [Creating a database user](https://cloud.google.com/sql/docs/postgres/add-manage-iam-users#creating-a-database-user).
 
 ## Getting Started
 
