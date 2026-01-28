@@ -17,14 +17,46 @@
         "--prebuilt",
         "cloud-sql-postgres",
         "--stdio"
-      ],
-      "env": {
-        "CLOUD_SQL_POSTGRESQL_PROJECT": "${CLOUD_SQL_POSTGRESQL_PROJECT}",
-        "CLOUD_SQL_POSTGRESQL_REGION": "${CLOUD_SQL_POSTGRESQL_REGION}",
-        "CLOUD_SQL_POSTGRESQL_INSTANCE": "${CLOUD_SQL_POSTGRESQL_INSTANCE}",
-        "CLOUD_SQL_POSTGRESQL_DATABASE": "${CLOUD_SQL_POSTGRESQL_DATABASE}"
-      }
+      ]
     }
   },
-  "contextFileName": "CLOUD-SQL-POSTGRESQL.md"
+  "contextFileName": "CLOUD-SQL-POSTGRESQL.md",
+  "settings": [
+    {
+      "name": "Project ID",
+      "description": "ID of the Google Cloud project",
+      "envVar": "CLOUD_SQL_POSTGRES_PROJECT"
+    },
+    {
+      "name": "Location",
+      "description": "Region of the Cloud SQL instance",
+      "envVar": "CLOUD_SQL_POSTGRES_REGION"
+    },
+    {
+      "name": "Instance",
+      "description": "Name of the Cloud SQL instance",
+      "envVar": "CLOUD_SQL_POSTGRES_INSTANCE"
+    },
+    {
+      "name": "Database",
+      "description": "Name of the database",
+      "envVar": "CLOUD_SQL_POSTGRES_DATABASE"
+    },
+    {
+      "name": "User",
+      "description": "(Optional) Username of the database user (Default: IAM user)",
+      "envVar": "CLOUD_SQL_POSTGRES_USER"
+    },
+    {
+      "name": "Password",
+      "description": "(Optional) Password of the database user  (Default: IAM user)",
+      "envVar": "CLOUD_SQL_POSTGRES_PASSWORD",
+      "sensitive": true
+    },
+    {
+      "name": "IP Type",
+      "description": "(Optional) Type of the IP address: PUBLIC, PRIVATE, or PSC (Default: Public)",
+      "envVar": "CLOUD_SQL_POSTGRES_IP_TYPE"
+    }
+  ]
 }
