@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.9](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.8...0.1.9) (2026-01-28)
+
+
+### Features
+
+* **prebuilt/cloud-sql:** Add create backup tool for Cloud SQL ([genai-toolbox#​2141](https://redirect.github.com/googleapis/genai-toolbox/issues/2141)) ([8e0fb03](https://redirect.github.com/googleapis/genai-toolbox/commit/8e0fb0348315a80f63cb47b3c7204869482448f4)) ([a547399](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/a5473998e638a0caaf9afecb8edcfc391d192a41))
+* **prebuilt/cloud-sql:** Add restore backup tool for Cloud SQL ([genai-toolbox#​2171](https://redirect.github.com/googleapis/genai-toolbox/issues/2171)) ([00c3e6d](https://redirect.github.com/googleapis/genai-toolbox/commit/00c3e6d8cba54e2ab6cb271c7e6b378895df53e1)) ([a547399](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/a5473998e638a0caaf9afecb8edcfc391d192a41))
+* add Configuration settings ([#85](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/85)) ([4ab7fbc](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/4ab7fbca2e25a437d3feb1edeff1c49fd4c15ed2))
+
 ## [0.1.8](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.7...0.1.8) (2026-01-14)
 
 
