@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.10](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.9...0.1.10) (2026-02-24)
+
+
+### Bug Fixes
+
+* remove broken keychain support for password ([#104](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/104)) ([dacda20](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/dacda20efaa224af97c89d69e7efb4226f522861))
+
 ## [0.1.9](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.8...0.1.9) (2026-01-28)
 
 
