@@ -50,8 +50,7 @@
     {
       "name": "Password",
       "description": "(Optional) Password of the database user  (Default: IAM user)",
-      "envVar": "CLOUD_SQL_POSTGRES_PASSWORD",
-      "sensitive": true
+      "envVar": "CLOUD_SQL_POSTGRES_PASSWORD"
     },
     {
       "name": "IP Type",
