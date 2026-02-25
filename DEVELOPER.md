@@ -43,7 +43,6 @@ The core logic for this extension is handled by a pre-built `toolbox` binary. Th
     extension from your local directory.
 
     ```bash
-    gemini extensions install .
     gemini extensions link .
     ```
     The CLI will prompt you to confirm the installation. Accept it to proceed.
