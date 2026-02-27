@@ -1,6 +1,6 @@
 ---
 name: cloudsql-postgres-admin
-descfgfg∂ription: skill for performing administrative operations on cloudsql postgres
+description: skill for performing administrative operations on cloudsql postgres
 ---
 
 ## Usage
@@ -14,7 +14,6 @@ All scripts can be executed using Node.js. Replace `<param_name>` and `<param_va
 `node scripts/<script_name>.js '{\"<param_name>\": \"<param_value>\"}'`
 
 ## Scripts
-
 
 ### clone_instance
 
@@ -51,10 +50,7 @@ Clone an existing Cloud SQL instance into a new instance. The clone can be a dir
       "type": "string"
     }
   },
-  "required": [
-    "sourceInstanceName",
-    "destinationInstanceName"
-  ],
+  "required": ["sourceInstanceName", "destinationInstanceName"],
   "type": "object"
 }
 ```
@@ -88,9 +84,7 @@ Creates a backup on a Cloud SQL instance.
       "type": "string"
     }
   },
-  "required": [
-    "instance"
-  ],
+  "required": ["instance"],
   "type": "object"
 }
 ```
@@ -98,8 +92,6 @@ Creates a backup on a Cloud SQL instance.
 ---
 
 ### create_database
-
-
 
 #### Parameters
 
@@ -120,10 +112,7 @@ Creates a backup on a Cloud SQL instance.
       "type": "string"
     }
   },
-  "required": [
-    "instance",
-    "name"
-  ],
+  "required": ["instance", "name"],
   "type": "object"
 }
 ```
@@ -131,8 +120,6 @@ Creates a backup on a Cloud SQL instance.
 ---
 
 ### create_instance
-
-
 
 #### Parameters
 
@@ -163,10 +150,7 @@ Creates a backup on a Cloud SQL instance.
       "type": "string"
     }
   },
-  "required": [
-    "name",
-    "rootPassword"
-  ],
+  "required": ["name", "rootPassword"],
   "type": "object"
 }
 ```
@@ -174,8 +158,6 @@ Creates a backup on a Cloud SQL instance.
 ---
 
 ### create_user
-
-
 
 #### Parameters
 
@@ -204,11 +186,7 @@ Creates a backup on a Cloud SQL instance.
       "type": "string"
     }
   },
-  "required": [
-    "instance",
-    "name",
-    "iamUser"
-  ],
+  "required": ["instance", "name", "iamUser"],
   "type": "object"
 }
 ```
@@ -216,8 +194,6 @@ Creates a backup on a Cloud SQL instance.
 ---
 
 ### get_instance
-
-
 
 #### Parameters
 
@@ -234,9 +210,7 @@ Creates a backup on a Cloud SQL instance.
       "type": "string"
     }
   },
-  "required": [
-    "instanceId"
-  ],
+  "required": ["instanceId"],
   "type": "object"
 }
 ```
@@ -262,9 +236,7 @@ Lists all databases for a Cloud SQL instance.
       "type": "string"
     }
   },
-  "required": [
-    "instance"
-  ],
+  "required": ["instance"],
   "type": "object"
 }
 ```
@@ -318,10 +290,7 @@ INFO: No Action Needed. Informational messages only. This pre-check helps custom
       "type": "string"
     }
   },
-  "required": [
-    "project",
-    "instance"
-  ],
+  "required": ["project", "instance"],
   "type": "object"
 }
 ```
@@ -359,10 +328,7 @@ Restores a backup on a Cloud SQL instance.
       "type": "string"
     }
   },
-  "required": [
-    "target_instance",
-    "backup_id"
-  ],
+  "required": ["target_instance", "backup_id"],
   "type": "object"
 }
 ```
@@ -370,8 +336,6 @@ Restores a backup on a Cloud SQL instance.
 ---
 
 ### wait_for_operation
-
-
 
 #### Parameters
 
@@ -388,12 +352,9 @@ Restores a backup on a Cloud SQL instance.
       "type": "string"
     }
   },
-  "required": [
-    "operation"
-  ],
+  "required": ["operation"],
   "type": "object"
 }
 ```
 
 ---
-
