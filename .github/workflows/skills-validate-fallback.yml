@@ -1,4 +1,4 @@
-# Copyright 2025 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,15 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-header:
-  license:
-    spdx-id: "Apache-2.0"
-    copyright-owner: "Google LLC"
-    copyright-year: "2025"
-  paths-ignore:
-    - "skills/**"
+name: lint
 
-  paths:
-    - "**/*.yaml"
-    - "**/*.yml"
-    - "**/*.toml"
+on:
+  push:
+    paths-ignore:
+      - "skills/**"
+  pull_request:
+    paths-ignore:
+      - "skills/**"
+  pull_request_target:
+    types: [labeled]
+    paths-ignore:
+      - "skills/**"
+  workflow_dispatch:
+
+jobs:
+  skills-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip Skill Validation
+        run: |
+          echo "No changes detected in 'skills/' directory. Skipping validation."
+          echo "This job ensures the required 'skills-validate' status check passes."
