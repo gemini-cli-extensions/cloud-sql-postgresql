@@ -1,0 +1,17 @@
+kind: tools
+name: list_available_extensions
+type: postgres-list-available-extensions
+source: cloudsql-pg-source
+description: Discover all PostgreSQL extensions available for installation on this server, returning name, default_version, and description.
+authRequired: []
+---
+kind: sources
+name: cloudsql-pg-source
+type: cloud-sql-postgres
+project: twisha-dev
+region: us-central1
+instance: sdk-testing
+ipType: public
+database: inventory
+user: postgres
+password: TestPassword1@

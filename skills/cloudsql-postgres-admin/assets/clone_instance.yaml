@@ -1,0 +1,12 @@
+kind: tools
+name: clone_instance
+type: cloud-sql-clone-instance
+description: ""
+source: cloud-sql-admin-source
+authRequired: []
+---
+kind: sources
+name: cloud-sql-admin-source
+type: cloud-sql-admin
+defaultProject: twisha-dev
+useClientOAuth: false

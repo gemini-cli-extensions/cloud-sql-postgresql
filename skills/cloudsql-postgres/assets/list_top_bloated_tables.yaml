@@ -1,0 +1,47 @@
+kind: tools
+name: list_top_bloated_tables
+type: postgres-sql
+source: cloudsql-pg-source
+description: |
+  List the top tables by dead-tuple (approximate bloat signal), returning schema, table, live/dead tuples, percentage, and last vacuum/analyze times.
+statement: |
+  SELECT
+      schemaname AS schema_name,
+      relname AS relation_name,
+      n_live_tup AS live_tuples,
+      n_dead_tup AS dead_tuples,
+      TRUNC((n_dead_tup::NUMERIC / NULLIF(n_live_tup + n_dead_tup, 0)) * 100, 2) AS dead_tuple_percentage,
+      last_vacuum,
+      last_autovacuum,
+      last_analyze,
+      last_autoanalyze
+  FROM pg_stat_user_tables
+  ORDER BY n_dead_tup DESC
+  LIMIT COALESCE($1::int, 50);
+authRequired: []
+parameters:
+- name: limit
+  type: integer
+  description: The maximum number of results to return.
+  required: null
+  allowedValues: []
+  excludedValues: []
+  authServices: []
+  authSources: []
+  embeddedBy: ""
+  valueFromParam: ""
+  default: 50
+  minValue: null
+  maxValue: null
+templateParameters: []
+---
+kind: sources
+name: cloudsql-pg-source
+type: cloud-sql-postgres
+project: twisha-dev
+region: us-central1
+instance: sdk-testing
+ipType: public
+database: inventory
+user: postgres
+password: TestPassword1@

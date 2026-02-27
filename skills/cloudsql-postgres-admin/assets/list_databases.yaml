@@ -1,0 +1,12 @@
+kind: tools
+name: list_databases
+type: cloud-sql-list-databases
+source: cloud-sql-admin-source
+description: ""
+authRequired: []
+---
+kind: sources
+name: cloud-sql-admin-source
+type: cloud-sql-admin
+defaultProject: twisha-dev
+useClientOAuth: false

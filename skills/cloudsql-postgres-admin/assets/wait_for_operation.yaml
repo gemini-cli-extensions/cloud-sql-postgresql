@@ -1,0 +1,17 @@
+kind: tools
+name: wait_for_operation
+type: cloud-sql-wait-for-operation
+source: cloud-sql-admin-source
+description: ""
+authRequired: []
+baseURL: ""
+delay: ""
+maxDelay: ""
+multiplier: 4.0
+maxRetries: 0
+---
+kind: sources
+name: cloud-sql-admin-source
+type: cloud-sql-admin
+defaultProject: twisha-dev
+useClientOAuth: false
