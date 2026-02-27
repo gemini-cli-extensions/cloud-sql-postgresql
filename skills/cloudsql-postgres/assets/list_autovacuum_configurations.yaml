@@ -1,0 +1,24 @@
+kind: tools
+name: list_autovacuum_configurations
+type: postgres-sql
+source: cloudsql-pg-source
+description: List PostgreSQL autovacuum-related configurations (name and current setting) from pg_settings.
+statement: |
+  SELECT name,
+      setting
+  FROM   pg_settings
+  WHERE  category = 'Autovacuum';
+authRequired: []
+parameters: []
+templateParameters: []
+---
+kind: sources
+name: cloudsql-pg-source
+type: cloud-sql-postgres
+project: ${CLOUD_SQL_POSTGRES_PROJECT}
+region: ${CLOUD_SQL_POSTGRES_REGION}
+instance: ${CLOUD_SQL_POSTGRES_INSTANCE}
+ipType: ${CLOUD_SQL_POSTGRES_IP_TYPE}
+database: ${CLOUD_SQL_POSTGRES_DATABASE}
+user: ${CLOUD_SQL_POSTGRES_USER}
+password: ${CLOUD_SQL_POSTGRES_PASSWORD}

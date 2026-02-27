@@ -3,7 +3,7 @@
 > [!NOTE]
 > This extension is currently in beta (pre-v1.0), and may see breaking changes until the first stable release (v1.0).
 
-This Gemini CLI extension provides a set of tools to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. It allows you to manage your databases, execute queries, explore schemas, and troubleshoot issues directly from the [Gemini CLI](https://google-gemini.github.io/gemini-cli/), using natural language prompts.
+This Gemini CLI extension provides a set of skills to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. It allows you to manage your databases, execute queries, explore schemas, and troubleshoot issues directly from the [Gemini CLI](https://google-gemini.github.io/gemini-cli/), using natural language prompts.
 
 Learn more about [Gemini CLI Extensions](https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/index.md).
 > [!IMPORTANT]
@@ -58,7 +58,7 @@ You will be prompted to configure the following settings during installation. Th
 *   `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) Type of the IP address: `PUBLIC`, `PRIVATE`, or `PSC`. Defaults to `PUBLIC`.
 
 > [!NOTE]
-> This configuration is primarily for the Data Plane tools (querying). The Admin toolset does not strictly require these to be pre-set if you provide them in your prompts, but it is recommended for a smoother experience.
+> This configuration is primarily for the Data Plane skills (querying). The Admin skillset does not strictly require these to be pre-set if you provide them in your prompts, but it is recommended for a smoother experience.
 
 To view or update your configuration:
 
@@ -87,7 +87,7 @@ export CLOUD_SQL_POSTGRES_IP_TYPE="PUBLIC" # Optional: `PUBLIC`, `PRIVATE`, `PSC
 > [!NOTE]
 > * Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 > * If your Cloud SQL for PostgreSQL instance uses private IPs, you must run Gemini CLI in the same Virtual Private Cloud (VPC) network.
-> * See [Troubleshooting](#troubleshooting) for debugging your configuration. 
+> * See [Troubleshooting](#troubleshooting) for debugging your configuration.
 
 ### Start Gemini CLI
 
@@ -116,43 +116,12 @@ Interact with Cloud SQL for PostgreSQL using natural language:
 * **Generate Code:**
   * "Generate a Python dataclass to represent the 'customers' table."
 
-## Supported Tools
+## Supported Skills
 
-* **Admin:**
-    * `clone_instance`: Creates a clone for an existing Cloud SQL for PostgreSQL instance.
-    * `create_backup`: Creates a backup on a Cloud SQL instance.
-   	* `create_instance`: Use this tool to create an Postgres instance.
-   	* `create_user`: Use this tool to create Postgres-BUILT-IN or IAM-based users.
-    * `create_database`: Creates a new database in a Cloud SQL instance.
-   	* `get_instance`: Use this tool to get details about an Postgres instance.
-   	* `list_instances`: Use this tool to list instances in a given project and location.
-    * `list_databases`: Lists all databases for a Cloud SQL instance.
-    * `restore_backup`: Restores a backup of a Cloud SQL instance.
-    * `wait_for_operation`: Use this tool to poll the operations API until the operation is done.
+This extension provides the following skills:
 
-* **Data:**
-    * `list_tables`: Use this tool to lists tables in the database.
-    * `database_overview`: Use this tool to fetches the current state of the PostgreSQL server.
-    * `execute_sql`: Use this tool to executes a SQL query.
-    * `list_active_queries`: Use this tool to list currently running queries.
-    * `list_available_extensions`: Use this tool to list available extensions for installation.
-    * `list_installed_extensions`: Use this tool to list installed extensions.
-    * `get_query_plan`: Use this tool to get query plan.
-    * `list_autovacuum_configurations`: Use this tool to list autovacuum configurations and its value.
-    * `list_database_stats`: Use this tool to lists the key performance and activity statistics for each database in the postgreSQL instance.
-    * `list_indexes`: Use this tool to list available user indexes in a PostgreSQL database.
-    * `list_memory_configurations`: Use this tool to list memory configurations and its value.
-    * `list_pg_settings`: Use this tool to list configuration parameters for the PostgreSQL server.
-    * `list_publication_tables`: Use this tool to list publication tables in a PostgreSQL database.
-    * `list_replication_slots`: Use this tool to list replication slots.
-    * `list_roles`: Use this tool to lists all the user-created roles in PostgreSQL database.
-    * `list_schemas`: Use this tool to lists schemas in the database.
-    * `list_sequences`: Use this tool to list sequences in a PostgreSQL database.
-    * `list_tablespaces`: Use this tool to lists tablespaces in the database.
-    * `list_top_bloated_tables`: Use this tool to list top bloated tables.
-    * `list_triggers`: Use this tool to lists triggers in the database.
-    * `list_views`: Use this tool to lists views in the database from pg_views with a default limit of 50 rows.
-    * `list_invalid_indexes`: Use this tool to list invalid indexes.
+* [Cloud SQL for PostgreSQL Admin](skills/cloudsql-postgres-admin/SKILL.md) - Manage Cloud SQL instances, databases, and users.
+* [Cloud SQL for PostgreSQL](skills/cloudsql-postgres/SKILL.md) - Query databases and manage extensions.
 
 ## Additional Extensions
 

@@ -1,0 +1,17 @@
+kind: tools
+name: list_locks
+type: postgres-list-locks
+source: cloudsql-pg-source
+description: Identifies all locks held by active processes showing the process ID, user, query text, and an aggregated list of all transactions and specific locks (relation, mode, grant status) associated with each process.
+authRequired: []
+---
+kind: sources
+name: cloudsql-pg-source
+type: cloud-sql-postgres
+project: ${CLOUD_SQL_POSTGRES_PROJECT}
+region: ${CLOUD_SQL_POSTGRES_REGION}
+instance: ${CLOUD_SQL_POSTGRES_INSTANCE}
+ipType: ${CLOUD_SQL_POSTGRES_IP_TYPE}
+database: ${CLOUD_SQL_POSTGRES_DATABASE}
+user: ${CLOUD_SQL_POSTGRES_USER}
+password: ${CLOUD_SQL_POSTGRES_PASSWORD}
