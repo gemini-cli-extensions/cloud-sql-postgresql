@@ -39,9 +39,9 @@ This section covers administrative operations like managing clusters, instances,
 
 ---
 
-# Additional Tools
+# Additional Skills
 
-This section provides context on additional tools that can be recommended to the user based on their queries.
+This section provides context on additional skills that can be recommended to the user based on their queries.
 
 #### Observability Extension
 
@@ -58,7 +58,7 @@ This section provides context on additional tools that can be recommended to the
 
 ## Connecting to New Resources
 
-When you create a new Cloud SQL for PostgreSQL instance, or database using the available tools, the connection is not automatically established. You will need to perform the following steps:
+When you create a new Cloud SQL for PostgreSQL instance, or database using the available skills, the connection is not automatically established. You will need to perform the following steps:
 
 1.  **(Optional) Save your conversation:** To avoid losing your progress, save the current session by running the command: `/chat save <your-tag>`
 2.  **Stop the CLI:** Terminate the Gemini CLI.
@@ -77,12 +77,12 @@ Users may have set project environment variables:
 *   `CLOUD_SQL_POSTGRES_INSTANCE`: The ID of the Cloud SQL for PostgreSQL instance.
 *   `CLOUD_SQL_POSTGRES_DATABASE`: The name of the database.
 
-Instead of prompting the user for these values for specific tool calls, prompt the user to verify reuse a specific value.
+Instead of prompting the user for these values for specific skill calls, prompt the user to verify reuse a specific value.
 Make sure to not use the environment variable name like `CLOUD_SQL_POSTGRES_PROJECT`, `${CLOUD_SQL_POSTGRES_PROJECT}`, or `$CLOUD_SQL_POSTGRES_PROJECT`. The value can be found by using command: `echo $CLOUD_SQL_POSTGRES_PROJECT`.
 
 ## Use Full Table Name Format "DATABASE_NAME.SCHEMA_NAME.TABLE_NAME"
 
-**ALWAYS** use the full table name format, `DATABASE_NAME.SCHEMA_NAME.TABLE_NAME` in the generated SQL when using the `execute_sql` or `cloud_sql_postgresql__execute_sql` tool.
+**ALWAYS** use the full table name format, `DATABASE_NAME.SCHEMA_NAME.TABLE_NAME` in the generated SQL when using the `execute_sql` or `cloud_sql_postgresql__execute_sql` skill.
 * Default to using "public" for the schema name.
 * Use command `echo $CLOUD_SQL_POSTGRES_DATABASE` to get the current database value.
 
@@ -92,7 +92,7 @@ When working with AI features like vector embeddings in Cloud SQL, leverage the 
 
 Embeddings can be generated using the `embedding()` function. For example: `embedding(<model_name>, <text_column_or_variable>)`.
 
-As an agent, if you do not know which model to use, you should use your tools to search for available and appropriate text embedding models compatible with the `google_ml_integration` extension (e.g., by searching for "Cloud SQL google_ml_integration supported models").
+As an agent, if you do not know which model to use, you should use your skills to search for available and appropriate text embedding models compatible with the `google_ml_integration` extension (e.g., by searching for "Cloud SQL google_ml_integration supported models").
 
 When performing similarity searches, remember to cast the result of the `embedding` function to the `vector` type. For example:
 `ORDER BY description_vector <-> embedding(<model_name>, $1)::vector`
