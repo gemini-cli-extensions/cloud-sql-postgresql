@@ -1,6 +1,6 @@
 ---
 name: cloudsql-postgres-admin
-description: skill for performing administrative operations on cloudsql postgres
+descfgfg∂ription: skill for performing administrative operations on cloudsql postgres
 ---
 
 ## Usage
