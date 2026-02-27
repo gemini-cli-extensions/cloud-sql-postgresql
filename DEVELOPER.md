@@ -34,7 +34,7 @@ The core logic for this extension is handled by a pre-built `toolbox` binary. Th
     VERSION=$(cat toolbox_version.txt)
 
     # Example for macOS/amd64
-    curl -L -o toolbox https://storage.googleapis.com/genai-toolbox/v$VERSION/darwin/amd64/toolbox
+    curl -L -o toolbox https://storage.googleapis.com/genai-toolbox/geminicli/v$VERSION/darwin/amd64/toolbox
     chmod +x toolbox
     ```
     Adjust the URL for your operating system (`linux/amd64`, `darwin/arm64`, `windows/amd64`).
@@ -43,7 +43,6 @@ The core logic for this extension is handled by a pre-built `toolbox` binary. Th
     extension from your local directory.
 
     ```bash
-    gemini extensions install .
     gemini extensions link .
     ```
     The CLI will prompt you to confirm the installation. Accept it to proceed.
