@@ -16,16 +16,15 @@ name: Validate Skills
 
 on:
   push:
-    branches:
-      - main
     paths:
       - "skills/**"
   pull_request:
-    branches:
-      - main
     paths:
       - "skills/**"
-  workflow_dispatch:
+  pull_request_target:
+    types: [labeled]
+    paths:
+      - "skills/**"
 
 jobs:
   skills-validate:
