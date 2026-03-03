@@ -1,0 +1,17 @@
+kind: tools
+name: execute_sql
+type: postgres-execute-sql
+source: cloudsql-pg-source
+description: Use this tool to execute sql.
+authRequired: []
+---
+kind: sources
+name: cloudsql-pg-source
+type: cloud-sql-postgres
+project: twisha-dev
+region: us-central1
+instance: sdk-testing
+ipType: public
+database: inventory
+user: postgres
+password: TestPassword1@

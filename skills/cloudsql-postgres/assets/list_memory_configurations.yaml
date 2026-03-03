@@ -1,0 +1,36 @@
+kind: tools
+name: list_memory_configurations
+type: postgres-sql
+source: cloudsql-pg-source
+description: List PostgreSQL memory-related configurations (name and current setting) from pg_settings.
+statement: |
+  (
+      SELECT
+      name,
+      pg_size_pretty((setting::bigint * 1024)::bigint) setting
+      FROM pg_settings
+      WHERE name IN ('work_mem', 'maintenance_work_mem')
+  )
+  UNION ALL
+  (
+      SELECT
+      name,
+      pg_size_pretty((((setting::bigint) * 8) * 1024)::bigint)
+      FROM pg_settings
+      WHERE name IN ('shared_buffers', 'wal_buffers', 'effective_cache_size', 'temp_buffers')
+  )
+  ORDER BY 1 DESC;
+authRequired: []
+parameters: []
+templateParameters: []
+---
+kind: sources
+name: cloudsql-pg-source
+type: cloud-sql-postgres
+project: twisha-dev
+region: us-central1
+instance: sdk-testing
+ipType: public
+database: inventory
+user: postgres
+password: TestPassword1@

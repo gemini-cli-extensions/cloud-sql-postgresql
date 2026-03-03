@@ -1,0 +1,33 @@
+kind: tools
+name: get_query_plan
+type: postgres-sql
+source: cloudsql-pg-source
+description: Generate a PostgreSQL EXPLAIN plan in JSON format for a single SQL statement—without executing it. This returns the optimizer's estimated plan, costs, and rows (no ANALYZE, no extra options). Use in production safely for plan inspection, regression checks, and query tuning workflows.
+statement: |
+  EXPLAIN (FORMAT JSON) {{.query}};
+authRequired: []
+parameters: []
+templateParameters:
+- name: query
+  type: string
+  description: The SQL statement for which you want to generate plan (omit the EXPLAIN keyword).
+  required: true
+  allowedValues: []
+  excludedValues: []
+  authServices: []
+  authSources: []
+  embeddedBy: ""
+  valueFromParam: ""
+  default: null
+  escape: null
+---
+kind: sources
+name: cloudsql-pg-source
+type: cloud-sql-postgres
+project: twisha-dev
+region: us-central1
+instance: sdk-testing
+ipType: public
+database: inventory
+user: postgres
+password: TestPassword1@

@@ -15,7 +15,9 @@
 header:
   license:
     spdx-id: "Apache-2.0"
-    copyright-owner: "Google LLC"
+    copyright-owner: "Google LLC"  
+    paths-ignore:
+      - "skills/**"
     pattern: |
       Copyright 202[56] Google LLC
 

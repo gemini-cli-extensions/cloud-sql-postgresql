@@ -2,24 +2,6 @@
   "name": "cloud-sql-postgresql",
   "version": "0.1.10",
   "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
-  "mcpServers": {
-    "cloud_sql_postgresql_admin": {
-      "command": "${extensionPath}${/}toolbox",
-      "args": [
-        "--prebuilt",
-        "cloud-sql-postgres-admin",
-        "--stdio"
-      ]
-    },
-    "cloud_sql_postgresql": {
-      "command": "${extensionPath}${/}toolbox",
-      "args": [
-        "--prebuilt",
-        "cloud-sql-postgres",
-        "--stdio"
-      ]
-    }
-  },
   "contextFileName": "CLOUD-SQL-POSTGRESQL.md",
   "settings": [
     {

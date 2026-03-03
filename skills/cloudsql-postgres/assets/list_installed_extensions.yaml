@@ -1,0 +1,17 @@
+kind: tools
+name: list_installed_extensions
+type: postgres-list-installed-extensions
+source: cloudsql-pg-source
+description: List all installed PostgreSQL extensions with their name, version, schema, owner, and description.
+authRequired: []
+---
+kind: sources
+name: cloudsql-pg-source
+type: cloud-sql-postgres
+project: twisha-dev
+region: us-central1
+instance: sdk-testing
+ipType: public
+database: inventory
+user: postgres
+password: TestPassword1@

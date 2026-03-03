@@ -1,0 +1,17 @@
+kind: tools
+name: list_indexes
+type: postgres-list-indexes
+source: cloudsql-pg-source
+description: ""
+authRequired: []
+---
+kind: sources
+name: cloudsql-pg-source
+type: cloud-sql-postgres
+project: twisha-dev
+region: us-central1
+instance: sdk-testing
+ipType: public
+database: inventory
+user: postgres
+password: TestPassword1@
