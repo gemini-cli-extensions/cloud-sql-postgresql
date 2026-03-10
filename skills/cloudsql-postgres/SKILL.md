@@ -13,6 +13,8 @@ All scripts can be executed using Node.js. Replace `<param_name>` and `<param_va
 **PowerShell:**
 `node <skill_dir>/scripts/<script_name>.js '{\"<param_name>\": \"<param_value>\"}'`
 
+Note: The scripts automatically load the environment variables from various .env files. Do not ask the user to set vars unless skill executions fails due to env var absence.
+
 ## Scripts
 
 
