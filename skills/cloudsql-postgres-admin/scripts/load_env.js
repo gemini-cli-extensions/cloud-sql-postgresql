@@ -49,10 +49,15 @@ function loadEnv() {
 
     // Define Paths
     const globalPath = path.join(os.homedir(), '.gemini', 'extensions', extensionName, '.env'); // ~/.gemini/extensions/<name>/.env
-    const localPath = path.join(projectRoot, '.env'); // .env
+    const localPath = path.join(projectRoot, '.env'); // cloud-sql-postgresql/.env
+    const cwdPath = path.resolve(process.cwd(), '.env'); // <cwd>/.env
 
-    // Merge Environments (Global < Local)
-    const finalEnv = { ...parseEnvFile(globalPath), ...parseEnvFile(localPath) };
+    // Merge Environments (Global < Extension Root < User Working Directory)
+    const finalEnv = { 
+      ...parseEnvFile(globalPath), 
+      ...parseEnvFile(localPath),
+      ...(cwdPath !== localPath ? parseEnvFile(cwdPath) : {})
+    };
 
     // Apply to process.env without overwriting existing shell vars
     for (const [key, value] of Object.entries(finalEnv)) {
