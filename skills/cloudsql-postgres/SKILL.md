@@ -8,10 +8,10 @@ description: skill for running tool operations in CloudSql postgres
 All scripts can be executed using Node.js. Replace `<param_name>` and `<param_value>` with actual values.
 
 **Bash:**
-`node scripts/<script_name>.js '{"<param_name>": "<param_value>"}'`
+`node <skill_dir>/scripts/<script_name>.js '{"<param_name>": "<param_value>"}'`
 
 **PowerShell:**
-`node scripts/<script_name>.js '{\"<param_name>\": \"<param_value>\"}'`
+`node <skill_dir>/scripts/<script_name>.js '{\"<param_name>\": \"<param_value>\"}'`
 
 ## Scripts
 
@@ -30,20 +30,10 @@ Use this tool to execute sql.
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "sql": {
-      "description": "The sql to execute.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "sql"
-  ],
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| sql | string | The sql to execute. | Yes |  |
+
 
 ---
 
@@ -53,29 +43,12 @@ Estimates the number of unique values (cardinality) quickly for one or all colum
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "column_name": {
-      "description": "Optional: The column name for which the cardinality is to be found. If not provided, cardinality for all columns will be returned.",
-      "type": "string"
-    },
-    "schema_name": {
-      "default": "public",
-      "description": "Optional: The schema name in which the table is present.",
-      "type": "string"
-    },
-    "table_name": {
-      "description": "Required: The table name in which the column is present.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "table_name"
-  ],
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| schema_name | string | Optional: The schema name in which the table is present. | No |  |
+| table_name | string | Required: The table name in which the column is present. | Yes |  |
+| column_name | string | Optional: The column name for which the cardinality is to be found. If not provided, cardinality for all columns will be returned. | No |  |
+
 
 ---
 
@@ -85,20 +58,10 @@ Generate a PostgreSQL EXPLAIN plan in JSON format for a single SQL statement—w
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "query": {
-      "description": "The SQL statement for which you want to generate plan (omit the EXPLAIN keyword).",
-      "type": "string"
-    }
-  },
-  "required": [
-    "query"
-  ],
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| query | string | The SQL statement for which you want to generate plan (omit the EXPLAIN keyword). | Yes |  |
+
 
 ---
 
@@ -108,28 +71,12 @@ List the top N (default 50) currently running queries (state='active') from pg_s
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "exclude_application_names": {
-      "default": "",
-      "description": "Optional: A comma-separated list of application names to exclude from the query results. This is useful for filtering out queries from specific applications (e.g., 'psql', 'pgAdmin', 'DBeaver'). The match is case-sensitive. Whitespace around commas and names is automatically handled. If this parameter is omitted, no applications are excluded.",
-      "type": "string"
-    },
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of rows to return.",
-      "type": "integer"
-    },
-    "min_duration": {
-      "default": "1 minute",
-      "description": "Optional: Only show queries running at least this long (e.g., '1 minute', '1 second', '2 seconds').",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| min_duration | string | Optional: Only show queries running at least this long (e.g., '1 minute', '1 second', '2 seconds'). | No | `1 minute` |
+| exclude_application_names | string | Optional: A comma-separated list of application names to exclude from the query results. This is useful for filtering out queries from specific applications (e.g., 'psql', 'pgAdmin', 'DBeaver'). The match is case-sensitive. Whitespace around commas and names is automatically handled. If this parameter is omitted, no applications are excluded. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
+
 
 ---
 
@@ -155,43 +102,15 @@ Discover all PostgreSQL extensions available for installation on this server, re
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "database_name": {
-      "default": "",
-      "description": "Optional: A specific database name pattern to search for.",
-      "type": "string"
-    },
-    "database_owner": {
-      "default": "",
-      "description": "Optional: A specific database owner name pattern to search for.",
-      "type": "string"
-    },
-    "default_tablespace": {
-      "default": "",
-      "description": "Optional: A specific default tablespace name pattern to search for.",
-      "type": "string"
-    },
-    "include_templates": {
-      "default": false,
-      "description": "Optional: Whether to include template databases in the results.",
-      "type": "boolean"
-    },
-    "limit": {
-      "default": 10,
-      "description": "Optional: The maximum number of rows to return.",
-      "type": "integer"
-    },
-    "order_by": {
-      "default": "",
-      "description": "Optional: The field to order the results by. Valid values are 'size' and 'commit'.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| database_name | string | Optional: A specific database name pattern to search for. | No | `` |
+| include_templates | boolean | Optional: Whether to include template databases in the results. | No | `false` |
+| database_owner | string | Optional: A specific database owner name pattern to search for. | No | `` |
+| default_tablespace | string | Optional: A specific default tablespace name pattern to search for. | No | `` |
+| order_by | string | Optional: The field to order the results by. Valid values are 'size' and 'commit'. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `10` |
+
 
 ---
 
@@ -201,38 +120,14 @@ Lists available user indexes in the database, excluding system schemas (pg_catal
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "index_name": {
-      "default": "",
-      "description": "Optional: a text to filter results by index name. The input is used within a LIKE clause.",
-      "type": "string"
-    },
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of rows to return. Default is 50",
-      "type": "integer"
-    },
-    "only_unused": {
-      "default": false,
-      "description": "Optional: If true, only returns indexes that have never been used.",
-      "type": "boolean"
-    },
-    "schema_name": {
-      "default": "",
-      "description": "Optional: a text to filter results by schema name. The input is used within a LIKE clause.",
-      "type": "string"
-    },
-    "table_name": {
-      "default": "",
-      "description": "Optional: a text to filter results by table name. The input is used within a LIKE clause.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| schema_name | string | Optional: a text to filter results by schema name. The input is used within a LIKE clause. | No | `` |
+| table_name | string | Optional: a text to filter results by table name. The input is used within a LIKE clause. | No | `` |
+| index_name | string | Optional: a text to filter results by index name. The input is used within a LIKE clause. | No | `` |
+| only_unused | boolean | Optional: If true, only returns indexes that have never been used. | No | `false` |
+| limit | integer | Optional: The maximum number of rows to return. Default is 50 | No | `50` |
+
 
 ---
 
@@ -274,23 +169,11 @@ List PostgreSQL memory-related configurations (name and current setting) from pg
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of rows to return.",
-      "type": "integer"
-    },
-    "setting_name": {
-      "default": "",
-      "description": "Optional: A specific configuration parameter name pattern to search for.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| setting_name | string | Optional: A specific configuration parameter name pattern to search for. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
+
 
 ---
 
@@ -300,33 +183,13 @@ List PostgreSQL memory-related configurations (name and current setting) from pg
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of rows to return.",
-      "type": "integer"
-    },
-    "publication_names": {
-      "default": "",
-      "description": "Optional: Filters by a comma-separated list of publication names.",
-      "type": "string"
-    },
-    "schema_names": {
-      "default": "",
-      "description": "Optional: Filters by a comma-separated list of schema names.",
-      "type": "string"
-    },
-    "table_names": {
-      "default": "",
-      "description": "Optional: Filters by a comma-separated list of table names.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| table_names | string | Optional: Filters by a comma-separated list of table names. | No | `` |
+| publication_names | string | Optional: Filters by a comma-separated list of publication names. | No | `` |
+| schema_names | string | Optional: Filters by a comma-separated list of schema names. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
+
 
 ---
 
@@ -336,23 +199,11 @@ Lists performance statistics for executed queries ordered by total time, filteri
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "database_name": {
-      "default": "",
-      "description": "Optional: The database name to list query stats for.",
-      "type": "string"
-    },
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of results to return. Defaults to 50.",
-      "type": "integer"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| database_name | string | Optional: The database name to list query stats for. | No | `` |
+| limit | integer | Optional: The maximum number of results to return. Defaults to 50. | No | `50` |
+
 
 ---
 
@@ -370,23 +221,11 @@ Lists all the user-created roles in the instance . It returns the role name, Obj
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of rows to return. Default is 10",
-      "type": "integer"
-    },
-    "role_name": {
-      "default": "",
-      "description": "Optional: a text to filter results by role name. The input is used within a LIKE clause.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| role_name | string | Optional: a text to filter results by role name. The input is used within a LIKE clause. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. Default is 10 | No | `50` |
+
 
 ---
 
@@ -396,28 +235,12 @@ Lists all schemas in the database ordered by schema name and excluding system an
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 10,
-      "description": "Optional: The maximum number of schemas to return.",
-      "type": "integer"
-    },
-    "owner": {
-      "default": "",
-      "description": "Optional: A specific schema owner name pattern to search for.",
-      "type": "string"
-    },
-    "schema_name": {
-      "default": "",
-      "description": "Optional: A specific schema name pattern to search for.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| schema_name | string | Optional: A specific schema name pattern to search for. | No | `` |
+| owner | string | Optional: A specific schema owner name pattern to search for. | No | `` |
+| limit | integer | Optional: The maximum number of schemas to return. | No | `10` |
+
 
 ---
 
@@ -427,28 +250,12 @@ Lists sequences in the database. Returns sequence name, schema name, sequence ow
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of rows to return. Default is 50",
-      "type": "integer"
-    },
-    "schema_name": {
-      "default": "",
-      "description": "Optional: A specific schema name pattern to search for.",
-      "type": "string"
-    },
-    "sequence_name": {
-      "default": "",
-      "description": "Optional: A specific sequence name pattern to search for.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| schema_name | string | Optional: A specific schema name pattern to search for. | No | `` |
+| sequence_name | string | Optional: A specific sequence name pattern to search for. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. Default is 50 | No | `50` |
+
 
 ---
 
@@ -458,26 +265,12 @@ Retrieves stored procedure metadata returning schema name, procedure name, proce
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 20,
-      "description": "Optional: The maximum number of stored procedures to return. Defaults to 20.",
-      "type": "integer"
-    },
-    "role_name": {
-      "description": "Optional: The owner name to filter the stored procedures by. Defaults to NULL.",
-      "type": "string"
-    },
-    "schema_name": {
-      "description": "Optional: The schema name to filter the stored procedures by. Defaults to NULL.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| role_name | string | Optional: The owner name to filter the stored procedures by. Defaults to NULL. | No |  |
+| schema_name | string | Optional: The schema name to filter the stored procedures by. Defaults to NULL. | No |  |
+| limit | integer | Optional: The maximum number of stored procedures to return. Defaults to 20. | No | `20` |
+
 
 ---
 
@@ -495,35 +288,14 @@ Lists the user table statistics in the database ordered by number of
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of results to return",
-      "type": "integer"
-    },
-    "owner": {
-      "description": "Optional: A specific owner to filter by",
-      "type": "string"
-    },
-    "schema_name": {
-      "default": "public",
-      "description": "Optional: A specific schema name to filter by",
-      "type": "string"
-    },
-    "sort_by": {
-      "description": "Optional: The column to sort by",
-      "type": "string"
-    },
-    "table_name": {
-      "description": "Optional: A specific table name to filter by",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| schema_name | string | Optional: A specific schema name to filter by | No |  |
+| table_name | string | Optional: A specific table name to filter by | No |  |
+| owner | string | Optional: A specific owner to filter by | No |  |
+| sort_by | string | Optional: The column to sort by | No |  |
+| limit | integer | Optional: The maximum number of results to return | No | `50` |
+
 
 ---
 
@@ -533,23 +305,11 @@ Lists detailed schema information (object type, columns, constraints, indexes, t
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "output_format": {
-      "default": "detailed",
-      "description": "Optional: Use 'simple' for names only or 'detailed' for full info.",
-      "type": "string"
-    },
-    "table_names": {
-      "default": "",
-      "description": "Optional: A comma-separated list of table names. If empty, details for all tables will be listed.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| table_names | string | Optional: A comma-separated list of table names. If empty, details for all tables will be listed. | No | `` |
+| output_format | string | Optional: Use 'simple' for names only or 'detailed' for full info. | No | `detailed` |
+
 
 ---
 
@@ -559,23 +319,11 @@ Lists detailed schema information (object type, columns, constraints, indexes, t
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of rows to return.",
-      "type": "integer"
-    },
-    "tablespace_name": {
-      "default": "",
-      "description": "Optional: a text to filter results by tablespace name. The input is used within a LIKE clause.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| tablespace_name | string | Optional: a text to filter results by tablespace name. The input is used within a LIKE clause. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
+
 
 ---
 
@@ -586,18 +334,10 @@ List the top tables by dead-tuple (approximate bloat signal), returning schema, 
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 50,
-      "description": "The maximum number of results to return.",
-      "type": "integer"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| limit | integer | The maximum number of results to return. | No | `50` |
+
 
 ---
 
@@ -607,33 +347,13 @@ Lists all non-internal triggers in a database. Returns trigger name, schema name
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of rows to return.",
-      "type": "integer"
-    },
-    "schema_name": {
-      "default": "",
-      "description": "Optional: A specific schema name pattern to search for.",
-      "type": "string"
-    },
-    "table_name": {
-      "default": "",
-      "description": "Optional: A specific table name pattern to search for.",
-      "type": "string"
-    },
-    "trigger_name": {
-      "default": "",
-      "description": "Optional: A specific trigger name pattern to search for.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| trigger_name | string | Optional: A specific trigger name pattern to search for. | No | `` |
+| schema_name | string | Optional: A specific schema name pattern to search for. | No | `` |
+| table_name | string | Optional: A specific table name pattern to search for. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
+
 
 ---
 
@@ -643,28 +363,12 @@ Lists views in the database from pg_views with a default limit of 50 rows. Retur
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 50,
-      "description": "Optional: The maximum number of rows to return.",
-      "type": "integer"
-    },
-    "schema_name": {
-      "default": "",
-      "description": "Optional: A specific schema name to search for.",
-      "type": "string"
-    },
-    "view_name": {
-      "default": "",
-      "description": "Optional: A specific view name to search for.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| view_name | string | Optional: A specific view name to search for. | No | `` |
+| schema_name | string | Optional: A specific schema name to search for. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
+
 
 ---
 
@@ -674,23 +378,11 @@ Identifies and lists database transactions that exceed a specified time limit. F
 
 #### Parameters
 
-```json
-{
-  "properties": {
-    "limit": {
-      "default": 20,
-      "description": "Optional: The maximum number of long-running transactions to return. Defaults to 20.",
-      "type": "integer"
-    },
-    "min_duration": {
-      "default": "5 minutes",
-      "description": "Optional: Only show transactions running at least this long (e.g., '1 minute', '15 minutes', '30 seconds').",
-      "type": "string"
-    }
-  },
-  "type": "object"
-}
-```
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| min_duration | string | Optional: Only show transactions running at least this long (e.g., '1 minute', '15 minutes', '30 seconds'). | No | `5 minutes` |
+| limit | integer | Optional: The maximum number of long-running transactions to return. Defaults to 20. | No | `20` |
+
 
 ---
 
