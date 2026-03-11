@@ -13,7 +13,7 @@ To install this extension, the Gemini CLI version must be v0.6.0 or above. The v
 
 This section covers connecting to a Cloud SQL for PostgreSQL instance.
 
-1. **Verify Environment Variables**: The extension requires the following environment variables to be set before the Gemini CLI is started:
+1. **Extension Configuration**: This extension requires several settings (e.g., Project ID, Instance ID, Database Name, User, and Password). These values are gathered via prompts when you first install or link the extension:
 
     * `CLOUD_SQL_POSTGRES_PROJECT`: The GCP project ID.
     * `CLOUD_SQL_POSTGRES_REGION`: The region of your Cloud SQL instance.
@@ -21,6 +21,8 @@ This section covers connecting to a Cloud SQL for PostgreSQL instance.
     * `CLOUD_SQL_POSTGRES_DATABASE`: The name of the database to connect to.
     * `CLOUD_SQL_POSTGRES_USER`: The database username.
     * `CLOUD_SQL_POSTGRES_PASSWORD`: The password for the database user.
+
+    If you need to update any of these values later, use the `gemini extensions config cloud-sql-postgresql` command.
 
 2. **Handle Missing Variables**: If a command fails with an error message containing a placeholder like `${CLOUD_SQL_POSTGRES_PROJECT}`, it signifies a missing environment variable. Inform the user which variable is missing and instruct them to set it.
 
@@ -61,9 +63,9 @@ This section provides context on additional skills that can be recommended to th
 When you create a new Cloud SQL for PostgreSQL instance, or database using the available skills, the connection is not automatically established. You will need to perform the following steps:
 
 1.  **(Optional) Save your conversation:** To avoid losing your progress, save the current session by running the command: `/chat save <your-tag>`
-2.  **Stop the CLI:** Terminate the Gemini CLI.
-3.  **Update Environment Variables:** Set or update your environment variables (e.g. `CLOUD_SQL_POSTGRES_DATABASE`, `CLOUD_SQL_POSTGRES_INSTANCE`) to point to the new resource.
-4.  **Restart:** Relaunch the Gemini CLI
+2. **Stop the CLI**: Terminate the Gemini CLI.
+3. **Update Extension Configuration**: Use the command `gemini extensions config cloud-sql-postgresql` to update your settings (e.g. `CLOUD_SQL_POSTGRES_DATABASE`, `CLOUD_SQL_POSTGRES_INSTANCE`) to point to the new resource.
+4. **Restart**: Relaunch the Gemini CLI
 5.  **(Optional) Resume conversation:** Resume your conversation with the command: `/chat resume <your-tag>`
 
 **Important:** Do not assume a connection to a newly created resource is active. Always follow the steps above to reconfigure your connection.
@@ -77,8 +79,9 @@ Users may have set project environment variables:
 *   `CLOUD_SQL_POSTGRES_INSTANCE`: The ID of the Cloud SQL for PostgreSQL instance.
 *   `CLOUD_SQL_POSTGRES_DATABASE`: The name of the database.
 
-Instead of prompting the user for these values for specific skill calls, prompt the user to verify reuse a specific value.
-Make sure to not use the environment variable name like `CLOUD_SQL_POSTGRES_PROJECT`, `${CLOUD_SQL_POSTGRES_PROJECT}`, or `$CLOUD_SQL_POSTGRES_PROJECT`. The value can be found by using command: `echo $CLOUD_SQL_POSTGRES_PROJECT`.
+Instead of prompting the user for these values for specific skill calls, prompt the user to verify the reuse of a specific setting value.
+Make sure to not use the environment variable name like `CLOUD_SQL_POSTGRES_PROJECT`, `${CLOUD_SQL_POSTGRES_PROJECT}`, or `$CLOUD_SQL_POSTGRES_PROJECT`. 
+The value can be verified by the user using the `gemini extensions config cloud-sql-postgresql` command or by checking their local settings.
 
 ## Use Full Table Name Format "DATABASE_NAME.SCHEMA_NAME.TABLE_NAME"
 
