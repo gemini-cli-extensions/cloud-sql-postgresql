@@ -14,14 +14,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
 const { spawn, execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
 const toolName = "create_instance";
-const configArgs = ["--prebuilt", "cloud-sql-postgres-admin"];
+const configArgs = ["--prebuilt", "cloud-sql-postgres"];
 
 function getToolboxPath() {
     if (process.env.GEMINI_CLI === '1') {
@@ -74,12 +72,15 @@ function getEnv() {
 }
 
 let env = process.env;
+let userAgent = "skills";
 if (process.env.GEMINI_CLI === '1') {
     env = getEnv();
+    userAgent = "skills-geminicli";
 }
 
 const args = process.argv.slice(2);
-const toolboxArgs = ["--log-level", "error", ...configArgs, "invoke", toolName, ...args];
+
+const toolboxArgs = ["--log-level", "error", ...configArgs, "invoke", toolName, "--user-agent-metadata", userAgent, ...args];
 
 const child = spawn(toolboxBinary, toolboxArgs, { stdio: 'inherit', env });
 

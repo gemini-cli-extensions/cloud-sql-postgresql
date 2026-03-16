@@ -18,7 +18,7 @@ const { spawn, execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-const toolName = "get_instance";
+const toolName = "postgres_upgrade_precheck";
 const configArgs = ["--prebuilt", "cloud-sql-postgres"];
 
 function getToolboxPath() {

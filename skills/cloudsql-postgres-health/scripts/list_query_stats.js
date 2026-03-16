@@ -18,7 +18,7 @@ const { spawn, execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-const toolName = "get_instance";
+const toolName = "list_query_stats";
 const configArgs = ["--prebuilt", "cloud-sql-postgres"];
 
 function getToolboxPath() {
