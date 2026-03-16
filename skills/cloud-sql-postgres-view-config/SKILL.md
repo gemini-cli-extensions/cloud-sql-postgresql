@@ -1,5 +1,5 @@
 ---
-name: cloudsql-postgres-view-config
+name: cloud-sql-postgres-view-config
 description: Use these tools when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters.
 ---
 
@@ -15,29 +15,22 @@ All scripts can be executed using Node.js. Replace `<param_name>` and `<param_va
 
 Note: The scripts automatically load the environment variables from various .env files. Do not ask the user to set vars unless skill executions fails due to env var absence.
 
-
 ## Scripts
-
 
 ### database_overview
 
 Fetches the current state of the PostgreSQL server, returning the version, whether it's a replica, uptime duration, maximum connection limit, number of current connections, number of active connections, and the percentage of connections in use.
 
-
-
 ---
 
 ### get_instance
 
-
-
 #### Parameters
 
-| Name | Type | Description | Required | Default |
-| :--- | :--- | :--- | :--- | :--- |
-| projectId | string | The GCP project ID. This is pre-configured; do not ask for it unless the user explicitly provides a different one. | No |  |
-| instanceId | string | The instance ID | Yes |  |
-
+| Name       | Type   | Description                                                                                                        | Required | Default |
+| :--------- | :----- | :----------------------------------------------------------------------------------------------------------------- | :------- | :------ |
+| projectId  | string | The GCP project ID. This is pre-configured; do not ask for it unless the user explicitly provides a different one. | No       |         |
+| instanceId | string | The instance ID                                                                                                    | Yes      |         |
 
 ---
 
@@ -45,15 +38,11 @@ Fetches the current state of the PostgreSQL server, returning the version, wheth
 
 Discover all PostgreSQL extensions available for installation on this server, returning name, default_version, and description.
 
-
-
 ---
 
 ### list_installed_extensions
 
 List all installed PostgreSQL extensions with their name, version, schema, owner, and description.
-
-
 
 ---
 
@@ -61,21 +50,15 @@ List all installed PostgreSQL extensions with their name, version, schema, owner
 
 List PostgreSQL memory-related configurations (name and current setting) from pg_settings.
 
-
-
 ---
 
 ### list_pg_settings
 
-
-
 #### Parameters
 
-| Name | Type | Description | Required | Default |
-| :--- | :--- | :--- | :--- | :--- |
-| setting_name | string | Optional: A specific configuration parameter name pattern to search for. | No | `` |
-| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
-
+| Name         | Type    | Description                                                              | Required | Default |
+| :----------- | :------ | :----------------------------------------------------------------------- | :------- | :------ |
+| setting_name | string  | Optional: A specific configuration parameter name pattern to search for. | No       | ``      |
+| limit        | integer | Optional: The maximum number of rows to return.                          | No       | `50`    |
 
 ---
-
