@@ -69,18 +69,6 @@ To view or update your configuration:
     *   `scope`: (Optional) The scope of the setting in (`user` or `workspace`). Defaults to `user`.
 *   Currently, you must restart the Gemini CLI for changes to take effect. We recommend using `gemini --resume` to resume your session.
 
-Alternatively, you can manually set these environment variables before starting the Gemini CLI:
-
-```bash
-export CLOUD_SQL_POSTGRES_PROJECT="<your-gcp-project-id>"
-export CLOUD_SQL_POSTGRES_REGION="<your-cloud-sql-region>"
-export CLOUD_SQL_POSTGRES_INSTANCE="<your-cloud-sql-instance-id>"
-export CLOUD_SQL_POSTGRES_DATABASE="<your-database-name>"
-export CLOUD_SQL_POSTGRES_USER="<your-database-user>"  # Optional
-export CLOUD_SQL_POSTGRES_PASSWORD="<your-database-password>"  # Optional
-export CLOUD_SQL_POSTGRES_IP_TYPE="PUBLIC" # Optional: `PUBLIC`, `PRIVATE`, `PSC`. Defaults to `PUBLIC`.
-```
-
 > [!NOTE]
 > * Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 > * If your Cloud SQL for PostgreSQL instance uses private IPs, you must run Gemini CLI in the same Virtual Private Cloud (VPC) network.
