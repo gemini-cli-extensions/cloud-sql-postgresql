@@ -1,6 +1,6 @@
 ---
 name: cloud-sql-postgres-monitor
-description: Use these tools when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics.
+description: Use these skills when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics.
 ---
 
 ## Usage

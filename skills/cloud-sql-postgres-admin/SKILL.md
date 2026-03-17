@@ -1,6 +1,6 @@
 ---
 name: cloud-sql-postgres-admin
-description: Use these tools when you need to provision new Cloud SQL instances, create databases and users, clone existing environments, and monitor the progress of long-running operations.
+description: Use these skills when you need to provision new Cloud SQL instances, create databases and users, clone existing environments, and monitor the progress of long-running operations.
 ---
 
 ## Usage

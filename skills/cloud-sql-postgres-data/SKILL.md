@@ -1,6 +1,6 @@
 ---
 name: cloud-sql-postgres-data
-description: Use these tools when you need to explore the database structure, discover schema objects like views or stored procedures, and execute custom SQL queries to interact with your data.
+description: Use these skills when you need to explore the database structure, discover schema objects like views or stored procedures, and execute custom SQL queries to interact with your data.
 ---
 
 ## Usage

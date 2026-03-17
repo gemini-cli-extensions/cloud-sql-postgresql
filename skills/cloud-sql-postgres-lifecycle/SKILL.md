@@ -1,6 +1,6 @@
 ---
 name: cloud-sql-postgres-lifecycle
-description: skill for running licecycle operations in CloudSql postgres
+description: Use these skills when you need to manage the lifecycle of your instances, including performing backups and restores, checking major version upgrade compatibility, and monitoring overall instance status.
 ---
 
 ## Usage

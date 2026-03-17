@@ -1,6 +1,6 @@
 ---
 name: cloud-sql-postgres-health
-description: Use these tools when you need to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum.
+description: Use these skills when you need to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum.
 ---
 
 ## Usage

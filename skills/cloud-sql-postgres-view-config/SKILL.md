@@ -1,6 +1,6 @@
 ---
 name: cloud-sql-postgres-view-config
-description: Use these tools when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters.
+description: Use these skills when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters.
 ---
 
 ## Usage
