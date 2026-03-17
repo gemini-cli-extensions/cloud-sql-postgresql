@@ -120,8 +120,13 @@ Interact with Cloud SQL for PostgreSQL using natural language:
 
 This extension provides the following skills:
 
-* [Cloud SQL for PostgreSQL Admin](skills/cloudsql-postgres-admin/SKILL.md) - Manage Cloud SQL instances, databases, and users.
-* [Cloud SQL for PostgreSQL](skills/cloudsql-postgres/SKILL.md) - Query databases and manage extensions.
+* [Cloud SQL for PostgreSQL Admin](skills/cloudsql-postgres-admin/SKILL.md) - Use these tools when you need to provision new Cloud SQL instances, create databases and users, clone existing environments, and monitor the progress of long-running operations.
+* [Cloud SQL for PostgreSQL Data](skills/cloudsql-postgres-data/SKILL.md) - Use these tools when you need to explore the database structure, discover schema objects like views or stored procedures, and execute custom SQL queries to interact with your data.
+* [Cloud SQL for PostgreSQL Health](skills/cloudsql-postgres-health/SKILL.md) - Use these tools when you need to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum.
+* [Cloud SQL for PostgreSQL Lifecycle](skills/cloudsql-postgres-lifecycle/SKILL.md) - Use these tools when you need to manage the lifecycle of your instances, including performing backups and restores, checking major version upgrade compatibility, and monitoring overall instance status.
+* [Cloud SQL for PostgreSQL Monitor](skills/cloudsql-postgres-monitor/SKILL.md) - Use these tools when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics.
+* [Cloud SQL for PostgreSQL Replication](skills/cloudsql-postgres-replication/SKILL.md) - Use these tools when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity.
+* [Cloud SQL for PostgreSQL View Config](skills/cloudsql-postgres-view-config/SKILL.md) - Use these tools when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters.
 
 ## Additional Extensions
 
