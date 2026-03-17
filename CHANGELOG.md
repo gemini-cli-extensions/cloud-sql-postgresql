@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.0](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.11...0.2.0) (2026-03-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **source/cloudsql:** restructure prebuilt toolsets ([#​2635](https://redirect.github.com/googleapis/genai-toolbox/issues/2635))
+
+### Features
+
+* **source/cloudsql:** restructure prebuilt toolsets ([#​2635](https://redirect.github.com/googleapis/genai-toolbox/issues/2635)) ([8138de0](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/8138de0c8ca20039028a771fda66395e2fefb53c))
+
+
+### Bug Fixes
+
+* Improve list locks integration test for postgres ([genai-toolbox#​2279](https://redirect.github.com/googleapis/genai-toolbox/issues/2279)) ([d9ebe5d](https://redirect.github.com/googleapis/genai-toolbox/commit/d9ebe5d4bf1b7ca04cae47386b36c38ca5b77b8a)) ([8138de0](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/8138de0c8ca20039028a771fda66395e2fefb53c))
+
 ## [0.1.11](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.10...0.1.11) (2026-03-11)
 
 
