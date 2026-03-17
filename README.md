@@ -57,9 +57,6 @@ You will be prompted to configure the following settings during installation. Th
 *   `CLOUD_SQL_POSTGRES_PASSWORD`: (Optional) The password for the database user.
 *   `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) Type of the IP address: `PUBLIC`, `PRIVATE`, or `PSC`. Defaults to `PUBLIC`.
 
-> [!NOTE]
-> This configuration is primarily for the Data Plane skills (querying). The Admin skillset does not strictly require these to be pre-set if you provide them in your prompts, but it is recommended for a smoother experience.
-
 To view or update your configuration:
 
 **List Settings:**
