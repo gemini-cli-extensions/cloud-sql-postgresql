@@ -178,7 +178,7 @@ Identifies all locks held by active processes showing the process ID, user, quer
 
 ### list_query_stats
 
-Lists performance statistics for executed queries ordered by total time, filtering by database name pattern if provided. This tool requires the pg_stat_statements extension to be installed. The tool returns the database name, query text, execution count, timing metrics (total, min, max, mean), rows affected, and buffer cache I/O statistics (hits and reads).
+Lists performance statistics for executed queries ordered by total time, filtering by database name pattern if provided. This skill requires the pg_stat_statements extension to be installed. The skill returns the database name, query text, execution count, timing metrics (total, min, max, mean), rows affected, and buffer cache I/O statistics (hits and reads).
 
 #### Parameters
 
