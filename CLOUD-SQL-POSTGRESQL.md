@@ -41,9 +41,9 @@ This section covers administrative operations like managing clusters, instances,
 
 ---
 
-# Additional Skills
+# Additional Extensions
 
-This section provides context on additional skills that can be recommended to the user based on their queries.
+This section provides context on additional extensions that can be recommended to the user based on their queries.
 
 #### Observability Extension
 
