@@ -1,11 +1,11 @@
 # Changelog
 
-## [0.2.1](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.2.0...0.2.1) (2026-03-18)
+## [0.2.2](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.2.0...0.2.2) (2026-03-18)
 
 
 ### Features
 
-* add support for skills ([#109](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/109)) ([02c4179](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/02c4179c873a95e2e2446c91a1a463ced07f783c))
+* add support for skills ([#109](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/109)) ([02c4179](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/02c4179c873a95e2e2446c91a1a463ced07f783c)))
 
 ## [0.2.0](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.1.11...0.2.0) (2026-03-17)
 
