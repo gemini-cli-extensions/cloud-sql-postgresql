@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.2.1...0.2.2) (2026-03-18)
+
+
+### Features
+
+* trigger release 0.2.2 ([#120](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/120)) ([ed25ffd](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/ed25ffd905458779801db7a1ccb2ee6a96af57f6))
+
 ## [0.2.1](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.2.0...0.2.1) (2026-03-18)
 
 
