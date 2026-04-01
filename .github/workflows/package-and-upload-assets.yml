@@ -35,7 +35,7 @@ jobs:
           - { os: "linux", arch: "x64", download_path_segment: "linux/amd64", binary_suffix: "", archive_extension: "tar.gz", archive_command: 'tar -czvf "${ARCHIVE_NAME}" -C staging .' }
           - { os: "darwin", arch: "arm64", download_path_segment: "darwin/arm64", binary_suffix: "", archive_extension: "tar.gz", archive_command: 'tar -czvf "${ARCHIVE_NAME}" -C staging .' } 
           - { os: "darwin", arch: "x64", download_path_segment: "darwin/amd64", binary_suffix: "", archive_extension: "tar.gz", archive_command: 'tar -czvf "${ARCHIVE_NAME}" -C staging .' }
-          - { os: "win32", arch: "x64", download_path_segment: "windows/amd64", binary_suffix: ".exe", archive_extension: "zip", archive_command: '(cd staging && zip ../"${ARCHIVE_NAME}" *)' }
+          - { os: "win32", arch: "x64", download_path_segment: "windows/amd64", binary_suffix: ".exe", archive_extension: "zip", archive_command: '(cd staging && zip -r ../"${ARCHIVE_NAME}" *)' }
     steps:
       - name: Checkout code at the new tag
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
