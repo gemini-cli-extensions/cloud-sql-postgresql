@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.3.0...0.3.1) (2026-04-01)
+
+
+### Bug Fixes
+
+* add recursive flag to windows zip archive command ([#129](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/129)) ([df7ce15](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/df7ce1555ab118d3d5c4977cb183d92b5f328fc9))
+
 ## [0.3.0](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.2.4...0.3.0) (2026-03-27)
 
 
