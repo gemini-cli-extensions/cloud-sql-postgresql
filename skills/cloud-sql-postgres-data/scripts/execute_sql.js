@@ -37,7 +37,7 @@ const OPTIONAL_VARS_TO_OMIT_IF_EMPTY = [
  * @param {Object} env The environment object to populate.
  */
 function mergeContextualVariables(env) {
-    const additionalVars = {};
+    const env = {};
 
     if (process.env.GEMINI_CLI === '1') {
         const envPath = path.resolve(__dirname, '../../../.env');
@@ -49,21 +49,15 @@ function mergeContextualVariables(env) {
                 if (splitIdx === -1) return;
                 const key = trimmed.slice(0, splitIdx).trim();
                 const value = trimmed.slice(splitIdx + 1).trim().replace(/(^['"]|['"]$)/g, '');
-                additionalVars[key] = value;
+                env[key] = value;
             });
         }
     } else if (process.env.CLAUDECODE === '1') {
         const prefix = 'CLAUDE_PLUGIN_OPTION_';
         for (const key in process.env) {
             if (key.startsWith(prefix)) {
-                additionalVars[key.substring(prefix.length)] = process.env[key];
+                env[key.substring(prefix.length)] = process.env[key];
             }
-        }
-    }
-
-    for (const [key, value] of Object.entries(additionalVars)) {
-        if (env[key] === undefined) {
-            env[key] = value;
         }
     }
 }
