@@ -52,8 +52,8 @@ function mergeContextualVariables(env) {
                 additionalVars[key] = value;
             });
         }
-    } else if (process.env.CLAUDE_CODE === 'true') {
-        const prefix = 'CLAUDE_PLUGIN_';
+    } else if (process.env.CLAUDECODE === '1') {
+        const prefix = 'CLAUDE_PLUGIN_OPTION_';
         for (const key in process.env) {
             if (key.startsWith(prefix)) {
                 additionalVars[key.substring(prefix.length)] = process.env[key];
@@ -78,7 +78,7 @@ function prepareEnvironment() {
 
     if (process.env.GEMINI_CLI === '1') {
         userAgent = "skills-geminicli";
-    } else if (process.env.CLAUDE_CODE === 'true') {
+    } else if (process.env.CLAUDECODE === '1') {
         userAgent = "skills-claudecode";
     }
 
