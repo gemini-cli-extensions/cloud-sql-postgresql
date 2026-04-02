@@ -14,81 +14,122 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { spawn, execSync } = require('child_process');
+const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
-const toolName = "execute_sql";
-const configArgs = ["--prebuilt", "cloud-sql-postgres"];
+/**
+ * Configuration Constants
+ */
+const TOOL_NAME = "execute_sql";
+const CONFIG_ARGS = ["--prebuilt", "cloud-sql-postgres"];
+const OPTIONAL_VARS_TO_OMIT_IF_EMPTY = [
+    'CLOUD_SQL_POSTGRES_USER',
+    'CLOUD_SQL_POSTGRES_PASSWORD',
+    'CLOUD_SQL_POSTGRES_IP_TYPE'
+];
 
-function getToolboxPath() {
+/**
+ * Merges external variables into the environment based on the current context.
+ * For GEMINI_CLI, it loads from a .env file.
+ * For CLAUDE_CODE, it transforms CLAUDE_PLUGIN_ prefixed variables.
+ * @param {Object} env The environment object to populate.
+ */
+function mergeContextualVariables(env) {
+    const additionalVars = {};
+
     if (process.env.GEMINI_CLI === '1') {
-        const localPath = path.resolve(__dirname, '../../../toolbox');
-        if (fs.existsSync(localPath)) {
-            return localPath;
-        }
-    }
-    try {
-        const checkCommand = process.platform === 'win32' ? 'where toolbox' : 'which toolbox';
-        const globalPath = execSync(checkCommand, { stdio: 'pipe', encoding: 'utf-8' }).trim();
-        if (globalPath) {
-            return globalPath.split('\n')[0].trim();
-        }
-        throw new Error("Toolbox binary not found");
-    } catch (e) {
-        throw new Error("Toolbox binary not found");
-    }
-}
-
-let toolboxBinary;
-try {
-    toolboxBinary = getToolboxPath();
-} catch (err) {
-    console.error("Error:", err.message);
-    process.exit(1);
-}
-
-function getEnv() {
-    const envPath = path.resolve(__dirname, '../../../.env');
-    const env = { ...process.env };
-    if (fs.existsSync(envPath)) {
-        const envContent = fs.readFileSync(envPath, 'utf-8');
-        envContent.split('\n').forEach(line => {
-            const trimmed = line.trim();
-            if (trimmed && !trimmed.startsWith('#')) {
+        const envPath = path.resolve(__dirname, '../../../.env');
+        if (fs.existsSync(envPath)) {
+            fs.readFileSync(envPath, 'utf-8').split('\n').forEach(line => {
+                const trimmed = line.trim();
+                if (!trimmed || trimmed.startsWith('#')) return;
                 const splitIdx = trimmed.indexOf('=');
-                if (splitIdx !== -1) {
-                    const key = trimmed.slice(0, splitIdx).trim();
-                    let value = trimmed.slice(splitIdx + 1).trim();
-                    value = value.replace(/(^['"]|['"]$)/g, '');
-                    if (env[key] === undefined) {
-                        env[key] = value;
-                    }
-                }
+                if (splitIdx === -1) return;
+                const key = trimmed.slice(0, splitIdx).trim();
+                const value = trimmed.slice(splitIdx + 1).trim().replace(/(^['"]|['"]$)/g, '');
+                additionalVars[key] = value;
+            });
+        }
+    } else if (process.env.CLAUDE_CODE === 'true') {
+        const prefix = 'CLAUDE_PLUGIN_';
+        for (const key in process.env) {
+            if (key.startsWith(prefix)) {
+                additionalVars[key.substring(prefix.length)] = process.env[key];
             }
-        });
+        }
     }
-    return env;
+
+    for (const [key, value] of Object.entries(additionalVars)) {
+        if (env[key] === undefined) {
+            env[key] = value;
+        }
+    }
 }
 
-let env = process.env;
-let userAgent = "skills";
-if (process.env.GEMINI_CLI === '1') {
-    env = getEnv();
-    userAgent = "skills-geminicli";
+/**
+ * Prepares the environment and determines the user agent.
+ * @returns {{ env: Object, userAgent: string }}
+ */
+function prepareEnvironment() {
+    const env = { ...process.env };
+    let userAgent = "skills";
+
+    if (process.env.GEMINI_CLI === '1') {
+        userAgent = "skills-geminicli";
+    } else if (process.env.CLAUDE_CODE === 'true') {
+        userAgent = "skills-claudecode";
+    }
+
+    mergeContextualVariables(env);
+
+    // Omit optional variables if they are empty strings to avoid misconfiguration
+    OPTIONAL_VARS_TO_OMIT_IF_EMPTY.forEach(key => {
+        if (env[key] === '') {
+            delete env[key];
+        }
+    });
+
+    return { env, userAgent };
 }
 
-const args = process.argv.slice(2);
+/**
+ * Main execution function.
+ */
+function main() {
+    const { env, userAgent } = prepareEnvironment();
+    const args = process.argv.slice(2);
+    const npxArgs = ["--yes", "@toolbox-sdk/server", "--log-level", "error", ...CONFIG_ARGS, "invoke", TOOL_NAME, "--user-agent-metadata", userAgent, ...args];
 
-const toolboxArgs = ["--log-level", "error", ...configArgs, "invoke", toolName, "--user-agent-metadata", userAgent, ...args];
+    let command = 'npx';
+    let spawnArgs = npxArgs;
 
-const child = spawn(toolboxBinary, toolboxArgs, { stdio: 'inherit', env });
+    // The Windows Dependency-Free Bypass
+    if (os.platform() === 'win32') {
+        const nodeDir = path.dirname(process.execPath);
+        const npxCliJs = path.join(nodeDir, 'node_modules', 'npm', 'bin', 'npx-cli.js');
 
-child.on('close', (code) => {
-  process.exit(code);
-});
+        if (fs.existsSync(npxCliJs)) {
+            command = process.execPath; 
+            spawnArgs = [npxCliJs, ...npxArgs]; 
+        } else {
+            console.error("Error: Could not find the npx executable to launch.");
+            process.exit(1);
+        }
+    }
 
-child.on('error', (err) => {
-  console.error("Error executing toolbox:", err);
-  process.exit(1);
-});
+    const child = spawn(command, spawnArgs, { stdio: 'inherit', env });
+
+    child.on('close', (code) => {
+    process.exit(code);
+    });
+
+    child.on('error', (err) => {
+    console.error("Error executing toolbox:", err);
+    process.exit(1);
+    });
+}
+
+// Start the script
+main();
