@@ -1,0 +1,37 @@
+{
+  "name": "cloud-sql-postgresql",
+  "version": "0.1.0",
+  "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
+  "repository": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
+  "skills": "./skills/",
+  "userConfig": {
+    "cloud_sql_postgres_project": {
+      "description": "ID of the Google Cloud project",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_region": {
+      "description": "Region of the Cloud SQL instance",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_instance": {
+      "description": "Name of the Cloud SQL instance",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_database": {
+      "description": "Name of the database",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_user": {
+      "description": "(Optional) Username of the database user (Default: IAM user)",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_password": {
+      "description": "(Optional) Password of the database user (Default: IAM user)",
+      "sensitive": true
+    },
+    "cloud_sql_postgres_ip_type": {
+      "description": "(Optional) Type of the IP address: PUBLIC, PRIVATE, or PSC (Default: Public)",
+      "sensitive": false
+    }
+  }
+}
