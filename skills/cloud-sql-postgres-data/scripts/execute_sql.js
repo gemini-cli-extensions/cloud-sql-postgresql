@@ -94,26 +94,14 @@ function prepareEnvironment() {
 function main() {
     const { env, userAgent } = prepareEnvironment();
     const args = process.argv.slice(2);
-    const npxArgs = ["--yes", "@toolbox-sdk/server", "--log-level", "error", ...CONFIG_ARGS, "invoke", TOOL_NAME, "--user-agent-metadata", userAgent, ...args];
 
-    let command = 'npx';
-    let spawnArgs = npxArgs;
+    const command = os.platform() === 'win32' ? 'npx.cmd' : 'npx';
+    const processedArgs = os.platform() === 'win32' ? args.map(arg => arg.includes('"') ? '"' + arg.replace(/"/g, '""') + '"' : arg) : args;
+    const npxArgs = ["--yes", "@toolbox-sdk/server@{{.ToolboxVersion}}", "--log-level", "error", ...CONFIG_ARGS, "invoke", TOOL_NAME, "--user-agent-metadata", userAgent, ...processedArgs];
 
-    // The Windows Dependency-Free Bypass
-    if (os.platform() === 'win32') {
-        const nodeDir = path.dirname(process.execPath);
-        const npxCliJs = path.join(nodeDir, 'node_modules', 'npm', 'bin', 'npx-cli.js');
 
-        if (fs.existsSync(npxCliJs)) {
-            command = process.execPath; 
-            spawnArgs = [npxCliJs, ...npxArgs]; 
-        } else {
-            console.error("Error: Could not find the npx executable to launch.");
-            process.exit(1);
-        }
-    }
+    const child = spawn(command, npxArgs, { shell: os.platform() === 'win32', stdio: 'inherit', env });
 
-    const child = spawn(command, spawnArgs, { stdio: 'inherit', env });
 
     child.on('close', (code) => {
     process.exit(code);
