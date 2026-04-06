@@ -67,7 +67,7 @@ function mergeContextualVariables(env) {
  * @returns {{ env: Object, userAgent: string }}
  */
 function prepareEnvironment() {
-    const env = { ...process.env };
+    var env = { ...process.env };
     let userAgent = "skills";
 
     if (process.env.GEMINI_CLI === '1') {
