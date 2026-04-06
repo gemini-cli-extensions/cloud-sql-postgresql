@@ -1,0 +1,196 @@
+{
+  "mcpServers": {
+    "cloud-sql-postgres-admin": {
+      "command": "${extensionPath}${/}toolbox",
+      "args": [
+        "--prebuilt",
+        "cloud-sql-postgres-admin",
+        "--stdio"
+      ],
+      "env": {
+        "CLOUD_SQL_POSTGRES_PROJECT": "${CLOUD_SQL_POSTGRES_PROJECT}"
+      },
+      "description": "Use these skills when you need to provision new Cloud SQL instances, create databases and users, clone existing environments, and monitor the progress of long-running operations.",
+      "allowedTools": [
+        "clone_instance",
+        "create_backup",
+        "create_database",
+        "create_instance",
+        "create_user",
+        "get_instance",
+        "list_databases",
+        "list_instances",
+        "postgres_upgrade_precheck",
+        "restore_backup",
+        "wait_for_operation"
+      ]
+    },
+    "cloud-sql-postgres-data": {
+      "command": "${extensionPath}${/}toolbox",
+      "args": [
+        "--prebuilt",
+        "cloud-sql-postgres",
+        "--stdio"
+      ],
+      "env": {
+        "CLOUD_SQL_POSTGRES_PROJECT": "${CLOUD_SQL_POSTGRES_PROJECT}",
+        "CLOUD_SQL_POSTGRES_REGION": "${CLOUD_SQL_POSTGRES_REGION}",
+        "CLOUD_SQL_POSTGRES_INSTANCE": "${CLOUD_SQL_POSTGRES_INSTANCE}",
+        "CLOUD_SQL_POSTGRES_DATABASE": "${CLOUD_SQL_POSTGRES_DATABASE}",
+        "CLOUD_SQL_POSTGRES_USER": "${CLOUD_SQL_POSTGRES_USER}",
+        "CLOUD_SQL_POSTGRES_PASSWORD": "${CLOUD_SQL_POSTGRES_PASSWORD}",
+        "CLOUD_SQL_POSTGRES_IP_TYPE": "${CLOUD_SQL_POSTGRES_IP_TYPE}"
+      },
+      "description": "Use these skills when you need to explore the database structure, discover schema objects like views or stored procedures, and execute custom SQL queries to interact with your data.",
+      "allowedTools": [
+        "execute_sql",
+        "list_indexes",
+        "list_schemas",
+        "list_sequences",
+        "list_stored_procedure",
+        "list_tables",
+        "list_triggers",
+        "list_views"
+      ]
+    },
+    "cloud-sql-postgres-health": {
+      "command": "${extensionPath}${/}toolbox",
+      "args": [
+        "--prebuilt",
+        "cloud-sql-postgres",
+        "--stdio"
+      ],
+      "env": {
+        "CLOUD_SQL_POSTGRES_PROJECT": "${CLOUD_SQL_POSTGRES_PROJECT}",
+        "CLOUD_SQL_POSTGRES_REGION": "${CLOUD_SQL_POSTGRES_REGION}",
+        "CLOUD_SQL_POSTGRES_INSTANCE": "${CLOUD_SQL_POSTGRES_INSTANCE}",
+        "CLOUD_SQL_POSTGRES_DATABASE": "${CLOUD_SQL_POSTGRES_DATABASE}",
+        "CLOUD_SQL_POSTGRES_USER": "${CLOUD_SQL_POSTGRES_USER}",
+        "CLOUD_SQL_POSTGRES_PASSWORD": "${CLOUD_SQL_POSTGRES_PASSWORD}",
+        "CLOUD_SQL_POSTGRES_IP_TYPE": "${CLOUD_SQL_POSTGRES_IP_TYPE}"
+      },
+      "description": "Use these skills when you need to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum.",
+      "allowedTools": [
+        "get_query_metrics",
+        "get_query_plan",
+        "get_system_metrics",
+        "list_active_queries",
+        "list_database_stats",
+        "list_locks",
+        "list_query_stats",
+        "long_running_transactions"
+      ]
+    },
+    "cloud-sql-postgres-lifecycle": {
+      "command": "${extensionPath}${/}toolbox",
+      "args": [
+        "--prebuilt",
+        "cloud-sql-postgres-admin",
+        "--prebuilt",
+        "cloud-sql-postgres",
+        "--stdio"
+      ],
+      "env": {
+        "CLOUD_SQL_POSTGRES_PROJECT": "${CLOUD_SQL_POSTGRES_PROJECT}",
+        "CLOUD_SQL_POSTGRES_REGION": "${CLOUD_SQL_POSTGRES_REGION}",
+        "CLOUD_SQL_POSTGRES_INSTANCE": "${CLOUD_SQL_POSTGRES_INSTANCE}",
+        "CLOUD_SQL_POSTGRES_DATABASE": "${CLOUD_SQL_POSTGRES_DATABASE}",
+        "CLOUD_SQL_POSTGRES_USER": "${CLOUD_SQL_POSTGRES_USER}",
+        "CLOUD_SQL_POSTGRES_PASSWORD": "${CLOUD_SQL_POSTGRES_PASSWORD}",
+        "CLOUD_SQL_POSTGRES_IP_TYPE": "${CLOUD_SQL_POSTGRES_IP_TYPE}"
+      },
+      "description": "Use these skills when you need to manage the lifecycle of your instances, including performing backups and restores, checking major version upgrade compatibility, and monitoring overall instance status.",
+      "allowedTools": [
+        "create_backup",
+        "database_overview",
+        "get_instance",
+        "list_instances",
+        "postgres_upgrade_precheck",
+        "restore_backup",
+        "wait_for_operation"
+      ]
+    },
+    "cloud-sql-postgres-monitor": {
+      "command": "${extensionPath}${/}toolbox",
+      "args": [
+        "--prebuilt",
+        "cloud-sql-postgres",
+        "--stdio"
+      ],
+      "env": {
+        "CLOUD_SQL_POSTGRES_PROJECT": "${CLOUD_SQL_POSTGRES_PROJECT}",
+        "CLOUD_SQL_POSTGRES_REGION": "${CLOUD_SQL_POSTGRES_REGION}",
+        "CLOUD_SQL_POSTGRES_INSTANCE": "${CLOUD_SQL_POSTGRES_INSTANCE}",
+        "CLOUD_SQL_POSTGRES_DATABASE": "${CLOUD_SQL_POSTGRES_DATABASE}",
+        "CLOUD_SQL_POSTGRES_USER": "${CLOUD_SQL_POSTGRES_USER}",
+        "CLOUD_SQL_POSTGRES_PASSWORD": "${CLOUD_SQL_POSTGRES_PASSWORD}",
+        "CLOUD_SQL_POSTGRES_IP_TYPE": "${CLOUD_SQL_POSTGRES_IP_TYPE}"
+      },
+      "description": "Use these skills when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics.",
+      "allowedTools": [
+        "get_query_metrics",
+        "get_query_plan",
+        "get_system_metrics",
+        "list_active_queries",
+        "list_database_stats",
+        "list_locks",
+        "list_query_stats",
+        "long_running_transactions"
+      ]
+    },
+    "cloud-sql-postgres-replication": {
+      "command": "${extensionPath}${/}toolbox",
+      "args": [
+        "--prebuilt",
+        "cloud-sql-postgres",
+        "--stdio"
+      ],
+      "env": {
+        "CLOUD_SQL_POSTGRES_PROJECT": "${CLOUD_SQL_POSTGRES_PROJECT}",
+        "CLOUD_SQL_POSTGRES_REGION": "${CLOUD_SQL_POSTGRES_REGION}",
+        "CLOUD_SQL_POSTGRES_INSTANCE": "${CLOUD_SQL_POSTGRES_INSTANCE}",
+        "CLOUD_SQL_POSTGRES_DATABASE": "${CLOUD_SQL_POSTGRES_DATABASE}",
+        "CLOUD_SQL_POSTGRES_USER": "${CLOUD_SQL_POSTGRES_USER}",
+        "CLOUD_SQL_POSTGRES_PASSWORD": "${CLOUD_SQL_POSTGRES_PASSWORD}",
+        "CLOUD_SQL_POSTGRES_IP_TYPE": "${CLOUD_SQL_POSTGRES_IP_TYPE}"
+      },
+      "description": "Use these skills when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity.",
+      "allowedTools": [
+        "database_overview",
+        "list_pg_settings",
+        "list_publication_tables",
+        "list_replication_slots",
+        "list_roles",
+        "replication_stats"
+      ]
+    },
+    "cloud-sql-postgres-view-config": {
+      "command": "${extensionPath}${/}toolbox",
+      "args": [
+        "--prebuilt",
+        "cloud-sql-postgres-admin",
+        "--prebuilt",
+        "cloud-sql-postgres",
+        "--stdio"
+      ],
+      "env": {
+        "CLOUD_SQL_POSTGRES_PROJECT": "${CLOUD_SQL_POSTGRES_PROJECT}",
+        "CLOUD_SQL_POSTGRES_REGION": "${CLOUD_SQL_POSTGRES_REGION}",
+        "CLOUD_SQL_POSTGRES_INSTANCE": "${CLOUD_SQL_POSTGRES_INSTANCE}",
+        "CLOUD_SQL_POSTGRES_DATABASE": "${CLOUD_SQL_POSTGRES_DATABASE}",
+        "CLOUD_SQL_POSTGRES_USER": "${CLOUD_SQL_POSTGRES_USER}",
+        "CLOUD_SQL_POSTGRES_PASSWORD": "${CLOUD_SQL_POSTGRES_PASSWORD}",
+        "CLOUD_SQL_POSTGRES_IP_TYPE": "${CLOUD_SQL_POSTGRES_IP_TYPE}"
+      },
+      "description": "Use these skills when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters.",
+      "allowedTools": [
+        "database_overview",
+        "get_instance",
+        "list_available_extensions",
+        "list_installed_extensions",
+        "list_memory_configurations",
+        "list_pg_settings"
+      ]
+    }
+  }
+}
