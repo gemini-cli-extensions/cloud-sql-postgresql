@@ -1,0 +1,13 @@
+{
+  "name": "test-marketplace",
+  "plugins": [
+    {
+      "name": "cloud-sql-postgresql",
+      "source": "./",
+      "description": "Cloud SQL skills"
+    }
+  ],
+  "owner": {
+    "name": "Google"
+  }
+}

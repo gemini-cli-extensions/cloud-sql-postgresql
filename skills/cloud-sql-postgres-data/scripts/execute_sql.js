@@ -37,7 +37,7 @@ const OPTIONAL_VARS_TO_OMIT_IF_EMPTY = [
  * @param {Object} env The environment object to populate.
  */
 function mergeContextualVariables(env) {
-    const env = {};
+    var env = {};
 
     if (process.env.GEMINI_CLI === '1') {
         const envPath = path.resolve(__dirname, '../../../.env');
