@@ -1,0 +1,20 @@
+{
+  "name": "cloud-sql-postgresql-local",
+  "interface": {
+    "displayName": "Cloud SQL PostgreSQL Local"
+  },
+  "plugins": [
+    {
+      "name": "cloud-sql-postgresql",
+      "source": {
+        "source": "local",
+        "path": "./plugins/cloud-sql-postgresql"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Database"
+    }
+  ]
+}
