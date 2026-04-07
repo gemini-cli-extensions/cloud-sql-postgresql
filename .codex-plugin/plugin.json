@@ -1,0 +1,37 @@
+{
+  "name": "cloud-sql-postgresql",
+  "version": "0.1.0",
+  "description": "Inspect Cloud SQL for PostgreSQL schema objects and run SQL with the data skills.",
+  "author": {
+    "name": "Google Cloud SQL for PostgreSQL",
+    "email": "cloud-sql-postgresql@google.com",
+    "url": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql"
+  },
+  "homepage": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
+  "repository": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
+  "license": "Apache-2.0",
+  "keywords": [
+    "cloud-sql",
+    "postgresql",
+    "database"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Cloud SQL for PostgreSQL Data",
+    "shortDescription": "Explore PostgreSQL schemas, views, and stored procedures on Cloud SQL.",
+    "longDescription": "Bundle the Cloud SQL for PostgreSQL data skills so Codex can inspect schema objects and execute SQL queries against the connected Cloud SQL instance.",
+    "developerName": "Google Cloud SQL for PostgreSQL",
+    "category": "Database",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://cloud.google.com/sql/docs/postgres",
+    "privacyPolicyURL": "https://policies.google.com/privacy",
+    "termsOfServiceURL": "https://policies.google.com/terms",
+    "defaultPrompt": [
+      "Use the Cloud SQL for PostgreSQL data skills to explore schema objects, views, and stored procedures.",
+      "Run SQL queries against my Cloud SQL instance and summarize the results for me."
+    ]
+  }
+}
