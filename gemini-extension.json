@@ -2,6 +2,15 @@
   "name": "cloud-sql-postgresql",
   "version": "0.3.0",
   "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
+  "mcpServers": {
+    "skills": {
+      "command": "${extensionPath}${/}skillful-mcp",
+      "args": [
+        "--config",
+        "${extensionPath}${/}mcp.json"
+      ]
+    }
+  },
   "contextFileName": "CLOUD-SQL-POSTGRESQL.md",
   "settings": [
     {
