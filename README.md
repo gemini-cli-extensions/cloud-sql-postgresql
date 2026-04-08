@@ -35,33 +35,6 @@ Before you begin, ensure you have the following:
 
 ## Getting Started
 
-### Installation
-
-To install these skills as a plugin for your preferred AI agent:
-
-**Gemini CLI:**
-
-```bash
-gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-postgresql
-```
-
-To view or update your configuration in Gemini CLI:
-
-- Terminal: `gemini extensions config cloud-sql-postgresql [setting name] [--scope <scope>]`
-- Gemini CLI: `/extensions list`
-
-**Claude Code:**
-
-```bash
-claude plugin add https://github.com/gemini-cli-extensions/cloud-sql-postgresql
-```
-
-**Codex:**
-
-```bash
-codex plugin add https://github.com/gemini-cli-extensions/cloud-sql-postgresql
-```
-
 ### Configuration
 
 You may be prompted to configure the following settings during installation. These settings can also be set as environment variables.
@@ -79,32 +52,52 @@ You may be prompted to configure the following settings during installation. The
 > - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 > - If your Cloud SQL for PostgreSQL instance uses private IPs, you must run your agent in the same Virtual Private Cloud (VPC) network.
 
-### Usage
+### Installation & Usage
 
-To start interacting with your database, launch your preferred AI agent and use natural language to ask questions or perform tasks.
+To start interacting with your database, install the skills for your preferred AI agent, then launch the agent and use natural language to ask questions or perform tasks.
 
-**Gemini CLI:**
+#### Gemini CLI
 
+**1. Install the extension:**
+```bash
+gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-postgresql
+```
+
+**2. (Optional) Manage Configuration:**
+To view or update your configuration in Gemini CLI:
+- Terminal: `gemini extensions config cloud-sql-postgresql [setting name] [--scope <scope>]`
+- Gemini CLI: `/extensions list`
+
+**3. Start the agent:**
 ```bash
 gemini
 ```
-
 _(Tip: Run `/extensions list` to verify your configuration and active extensions.)_
 
-**Claude Code:**
+#### Claude Code
 
+**1. Install the plugin:**
+```bash
+claude plugin add https://github.com/gemini-cli-extensions/cloud-sql-postgresql
+```
+
+**2. Start the agent:**
 ```bash
 claude
 ```
-
 _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.)_
 
-**Codex:**
+#### Codex
 
+**1. Install the plugin:**
+```bash
+codex plugin add https://github.com/gemini-cli-extensions/cloud-sql-postgresql
+```
+
+**2. Start the agent:**
 ```bash
 codex
 ```
-
 _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify your installed plugins.)_
 
 > [!WARNING]
