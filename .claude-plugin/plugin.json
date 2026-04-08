@@ -1,7 +1,7 @@
 {
   "name": "cloud-sql-postgresql",
   "version": "0.1.0",
-  "description": "Interact with CloudSQL for PostgreSQL instances",
+  "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
   "repository": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
   "skills": "./skills/",
   "userConfig": {
