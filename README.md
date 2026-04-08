@@ -35,23 +35,6 @@ Before you begin, ensure you have the following:
 
 ## Getting Started
 
-### Configuration
-
-You may be prompted to configure the following settings during installation. These settings can also be set as environment variables.
-
-- `CLOUD_SQL_POSTGRES_PROJECT`: The GCP project ID.
-- `CLOUD_SQL_POSTGRES_REGION`: The region of your Cloud SQL instance.
-- `CLOUD_SQL_POSTGRES_INSTANCE`: The ID of your Cloud SQL instance.
-- `CLOUD_SQL_POSTGRES_DATABASE`: The name of the database to connect to.
-- `CLOUD_SQL_POSTGRES_USER`: (Optional) The database username. Defaults to the active IAM user.
-- `CLOUD_SQL_POSTGRES_PASSWORD`: (Optional) The password for the database user.
-- `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) Type of the IP address: `PUBLIC`, `PRIVATE`, or `PSC`. Defaults to `PUBLIC`.
-
-> [!NOTE]
->
-> - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
-> - If your Cloud SQL for PostgreSQL instance uses private IPs, you must run your agent in the same Virtual Private Cloud (VPC) network.
-
 ### Installation & Usage
 
 To start interacting with your database, install the skills for your preferred AI agent, then launch the agent and use natural language to ask questions or perform tasks.
@@ -76,29 +59,79 @@ _(Tip: Run `/extensions list` to verify your configuration and active extensions
 
 #### Claude Code
 
-**1. Install the plugin:**
-```bash
-claude plugin add https://github.com/gemini-cli-extensions/cloud-sql-postgresql
-```
-
-**2. Start the agent:**
+**1. Start the agent:**
 ```bash
 claude
+```
+
+**2. Add the marketplace:**
+```bash
+/plugin marketplace add gemini-cli-extensions/cloud-sql-postgresql
+```
+
+**3. Install the plugin:**
+```bash
+/plugin install cloud-sql-postgresql@google-data-cloud-skills
 ```
 _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.)_
 
 #### Codex
 
-**1. Install the plugin:**
+**1. Clone the Repo:**
 ```bash
-codex plugin add https://github.com/gemini-cli-extensions/cloud-sql-postgresql
+git clone git@github.com:gemini-cli-extensions/cloud-sql-postgresql.git
 ```
 
-**2. Start the agent:**
+**2. Install the plugin:**
 ```bash
-codex
+mkdir -p ~/.codex/plugins
+cp -R /absolute/path/to/cloud-sql-postgresql ~/.codex/plugins/cloud-sql-postgresql
 ```
+
+**3. Create or update marketplace.json:**
+`~/.agents/plugins/marketplace.json`
+```json
+{
+  "name": "google-data-cloud-skills",
+  "interface": {
+    "displayName": "Google Data Cloud Skills"
+  },
+  "plugins": [
+    {
+      "name": "cloud-sql-postgresql",
+      "source": {
+        "source": "local",
+        "path": "./plugins/cloud-sql-postgresql"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Database"
+    }
+  ]
+}
+
+```
+
 _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify your installed plugins.)_
+
+### Configuration
+
+You may be prompted to configure the following settings during installation. These settings can also be set as environment variables.
+
+- `CLOUD_SQL_POSTGRES_PROJECT`: The GCP project ID.
+- `CLOUD_SQL_POSTGRES_REGION`: The region of your Cloud SQL instance.
+- `CLOUD_SQL_POSTGRES_INSTANCE`: The ID of your Cloud SQL instance.
+- `CLOUD_SQL_POSTGRES_DATABASE`: The name of the database to connect to.
+- `CLOUD_SQL_POSTGRES_USER`: (Optional) The database username. Defaults to the active IAM user.
+- `CLOUD_SQL_POSTGRES_PASSWORD`: (Optional) The password for the database user.
+- `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) Type of the IP address: `PUBLIC`, `PRIVATE`, or `PSC`. Defaults to `PUBLIC`.
+
+> [!NOTE]
+>
+> - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
+> - If your Cloud SQL for PostgreSQL instance uses private IPs, you must run your agent in the same Virtual Private Cloud (VPC) network.
 
 > [!WARNING]
 > **Changing Instance & Database Connections**
