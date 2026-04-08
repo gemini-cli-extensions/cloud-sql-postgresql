@@ -1,0 +1,14 @@
+{
+  "name": "Google Data Cloud Marketplace",
+  "owner": {
+    "name": "Google LLC",
+    "email": "data-cloud-ai-integrations@google.com"
+  },
+  "plugins": [
+    {
+      "name": "cloud-sql-postgresql",
+      "source": "./",
+      "description": "Cloud SQL skills"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "cloud-sql-postgresql",
+  "version": "0.1.0",
+  "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
+  "repository": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
+  "skills": "./skills/",
+  "userConfig": {
+    "cloud_sql_postgres_project": {
+      "title": "Project ID",
+      "description": "ID of the Google Cloud project",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_region": {
+      "title": "Region",
+      "description": "Region of the Cloud SQL instance",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_instance": {
+      "title": "Instance Name",
+      "description": "Name of the Cloud SQL instance",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_database": {
+      "title": "Database Name",
+      "description": "Name of the database",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_user": {
+      "title": "Database User",
+      "description": "(Optional) Username of the database user (Default: IAM user)",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_password": {
+      "title": "Database Password",
+      "description": "(Optional) Password of the database user (Default: IAM user)",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_ip_type": {
+      "title": "IP Type",
+      "description": "(Optional) Type of the IP address: PUBLIC, PRIVATE, or PSC (Default: Public)",
+      "type": "string",
+      "sensitive": false
+    }
+  }
+}
