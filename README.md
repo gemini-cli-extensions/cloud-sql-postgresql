@@ -12,6 +12,21 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
 
 [form]: https://docs.google.com/forms/d/e/1FAIpQLSfEGmLR46iipyNTgwTmIDJqzkAwDPXxbocpXpUbHXydiN1RTw/viewform?usp=pp_url&entry.157487=cloud-sql-postgresql
 
+## Table of Contents
+
+- [Why Use Cloud SQL for PostgreSQL Agent Skills?](#why-use-cloud-sql-for-postgresql-agent-skills)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Installation & Usage](#installation--usage)
+    - [Gemini CLI](#gemini-cli)
+    - [Claude Code](#claude-code)
+    - [Codex](#codex)
+  - [Configuration](#configuration)
+- [Usage Examples](#usage-examples)
+- [Supported Skills](#supported-skills)
+- [Additional Agent Skills](#additional-agent-skills)
+- [Troubleshooting](#troubleshooting)
+
 ## Why Use Cloud SQL for PostgreSQL Agent Skills?
 
 - **Seamless Workflow:** Integrates seamlessly into your AI agent's environment. No need to constantly switch contexts for common database tasks.
@@ -39,7 +54,8 @@ Before you begin, ensure you have the following:
 
 To start interacting with your database, install the skills for your preferred AI agent, then launch the agent and use natural language to ask questions or perform tasks.
 
-#### Gemini CLI
+<details open>
+<summary>Gemini CLI</summary>
 
 **1. Install the extension:**
 ```bash
@@ -57,7 +73,10 @@ gemini
 ```
 _(Tip: Run `/extensions list` to verify your configuration and active extensions.)_
 
-#### Claude Code
+</details>
+
+<details>
+<summary>Claude Code</summary>
 
 **1. Start the agent:**
 ```bash
@@ -75,7 +94,10 @@ claude
 ```
 _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.)_
 
-#### Codex
+</details>
+
+<details>
+<summary>Codex</summary>
 
 **1. Clone the Repo:**
 ```bash
@@ -115,6 +137,8 @@ cp -R /absolute/path/to/cloud-sql-postgresql ~/.codex/plugins/cloud-sql-postgres
 ```
 
 _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify your installed plugins.)_
+
+</details>
 
 ### Configuration
 
