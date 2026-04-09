@@ -128,7 +128,7 @@ claude
 **4. Install the plugin:**
 
 ```bash
-/plugin install cloud-sql-postgresql@google-data-cloud-skills
+/plugin install cloud-sql-postgresql@cloud-sql-postgresql-marketplace
 ```
 
 _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.)_
