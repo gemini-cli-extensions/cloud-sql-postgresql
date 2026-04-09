@@ -8,7 +8,7 @@
     {
       "name": "cloud-sql-postgresql",
       "source": "./",
-      "description": "Cloud SQL skills"
+      "description": "Agent skills for Cloud SQL for PostgreSQL to query, manage, and monitor databases."
     }
   ]
 }
