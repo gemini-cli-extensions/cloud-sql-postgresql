@@ -74,13 +74,19 @@ Please keep these env vars handy during the installation process:
 
 To start interacting with your database, install the skills for your preferred AI agent, then launch the agent and use natural language to ask questions or perform tasks.
 
+For the latest version, check the [releases page][releases].
+
+[releases]: https://github.com/gemini-cli-extensions/cloud-sql-postgresql/releases
+
+<!-- {x-release-please-start-version} -->
+
 <details open>
 <summary id="gemini-cli">Gemini CLI</summary>
 
 **1. Install the extension:**
 
 ```bash
-gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-postgresql
+gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-postgresql --ref 0.3.0
 ```
 
 During the installation, enter your environment vars as described in the [configuration section](#configuration).
@@ -119,7 +125,7 @@ claude
 **3. Add the marketplace:**
 
 ```bash
-/plugin marketplace add gemini-cli-extensions/cloud-sql-postgresql
+/plugin marketplace add https://github.com/gemini-cli-extensions/cloud-sql-postgresql.git#0.3.0
 ```
 
 **4. Install the plugin:**
@@ -138,7 +144,7 @@ _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or 
 **1. Clone the Repo:**
 
 ```bash
-git clone git@github.com:gemini-cli-extensions/cloud-sql-postgresql.git
+git clone --branch 0.3.0 git@github.com:gemini-cli-extensions/cloud-sql-postgresql.git
 ```
 
 **2. Install the plugin:**
@@ -180,6 +186,8 @@ Enter your environment vars as described in the [configuration section](#configu
 _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify your installed plugins.)_
 
 </details>
+
+<!-- {x-release-please-end} -->
 
 > [!WARNING]
 > **Changing Instance & Database Connections**
