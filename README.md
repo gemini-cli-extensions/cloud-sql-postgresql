@@ -38,7 +38,10 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
 
 Before you begin, ensure you have the following:
 
-- An AI agent installed (e.g., [Gemini CLI](https://github.com/google-gemini/gemini-cli) version **+v0.6.0**, [Claude Code](https://claude.ai/install.sh), or [Codex](https://openai.com/blog/openai-codex/)).
+- One of these AI agents installed
+  - [Gemini CLI](https://github.com/google-gemini/gemini-cli) version **v0.6.0** or higher
+  - [Claude Code](https://claude.ai/install.sh) version **v2.1.94** or higher
+  - [Codex](https://openai.com/blog/openai-codex/) **v0.118.0** or higher
 - A Google Cloud project with the **Cloud SQL Admin API** enabled.
 - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 - IAM Permissions:
