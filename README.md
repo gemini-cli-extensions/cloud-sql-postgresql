@@ -50,6 +50,23 @@ Before you begin, ensure you have the following:
 
 ## Getting Started
 
+### Configuration
+
+Please keep these env vars handy during the installation process:
+
+- `CLOUD_SQL_POSTGRES_PROJECT`: The GCP project ID.
+- `CLOUD_SQL_POSTGRES_REGION`: The region of your Cloud SQL instance.
+- `CLOUD_SQL_POSTGRES_INSTANCE`: The ID of your Cloud SQL instance.
+- `CLOUD_SQL_POSTGRES_DATABASE`: The name of the database to connect to.
+- `CLOUD_SQL_POSTGRES_USER`: (Optional) The database username. Defaults to the active IAM user.
+- `CLOUD_SQL_POSTGRES_PASSWORD`: (Optional) The password for the database user.
+- `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) Type of the IP address: `PUBLIC`, `PRIVATE`, or `PSC`. Defaults to `PUBLIC`.
+
+> [!NOTE]
+>
+> - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
+> - If your Cloud SQL for PostgreSQL instance uses private IPs, you must run your agent in the same Virtual Private Cloud (VPC) network.
+
 ### Installation & Usage
 
 To start interacting with your database, install the skills for your preferred AI agent, then launch the agent and use natural language to ask questions or perform tasks.
@@ -61,6 +78,8 @@ To start interacting with your database, install the skills for your preferred A
 ```bash
 gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-postgresql
 ```
+
+During the installation, enter your environment vars as described in the [configuration section](#configuration).
 
 **2. (Optional) Manage Configuration:**
 To view or update your configuration in Gemini CLI:
@@ -78,17 +97,20 @@ _(Tip: Run `/extensions list` to verify your configuration and active extensions
 <details>
 <summary>Claude Code</summary>
 
-**1. Start the agent:**
+**1. Set env vars:** 
+In your terminal, set your environment vars as described in the [configuration section](#configuration).
+
+**2. Start the agent:**
 ```bash
 claude
 ```
 
-**2. Add the marketplace:**
+**3. Add the marketplace:**
 ```bash
 /plugin marketplace add gemini-cli-extensions/cloud-sql-postgresql
 ```
 
-**3. Install the plugin:**
+**4. Install the plugin:**
 ```bash
 /plugin install cloud-sql-postgresql@google-data-cloud-skills
 ```
@@ -109,8 +131,10 @@ git clone git@github.com:gemini-cli-extensions/cloud-sql-postgresql.git
 mkdir -p ~/.codex/plugins
 cp -R /absolute/path/to/cloud-sql-postgresql ~/.codex/plugins/cloud-sql-postgresql
 ```
+**3. Set env vars:**
+Enter your environment vars as described in the [configuration section](#configuration).
 
-**3. Create or update marketplace.json:**
+**4. Create or update marketplace.json:**
 `~/.agents/plugins/marketplace.json`
 ```json
 {
@@ -139,23 +163,6 @@ cp -R /absolute/path/to/cloud-sql-postgresql ~/.codex/plugins/cloud-sql-postgres
 _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify your installed plugins.)_
 
 </details>
-
-### Configuration
-
-You may be prompted to configure the following settings during installation. These settings can also be set as environment variables.
-
-- `CLOUD_SQL_POSTGRES_PROJECT`: The GCP project ID.
-- `CLOUD_SQL_POSTGRES_REGION`: The region of your Cloud SQL instance.
-- `CLOUD_SQL_POSTGRES_INSTANCE`: The ID of your Cloud SQL instance.
-- `CLOUD_SQL_POSTGRES_DATABASE`: The name of the database to connect to.
-- `CLOUD_SQL_POSTGRES_USER`: (Optional) The database username. Defaults to the active IAM user.
-- `CLOUD_SQL_POSTGRES_PASSWORD`: (Optional) The password for the database user.
-- `CLOUD_SQL_POSTGRES_IP_TYPE`: (Optional) Type of the IP address: `PUBLIC`, `PRIVATE`, or `PSC`. Defaults to `PUBLIC`.
-
-> [!NOTE]
->
-> - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
-> - If your Cloud SQL for PostgreSQL instance uses private IPs, you must run your agent in the same Virtual Private Cloud (VPC) network.
 
 > [!WARNING]
 > **Changing Instance & Database Connections**
