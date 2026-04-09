@@ -113,9 +113,6 @@ _(Tip: Run `/extensions list` to verify your configuration and active extensions
 **1. Set env vars:**
 In your terminal, set your environment vars as described in the [configuration section](#configuration).
 
-**1. Set env vars:**
-In your terminal, set your environment vars as described in the [configuration section](#configuration).
-
 **2. Start the agent:**
 
 ```bash
