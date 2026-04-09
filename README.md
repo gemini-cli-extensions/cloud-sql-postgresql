@@ -92,7 +92,7 @@ cp -R /absolute/path/to/cloud-sql-postgresql ~/.codex/plugins/cloud-sql-postgres
 `~/.agents/plugins/marketplace.json`
 ```json
 {
-  "name": "google-data-cloud-skills",
+  "name": "cloud-sql-postgresql-marketplace",
   "interface": {
     "displayName": "Google Data Cloud Skills"
   },
