@@ -41,7 +41,7 @@ Before you begin, ensure you have the following:
 - One of these AI agents installed
   - [Gemini CLI](https://github.com/google-gemini/gemini-cli) version **v0.6.0** or higher
   - [Claude Code](https://claude.ai/install.sh) version **v2.1.94** or higher
-  - [Codex](https://openai.com/blog/openai-codex/) **v0.118.0** or higher
+  - [Codex](https://openai.com/blog/openai-codex/) **v0.117.0** or higher
 - A Google Cloud project with the **Cloud SQL Admin API** enabled.
 - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 - IAM Permissions:
@@ -78,6 +78,7 @@ To start interacting with your database, install the skills for your preferred A
 <summary id="gemini-cli">Gemini CLI</summary>
 
 **1. Install the extension:**
+
 ```bash
 gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-postgresql
 ```
@@ -86,13 +87,16 @@ During the installation, enter your environment vars as described in the [config
 
 **2. (Optional) Manage Configuration:**
 To view or update your configuration in Gemini CLI:
+
 - Terminal: `gemini extensions config cloud-sql-postgresql [setting name] [--scope <scope>]`
 - Gemini CLI: `/extensions list`
 
 **3. Start the agent:**
+
 ```bash
 gemini
 ```
+
 _(Tip: Run `/extensions list` to verify your configuration and active extensions.)_
 
 </details>
@@ -100,26 +104,30 @@ _(Tip: Run `/extensions list` to verify your configuration and active extensions
 <details>
 <summary id="claude-code">Claude Code</summary>
 
-**1. Set env vars:** 
+**1. Set env vars:**
 In your terminal, set your environment vars as described in the [configuration section](#configuration).
 
-**1. Set env vars:** 
+**1. Set env vars:**
 In your terminal, set your environment vars as described in the [configuration section](#configuration).
 
 **2. Start the agent:**
+
 ```bash
 claude
 ```
 
 **3. Add the marketplace:**
+
 ```bash
 /plugin marketplace add gemini-cli-extensions/cloud-sql-postgresql
 ```
 
 **4. Install the plugin:**
+
 ```bash
 /plugin install cloud-sql-postgresql@google-data-cloud-skills
 ```
+
 _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.)_
 
 </details>
@@ -128,20 +136,24 @@ _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or 
 <summary id="codex">Codex</summary>
 
 **1. Clone the Repo:**
+
 ```bash
 git clone git@github.com:gemini-cli-extensions/cloud-sql-postgresql.git
 ```
 
 **2. Install the plugin:**
+
 ```bash
 mkdir -p ~/.codex/plugins
 cp -R /absolute/path/to/cloud-sql-postgresql ~/.codex/plugins/cloud-sql-postgresql
 ```
+
 **3. Set env vars:**
 Enter your environment vars as described in the [configuration section](#configuration).
 
 **4. Create or update marketplace.json:**
 `~/.agents/plugins/marketplace.json`
+
 ```json
 {
   "name": "my-data-cloud-google-marketplace",
