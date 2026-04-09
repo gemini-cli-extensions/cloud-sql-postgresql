@@ -2,6 +2,11 @@
   "name": "cloud-sql-postgresql",
   "version": "0.3.0",
   "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
+  "author": {
+    "name": "Google LLC",
+    "email": "data-cloud-ai-integrations@google.com"
+  },
+  "homepage": "https://cloud.google.com/sql",
   "repository": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
   "skills": "./skills/",
   "userConfig": {
