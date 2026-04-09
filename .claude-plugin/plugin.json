@@ -7,6 +7,7 @@
     "email": "data-cloud-ai-integrations@google.com"
   },
   "homepage": "https://cloud.google.com/sql",
+  "license": "Apache-2.0",
   "repository": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
   "skills": "./skills/",
   "userConfig": {
