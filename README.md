@@ -17,11 +17,11 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
 - [Why Use Cloud SQL for PostgreSQL Agent Skills?](#why-use-cloud-sql-for-postgresql-agent-skills)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
+  - [Configuration](#configuration)
   - [Installation & Usage](#installation--usage)
     - [Gemini CLI](#gemini-cli)
     - [Claude Code](#claude-code)
     - [Codex](#codex)
-  - [Configuration](#configuration)
 - [Usage Examples](#usage-examples)
 - [Supported Skills](#supported-skills)
 - [Additional Agent Skills](#additional-agent-skills)
@@ -72,7 +72,7 @@ Please keep these env vars handy during the installation process:
 To start interacting with your database, install the skills for your preferred AI agent, then launch the agent and use natural language to ask questions or perform tasks.
 
 <details open>
-<summary>Gemini CLI</summary>
+<summary id="gemini-cli">Gemini CLI</summary>
 
 **1. Install the extension:**
 ```bash
@@ -95,7 +95,10 @@ _(Tip: Run `/extensions list` to verify your configuration and active extensions
 </details>
 
 <details>
-<summary>Claude Code</summary>
+<summary id="claude-code">Claude Code</summary>
+
+**1. Set env vars:** 
+In your terminal, set your environment vars as described in the [configuration section](#configuration).
 
 **1. Set env vars:** 
 In your terminal, set your environment vars as described in the [configuration section](#configuration).
@@ -119,7 +122,7 @@ _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or 
 </details>
 
 <details>
-<summary>Codex</summary>
+<summary id="codex">Codex</summary>
 
 **1. Clone the Repo:**
 ```bash
@@ -157,7 +160,6 @@ Enter your environment vars as described in the [configuration section](#configu
     }
   ]
 }
-
 ```
 
 _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify your installed plugins.)_
