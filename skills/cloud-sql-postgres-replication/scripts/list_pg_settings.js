@@ -87,7 +87,7 @@ function main() {
 		
 		const command = os.platform() === 'win32' ? 'npx.cmd' : 'npx';
 		const processedArgs = os.platform() === 'win32' ? args.map(arg => arg.includes('"') ? '"' + arg.replace(/"/g, '""') + '"' : arg) : args;
-		const npxArgs = ["--yes", "@toolbox-sdk/server@0.32.0", "--log-level", "error", ...configArgs, "invoke", toolName, "--user-agent-metadata", userAgent, ...processedArgs];
+		const npxArgs = ["--yes", "@toolbox-sdk/server@1.0.0", "--log-level", "error", ...configArgs, "invoke", toolName, "--user-agent-metadata", userAgent, ...processedArgs];
 
 		const child = spawn(command, npxArgs, { shell: os.platform() === 'win32', stdio: 'inherit', env });
 		
