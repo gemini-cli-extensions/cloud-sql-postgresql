@@ -86,7 +86,7 @@ For the latest version, check the [releases page][releases].
 **1. Install the extension:**
 
 ```bash
-gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-postgresql --ref 0.3.0
+gemini extensions install https://github.com/gemini-cli-extensions/cloud-sql-postgresql
 ```
 
 During the installation, enter your environment vars as described in the [configuration section](#configuration).
