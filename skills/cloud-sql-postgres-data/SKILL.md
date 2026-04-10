@@ -19,7 +19,7 @@ Note: The scripts automatically load the environment variables from various .env
 
 ### execute_sql
 
-Use this skill to execute sql.
+Use this tool to execute a single SQL statement.
 
 #### Parameters
 

@@ -17,78 +17,89 @@
 const { spawn, execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
 const toolName = "execute_sql";
 const configArgs = ["--prebuilt", "cloud-sql-postgres"];
 
-function getToolboxPath() {
-    if (process.env.GEMINI_CLI === '1') {
-        const localPath = path.resolve(__dirname, '../../../toolbox');
-        if (fs.existsSync(localPath)) {
-            return localPath;
-        }
+const OPTIONAL_VARS_TO_OMIT_IF_EMPTY = [
+    'CLOUD_SQL_POSTGRES_USER',
+    'CLOUD_SQL_POSTGRES_PASSWORD',
+    'CLOUD_SQL_POSTGRES_IP_TYPE',
+];
+
+
+function mergeEnvVars(env) {
+	if (process.env.GEMINI_CLI === '1') {
+		const envPath = path.resolve(__dirname, '../../../.env');
+		if (fs.existsSync(envPath)) {
+			const envContent = fs.readFileSync(envPath, 'utf-8');
+			envContent.split('\n').forEach(line => {
+				const trimmed = line.trim();
+				if (trimmed && !trimmed.startsWith('#')) {
+					const splitIdx = trimmed.indexOf('=');
+					if (splitIdx !== -1) {
+						const key = trimmed.slice(0, splitIdx).trim();
+						let value = trimmed.slice(splitIdx + 1).trim();
+						value = value.replace(/(^['"]|['"]$)/g, '');
+						if (env[key] === undefined) {
+							env[key] = value;
+						}
+					}
+				}
+			});
+		}
+	} else if (process.env.CLAUDECODE === '1') {
+		const prefix = 'CLAUDE_PLUGIN_OPTION_';
+		for (const key in process.env) {
+			if (key.startsWith(prefix)) {
+				env[key.substring(prefix.length)] = process.env[key];
+			}
+		}
+	}
+}
+
+function prepareEnvironment() {
+	let env = { ...process.env };
+	let userAgent = "skills";
+	if (process.env.GEMINI_CLI === '1') {
+		userAgent = "skills-geminicli";
+	} else if (process.env.CLAUDECODE === '1') {
+		userAgent = "skills-claudecode";
+	} else if (process.env.CODEX_CI === '1') {
+        userAgent = "skills-codex";
     }
-    try {
-        const checkCommand = process.platform === 'win32' ? 'where toolbox' : 'which toolbox';
-        const globalPath = execSync(checkCommand, { stdio: 'pipe', encoding: 'utf-8' }).trim();
-        if (globalPath) {
-            return globalPath.split('\n')[0].trim();
-        }
-        throw new Error("Toolbox binary not found");
-    } catch (e) {
-        throw new Error("Toolbox binary not found");
-    }
+	mergeEnvVars(env);
+	
+	OPTIONAL_VARS_TO_OMIT_IF_EMPTY.forEach(varName => {
+		if (env[varName] === '') {
+			delete env[varName];
+		}
+	});
+	
+
+	return { env, userAgent };
 }
 
-let toolboxBinary;
-try {
-    toolboxBinary = getToolboxPath();
-} catch (err) {
-    console.error("Error:", err.message);
-    process.exit(1);
+function main() {
+    const { env, userAgent } = prepareEnvironment();
+    const args = process.argv.slice(2);
+		
+		const command = os.platform() === 'win32' ? 'npx.cmd' : 'npx';
+		const processedArgs = os.platform() === 'win32' ? args.map(arg => arg.includes('"') ? '"' + arg.replace(/"/g, '""') + '"' : arg) : args;
+		const npxArgs = ["--yes", "@toolbox-sdk/server@1.0.0", "--log-level", "error", ...configArgs, "invoke", toolName, "--user-agent-metadata", userAgent, ...processedArgs];
+
+		const child = spawn(command, npxArgs, { shell: os.platform() === 'win32', stdio: 'inherit', env });
+		
+
+    child.on('close', (code) => {
+        process.exit(code);
+    });
+
+    child.on('error', (err) => {
+        console.error("Error executing toolbox:", err);
+        process.exit(1);
+    });
 }
 
-function getEnv() {
-    const envPath = path.resolve(__dirname, '../../../.env');
-    const env = { ...process.env };
-    if (fs.existsSync(envPath)) {
-        const envContent = fs.readFileSync(envPath, 'utf-8');
-        envContent.split('\n').forEach(line => {
-            const trimmed = line.trim();
-            if (trimmed && !trimmed.startsWith('#')) {
-                const splitIdx = trimmed.indexOf('=');
-                if (splitIdx !== -1) {
-                    const key = trimmed.slice(0, splitIdx).trim();
-                    let value = trimmed.slice(splitIdx + 1).trim();
-                    value = value.replace(/(^['"]|['"]$)/g, '');
-                    if (env[key] === undefined) {
-                        env[key] = value;
-                    }
-                }
-            }
-        });
-    }
-    return env;
-}
-
-let env = process.env;
-let userAgent = "skills";
-if (process.env.GEMINI_CLI === '1') {
-    env = getEnv();
-    userAgent = "skills-geminicli";
-}
-
-const args = process.argv.slice(2);
-
-const toolboxArgs = ["--log-level", "error", ...configArgs, "invoke", toolName, "--user-agent-metadata", userAgent, ...args];
-
-const child = spawn(toolboxBinary, toolboxArgs, { stdio: 'inherit', env });
-
-child.on('close', (code) => {
-  process.exit(code);
-});
-
-child.on('error', (err) => {
-  console.error("Error executing toolbox:", err);
-  process.exit(1);
-});
+main();
