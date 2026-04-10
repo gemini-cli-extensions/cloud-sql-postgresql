@@ -1,0 +1,16 @@
+{
+  "name": "cloud-sql-postgresql-marketplace",
+  "owner": {
+    "name": "Google LLC",
+    "email": "data-cloud-ai-integrations@google.com"
+  },
+  "metadata": {
+    "description": "Agent skills for Cloud SQL for PostgreSQL to query, manage, and monitor databases."
+  },
+  "plugins": [
+    {
+      "name": "cloud-sql-postgresql",
+      "source": "./"
+    }
+  ]
+}
