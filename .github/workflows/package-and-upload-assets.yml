@@ -18,7 +18,7 @@ name: Package and Upload Release Assets
 env:
   PACKAGE_NAME: "cloud-sql-postgresql"
   FILES_TO_PACKAGE: "gemini-extension.json CLOUD-SQL-POSTGRESQL.md LICENSE"
-  GCS_BUCKET_URL: "https://storage.googleapis.com/genai-toolbox/geminicli"
+  GCS_BUCKET_URL: "https://storage.googleapis.com/mcp-toolbox-for-databases/geminicli"
 
 on:
   release:
