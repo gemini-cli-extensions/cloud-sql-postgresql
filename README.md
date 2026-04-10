@@ -1,7 +1,7 @@
 # Cloud SQL for PostgreSQL Agent Skills
 
 > [!NOTE]
-> These skills are currently in beta (pre-v1.0), and may see breaking changes until the first stable release (v1.0).
+> Currently in beta (pre-v1.0), and may see breaking changes until the first stable release (v1.0).
 
 This repository provides a set of agent skills to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. These skills can be used with various AI agents, including [Gemini CLI](https://google-gemini.github.io/gemini-cli/), Claude Code, and Codex, to manage your databases, execute queries, explore schemas, and troubleshoot issues using natural language prompts.
 
@@ -105,6 +105,11 @@ gemini
 
 _(Tip: Run `/extensions list` to verify your configuration and active extensions.)_
 
+> [!WARNING]
+> **Changing Instance & Database Connections**
+> Currently, the database connection must be configured before starting the agent and can not be changed during a session.
+> To save and resume conversation history in Gemini CLI use command: `/chat save <tag>` and `/chat resume <tag>`.
+
 </details>
 
 <details>
@@ -185,11 +190,6 @@ _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify 
 </details>
 
 <!-- {x-release-please-end} -->
-
-> [!WARNING]
-> **Changing Instance & Database Connections**
-> Currently, the database connection must be configured before starting the agent and can not be changed during a session.
-> To save and resume conversation history in Gemini CLI use command: `/chat save <tag>` and `/chat resume <tag>`.
 
 ## Usage Examples
 
