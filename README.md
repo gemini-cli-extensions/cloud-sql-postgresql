@@ -22,6 +22,7 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
     - [Gemini CLI](#gemini-cli)
     - [Claude Code](#claude-code)
     - [Codex](#codex)
+    - [Antigravity](#antigravity)
 - [Usage Examples](#usage-examples)
 - [Supported Skills](#supported-skills)
 - [Additional Agent Skills](#additional-agent-skills)
@@ -42,6 +43,7 @@ Before you begin, ensure you have the following:
   - [Gemini CLI](https://github.com/google-gemini/gemini-cli) version **v0.6.0** or higher
   - [Claude Code](https://claude.com/product/claude-code) version **v2.1.94** or higher
   - [Codex](https://developers.openai.com/codex) **v0.117.0** or higher
+  - [Antigravity](https://antigravity.google) **v1.14.2** or higher
 - A Google Cloud project with the **Cloud SQL Admin API** enabled.
 - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 - IAM Permissions:
@@ -186,6 +188,34 @@ Enter your environment vars as described in the [configuration section](#configu
 ```
 
 _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify your installed plugins.)_
+
+</details>
+
+<details>
+<summary id="antigravity">Antigravity</summary>
+
+**1. Clone the Repo:**
+
+```bash
+git clone --branch 0.3.0 https://github.com/gemini-cli-extensions/cloud-sql-postgresql.git
+```
+
+**2. Install the skills:**
+
+Choose a location for the skills:
+- **Global (all workspaces):** `~/.gemini/antigravity/skills/`
+- **Workspace-specific:** `<workspace-root>/.agents/skills/`
+
+Copy the skill folders from the cloned repository's `skills/` directory to your chosen location:
+
+```bash
+cp -R cloud-sql-postgresql/skills/* ~/.gemini/antigravity/skills/
+```
+
+**3. Set env vars:**
+Set your environment vars as described in the [configuration section](#configuration).
+
+_(Tip: Antigravity automatically discovers skills in these directories at the start of a session.)_
 
 </details>
 
