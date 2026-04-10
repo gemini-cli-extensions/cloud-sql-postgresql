@@ -1,0 +1,64 @@
+steps:
+
+  # --- STEP 1: Build and Push Docker Image ---
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/cloud-sql-postgresql:latest'
+      - '.'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/cloud-sql-postgresql:latest'
+
+  # --- STEP 2: Deploy to Cloud Run ---
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'cloud-sql-postgresql-server'
+      - '--image=us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/cloud-sql-postgresql:latest'
+      - '--region=us-central1'
+      - '--allow-unauthenticated'
+      - '--port=8080'
+      - '--timeout=300'
+      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=omkar-playground,CLOUD_SQL_POSTGRES_INSTANCE=omkar-demo-postgres-1,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_PASSWORD=7`[EP^`U"_frcD;q,CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
+
+  # --- STEP 3: Run Eval Server in Background ---
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'run'
+      - '-d'
+      - '--network=cloudbuild'
+      - '--name=eval_server'
+      - 'us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/eval_server:latest'
+
+  # --- STEP 4: Run Evalbench Evaluation Client ---
+  # - name: 'python:3.10'
+  #   entrypoint: 'bash'
+  #   args:
+  #     - '-c'
+  #     - |
+  #       # Clone Evalbench
+  #       git clone https://github.com/GoogleCloudPlatform/evalbench.git
+  #       cd evalbench
+        
+  #       # Install Dependencies
+  #       pip install -r requirements.txt
+        
+  #       # Setup Environment Variables
+  #       export EVAL_GCP_PROJECT_ID=omkar-playground
+  #       export EVAL_GCP_PROJECT_REGION=us-central1
+  #       export EVAL_CONFIG=../evals/run_config.yaml
+        
+  #       # Compile required protobuf modules and Run Evaluation Client against the eval_server container
+  #       make proto
+  #       ./run_client.sh --endpoint=eval_server:50051
+
+
+options:
+  env:
+    - 'DOCKER_BUILDKIT=1'
