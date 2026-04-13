@@ -17,8 +17,6 @@ Before you begin, ensure you have the following:
 
 ### Running from Local Source
 
-The core logic for this extension is handled by a pre-built `toolbox` binary. The development process involves installing the extension locally into the Gemini CLI to test changes.
-
 1.  **Clone the Repository:**
 
     ```bash
