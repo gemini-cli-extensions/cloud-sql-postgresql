@@ -10,3 +10,6 @@ scorers:
   trajectory_matcher: {}
   goal_completion:
     model_config: /workspace/evals/gemini_2.5_pro_model.yaml
+
+reporting:
+  bigquery: {}
