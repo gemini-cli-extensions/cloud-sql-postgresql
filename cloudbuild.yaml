@@ -5,13 +5,13 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/cloud-sql-postgresql:latest'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/cloud-sql-postgresql:latest'
       - '.'
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/cloud-sql-postgresql:latest'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/cloud-sql-postgresql:latest'
 
   # --- STEP 2: Deploy to Cloud Run ---
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -20,15 +20,15 @@ steps:
       - 'run'
       - 'deploy'
       - 'cloud-sql-postgresql-server'
-      - '--image=us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/cloud-sql-postgresql:latest'
+      - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/cloud-sql-postgresql:latest'
       - '--region=us-central1'
       - '--allow-unauthenticated'
       - '--port=8080'
       - '--timeout=300'
-      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=omkar-playground,CLOUD_SQL_POSTGRES_INSTANCE=omkar-demo-postgres-1,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_PASSWORD=[PASSWORD],CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
+      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID,CLOUD_SQL_POSTGRES_INSTANCE=omkar-demo-postgres-1,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_PASSWORD=[PASSWORD],CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
 
   # --- STEP 3: Fully Integrated Evaluation to Persist Results ---
-  - name: 'us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/eval_server:latest'
+  - name: 'us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/eval_server:latest'
     entrypoint: 'bash'
     args:
       - '-c'
@@ -36,7 +36,7 @@ steps:
         set -e
         cd /evalbench
 
-        export EVAL_GCP_PROJECT_ID=omkar-playground
+        export EVAL_GCP_PROJECT_ID=$PROJECT_ID
         export EVAL_GCP_PROJECT_REGION=us-central1
 
         echo "Compiling protobuf files..."
