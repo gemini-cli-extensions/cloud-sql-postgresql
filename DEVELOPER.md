@@ -1,7 +1,7 @@
 # DEVELOPER.md
 
 This document provides instructions for setting up your development environment
-and contributing to the Cloud SQL for PostgreSQL Gemini CLI Extension project.
+and contributing to the Cloud SQL for PostgreSQL Agent skills project.
 
 ## Prerequisites
 
