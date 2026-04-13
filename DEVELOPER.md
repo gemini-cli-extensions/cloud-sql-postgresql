@@ -26,20 +26,7 @@ The core logic for this extension is handled by a pre-built `toolbox` binary. Th
     cd cloud-sql-postgresql
     ```
 
-2.  **Download the Toolbox Binary:** The required version of the `toolbox` binary
-    is specified in `toolbox_version.txt`. Download it for your platform.
-
-    ```bash
-    # Read the required version
-    VERSION=$(cat toolbox_version.txt)
-
-    # Example for macOS/amd64
-    curl -L -o toolbox https://storage.googleapis.com/mcp-toolbox-for-databases/geminicli/v$VERSION/darwin/amd64/toolbox
-    chmod +x toolbox
-    ```
-    Adjust the URL for your operating system (`linux/amd64`, `darwin/arm64`, `windows/amd64`).
-
-3.  **Install the Extension Locally:** Use the Gemini CLI to install the
+2.  **Install the Extension Locally:** Use the Gemini CLI to install the
     extension from your local directory.
 
     ```bash
@@ -47,7 +34,7 @@ The core logic for this extension is handled by a pre-built `toolbox` binary. Th
     ```
     The CLI will prompt you to confirm the installation. Accept it to proceed.
 
-4.  **Testing Changes:** After installation, start the Gemini CLI (`gemini`).
+3.  **Testing Changes:** After installation, start the Gemini CLI (`gemini`).
     You can now interact with the `cloud-sql-postgresql` tools to manually test your changes
     against your connected database.
 
