@@ -25,40 +25,74 @@ steps:
       - '--allow-unauthenticated'
       - '--port=8080'
       - '--timeout=300'
-      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=omkar-playground,CLOUD_SQL_POSTGRES_INSTANCE=omkar-demo-postgres-1,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_PASSWORD=7`[EP^`U"_frcD;q,CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
+      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=omkar-playground,CLOUD_SQL_POSTGRES_INSTANCE=omkar-demo-postgres-1,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_PASSWORD=[PASSWORD],CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
 
-  # --- STEP 3: Run Eval Server in Background ---
-  - name: 'gcr.io/cloud-builders/docker'
+  # --- STEP 3: Fully Integrated Evaluation to Persist Results ---
+  - name: 'us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/eval_server:latest'
+    entrypoint: 'bash'
     args:
-      - 'run'
-      - '-d'
-      - '--network=cloudbuild'
-      - '--name=eval_server'
-      - 'us-central1-docker.pkg.dev/omkar-playground/toolbox-evals/eval_server:latest'
+      - '-c'
+      - |
+        set -e
+        cd /evalbench
 
-  # --- STEP 4: Run Evalbench Evaluation Client ---
-  # - name: 'python:3.10'
-  #   entrypoint: 'bash'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       # Clone Evalbench
-  #       git clone https://github.com/GoogleCloudPlatform/evalbench.git
-  #       cd evalbench
-        
-  #       # Install Dependencies
-  #       pip install -r requirements.txt
-        
-  #       # Setup Environment Variables
-  #       export EVAL_GCP_PROJECT_ID=omkar-playground
-  #       export EVAL_GCP_PROJECT_REGION=us-central1
-  #       export EVAL_CONFIG=../evals/run_config.yaml
-        
-  #       # Compile required protobuf modules and Run Evaluation Client against the eval_server container
-  #       make proto
-  #       ./run_client.sh --endpoint=eval_server:50051
+        export EVAL_GCP_PROJECT_ID=omkar-playground
+        export EVAL_GCP_PROJECT_REGION=us-central1
+
+        echo "Compiling protobuf files..."
+        python3 -m grpc_tools.protoc --proto_path=evalbench/evalproto --python_out=evalbench/evalproto --grpc_python_out=evalbench/evalproto evalbench/evalproto/*.proto
+
+        echo "Patching client to use insecure credentials..."
+        # sed -i 's/"localhost:50051"/"127.0.0.1:50051"/g' evalbench/client/eval_client.py
+        sed -i 's/grpc.alts_channel_credentials()/None/g' evalbench/client/eval_client.py
+        sed -i 's/grpc.aio.secure_channel(address, channel_creds)/grpc.aio.insecure_channel(address)/g' evalbench/client/eval_client.py
+
+        echo "Patching server to listen on all IPv4 interfaces (0.0.0.0)..."
+        sed -i 's/"\[::\]:%s"/"0.0.0.0:%s"/g' /evalbench/evalbench/eval_server.py
+        echo "Checking bind success in server (writing to stderr)..."
+        sed -i 's|server.add_insecure_port("0.0.0.0:%s" % PORT)|bound_port = server.add_insecure_port("0.0.0.0:%s" % PORT)\n        import sys\n        sys.stderr.write(f"BOUND_PORT: {bound_port}\\n")\n        if bound_port == 0: raise RuntimeError("Failed to bind to port!")|' /evalbench/evalbench/eval_server.py
+
+        echo "Patching eval_service.py to fix TypeError in get_reporters..."
+        sed -i 's|reporters = get_reporters(config.get("reporting"), job_id, run_time)|reporters = get_reporters(config.get("reporting") or {}, job_id, run_time)|' /evalbench/evalbench/eval_service.py
+
+        echo "Patching util/session.py to make ADK import lazy..."
+        sed -i 's|from google.adk.sessions import VertexAiSessionService||' /evalbench/evalbench/util/session.py
+        sed -i 's|    def __init__(self, config):|    def __init__(self, config):\n        from google.adk.sessions import VertexAiSessionService|' /evalbench/evalbench/util/session.py
+        echo "Patching databases/util.py to make SecretManagerClient lazy..."
+        sed -i 's|CLIENT = secretmanager_v1.SecretManagerServiceClient()|CLIENT = None\ndef get_client():\n    global CLIENT\n    if CLIENT is None:\n        CLIENT = secretmanager_v1.SecretManagerServiceClient()\n    return CLIENT|' /evalbench/evalbench/databases/util.py || echo "Failed to patch databases/util.py"
+        sed -i 's|CLIENT.access_secret_version|get_client().access_secret_version|' /evalbench/evalbench/databases/util.py || echo "Failed to patch databases/util.py usage"
+        cd evalbench
+        export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+        export PYTHONPATH=./evalproto:.
+        export CLOUD_RUN=True
+        export PORT=50051
 
 
-options:
-  env:
-    - 'DOCKER_BUILDKIT=1'
+
+        echo "Starting Evaluation Server in background..."
+        # NEW: Added </dev/null in case it was waiting for input
+        python3 -u ./eval_server.py --localhost </dev/null &
+        SERVER_PID=$$!
+        
+        echo "Waiting for port 50051 to open..."
+        python3 -c "
+        import socket
+        import time
+        for i in range(20):
+            try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s.connect(('127.0.0.1', 50051))
+                print('Port is open!')
+                exit(0)
+            except Exception as e:
+                print(f'Port not open yet: {e}')
+                time.sleep(1)
+        print('Port failed to open')
+        exit(1)
+        " || { echo "Server failed to bind port. Check logs above."; exit 1; }
+        
+        echo "Server is running. Launching Evaluation Client..."
+        cd /evalbench
+        export PYTHONPATH=./evalbench:./evalbench/evalproto
+        
+        python3 evalbench/client/eval_client.py --experiment=/workspace/evals/run_config.yaml --endpoint=local || { echo "Client failed! Server logs:"; cat /evalbench/evalbench/server.log; exit 1; }
