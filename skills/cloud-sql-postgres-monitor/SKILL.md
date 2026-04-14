@@ -15,7 +15,9 @@ All scripts can be executed using Node.js. Replace `<param_name>` and `<param_va
 
 Note: The scripts automatically load the environment variables from various .env files. Do not ask the user to set vars unless skill executions fails due to env var absence.
 
+
 ## Scripts
+
 
 ### get_query_metrics
 
@@ -25,11 +27,9 @@ To use this tool, you must provide the Google Cloud `projectId` and a PromQL `qu
 Generate PromQL `query` for Postgres query metrics. Use the provided metrics and rules to construct queries, Get the labels like `instance_id`, `query_hash` from user intent. If query_hash is provided then use the per_query metrics. Query hash and query id are same.
 
 Defaults:
-
 1. Interval: Use a default interval of `5m` for `_over_time` aggregation functions unless a different window is specified by the user.
 
 PromQL Query Examples:
-
 1. Basic Time Series: `avg_over_time({"__name__"="cloudsql.googleapis.com/database/postgresql/insights/aggregate/execution_time","monitored_resource"="cloudsql_instance_database","project_id"="my-projectId","resource_id"="my-projectId:my-instanceId"}[5m])`
 2. Top K: `topk(30, avg_over_time({"__name__"="cloudsql.googleapis.com/database/postgresql/insights/aggregate/execution_time","monitored_resource"="cloudsql_instance_database","project_id"="my-projectId","resource_id"="my-projectId:my-instanceId"}[5m]))`
 3. Mean: `avg(avg_over_time({"__name__"="cloudsql.googleapis.com/database/postgresql/insights/aggregate/execution_time","monitored_resource"="cloudsql_instance_database","project_id"="my-projectId","resource_id"="my-projectId:my-instanceId"}[5m]))`
@@ -40,7 +40,6 @@ PromQL Query Examples:
 8. Percentile with groupby on resource_id, database: `quantile by ("resource_id","database")(0.99,avg_over_time({"__name__"="cloudsql.googleapis.com/database/postgresql/insights/aggregate/execution_time","monitored_resource"="cloudsql_instance_database","project_id"="my-projectId","resource_id"="my-projectId:my-instanceId"}[5m]))`
 
 Available Metrics List: metricname. description. monitored resource. labels. resource_id label format is `project_id:instance_id` which is actually instance id only. aggregate is the aggregated values for all query stats, Use aggregate metrics if query id is not provided. For perquery metrics do not fetch querystring unless specified by user specifically. Have the aggregation on query hash to avoid fetching the querystring. Do not use latency metrics for anything.
-
 1. `cloudsql.googleapis.com/database/postgresql/insights/aggregate/latencies`: Aggregated query latency distribution. `cloudsql_instance_database`. `user`, `client_addr`, `project_id`, `resource_id`.
 2. `cloudsql.googleapis.com/database/postgresql/insights/aggregate/execution_time`: Accumulated aggregated query execution time since the last sample. `cloudsql_instance_database`. `user`, `client_addr`, `project_id`, `resource_id`.
 3. `cloudsql.googleapis.com/database/postgresql/insights/aggregate/io_time`: Accumulated aggregated IO time since the last sample. `cloudsql_instance_database`. `user`, `client_addr`, `io_type`, `project_id`, `resource_id`.
@@ -60,12 +59,14 @@ Available Metrics List: metricname. description. monitored resource. labels. res
 17. `cloudsql.googleapis.com/database/postgresql/insights/pertag/shared_blk_access_count`: Shared blocks accessed by statement execution per tag. `cloudsql_instance_database`. `user`, `client_addr`, `action`, `application`, `controller`, `db_driver`, `framework`, `route`, `access_type`, `tag_hash`, `project_id`, `resource_id`.
 18. `cloudsql.googleapis.com/database/postgresql/insights/pertag/row_count`: The number of retrieved or affected rows since the last sample per tag. `cloudsql_instance_database`. `user`, `client_addr`, `action`, `application`, `controller`, `db_driver`, `framework`, `route`, `tag_hash`, `project_id`, `resource_id`.
 
+
 #### Parameters
 
-| Name      | Type   | Description                         | Required | Default |
-| :-------- | :----- | :---------------------------------- | :------- | :------ |
-| projectId | string | The Id of the Google Cloud project. | Yes      |         |
-| query     | string | The promql query to execute.        | Yes      |         |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| projectId | string | The Id of the Google Cloud project. | Yes |  |
+| query | string | The promql query to execute. | Yes |  |
+
 
 ---
 
@@ -75,9 +76,10 @@ Generate a PostgreSQL EXPLAIN plan in JSON format for a single SQL statement—w
 
 #### Parameters
 
-| Name  | Type   | Description                                                                       | Required | Default |
-| :---- | :----- | :-------------------------------------------------------------------------------- | :------- | :------ |
-| query | string | The SQL statement for which you want to generate plan (omit the EXPLAIN keyword). | Yes      |         |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| query | string | The SQL statement for which you want to generate plan (omit the EXPLAIN keyword). | Yes |  |
+
 
 ---
 
@@ -89,11 +91,9 @@ To use this tool, you must provide the Google Cloud `projectId` and a PromQL `qu
 Generate PromQL `query` for Postgres system metrics. Use the provided metrics and rules to construct queries, Get the labels like `instance_id` from user intent.
 
 Defaults:
-
 1. Interval: Use a default interval of `5m` for `_over_time` aggregation functions unless a different window is specified by the user.
 
 PromQL Query Examples:
-
 1. Basic Time Series: `avg_over_time({"__name__"="cloudsql.googleapis.com/database/cpu/utilization","monitored_resource"="cloudsql_database","project_id"="my-projectId","database_id"="my-projectId:my-instanceId"}[5m])`
 2. Top K: `topk(30, avg_over_time({"__name__"="cloudsql.googleapis.com/database/cpu/utilization","monitored_resource"="cloudsql_database","project_id"="my-projectId","database_id"="my-projectId:my-instanceId"}[5m]))`
 3. Mean: `avg(avg_over_time({"__name__"="cloudsql.googleapis.com/database/cpu/utilization","monitored_resource"="cloudsql_database","project_id"="my-projectId","database_id"="my-projectId:my-instanceId"}[5m]))`
@@ -103,8 +103,7 @@ PromQL Query Examples:
 7. Count streams: `count(avg_over_time({"__name__"="cloudsql.googleapis.com/database/cpu/utilization","monitored_resource"="cloudsql_database","project_id"="my-projectId","database_id"="my-projectId:my-instanceId"}[5m]))`
 8. Percentile with groupby on database_id: `quantile by ("database_id")(0.99,avg_over_time({"__name__"="cloudsql.googleapis.com/database/cpu/utilization","monitored_resource"="cloudsql_database","project_id"="my-projectId","database_id"="my-projectId:my-instanceId"}[5m]))`
 
-Available Metrics List: metricname. description. monitored resource. labels. database_id is actually the instance id and the format is `project_id:instance_id`.
-
+Available Metrics List: metricname. description. monitored resource. labels. database_id is actually the instance id and the format is `project_id:instance_id`. 
 1. `cloudsql.googleapis.com/database/postgresql/new_connection_count`: Count of new connections added to the postgres instance. `cloudsql_database`. `database`, `project_id`, `database_id`.
 2. `cloudsql.googleapis.com/database/postgresql/backends_in_wait`: Number of backends in wait in postgres instance. `cloudsql_database`. `backend_type`, `wait_event`, `wait_event_type`, `project_id`, `database_id`.
 3. `cloudsql.googleapis.com/database/postgresql/transaction_count`: Delta count of number of transactions. `cloudsql_database`. `database`, `transaction_type`, `project_id`, `database_id`.
@@ -132,12 +131,14 @@ Available Metrics List: metricname. description. monitored resource. labels. dat
 25. `cloudsql.googleapis.com/database/postgresql/temp_bytes_written_count`: Total amount of data (in bytes) written to temporary files by the queries per database. `cloudsql_database`. `database`, `project_id`, `database_id`.
 26. `cloudsql.googleapis.com/database/postgresql/temp_files_written_count`: Total number of temporary files used for writing data while performing algorithms such as join and sort. `cloudsql_database`. `database`, `project_id`, `database_id`.
 
+
 #### Parameters
 
-| Name      | Type   | Description                         | Required | Default |
-| :-------- | :----- | :---------------------------------- | :------- | :------ |
-| projectId | string | The Id of the Google Cloud project. | Yes      |         |
-| query     | string | The promql query to execute.        | Yes      |         |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| projectId | string | The Id of the Google Cloud project. | Yes |  |
+| query | string | The promql query to execute. | Yes |  |
+
 
 ---
 
@@ -147,26 +148,30 @@ List the top N (default 50) currently running queries (state='active') from pg_s
 
 #### Parameters
 
-| Name                      | Type    | Description                                                                                                                                                                                                                                                                                                                                              | Required | Default    |
-| :------------------------ | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--------- |
-| min_duration              | string  | Optional: Only show queries running at least this long (e.g., '1 minute', '1 second', '2 seconds').                                                                                                                                                                                                                                                      | No       | `1 minute` |
-| exclude_application_names | string  | Optional: A comma-separated list of application names to exclude from the query results. This is useful for filtering out queries from specific applications (e.g., 'psql', 'pgAdmin', 'DBeaver'). The match is case-sensitive. Whitespace around commas and names is automatically handled. If this parameter is omitted, no applications are excluded. | No       | ``         |
-| limit                     | integer | Optional: The maximum number of rows to return.                                                                                                                                                                                                                                                                                                          | No       | `50`       |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| min_duration | string | Optional: Only show queries running at least this long (e.g., '1 minute', '1 second', '2 seconds'). | No | `1 minute` |
+| exclude_application_names | string | Optional: A comma-separated list of application names to exclude from the query results. This is useful for filtering out queries from specific applications (e.g., 'psql', 'pgAdmin', 'DBeaver'). The match is case-sensitive. Whitespace around commas and names is automatically handled. If this parameter is omitted, no applications are excluded. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
+
 
 ---
 
 ### list_database_stats
 
+
+
 #### Parameters
 
-| Name               | Type    | Description                                                                        | Required | Default |
-| :----------------- | :------ | :--------------------------------------------------------------------------------- | :------- | :------ |
-| database_name      | string  | Optional: A specific database name pattern to search for.                          | No       | ``      |
-| include_templates  | boolean | Optional: Whether to include template databases in the results.                    | No       | `false` |
-| database_owner     | string  | Optional: A specific database owner name pattern to search for.                    | No       | ``      |
-| default_tablespace | string  | Optional: A specific default tablespace name pattern to search for.                | No       | ``      |
-| order_by           | string  | Optional: The field to order the results by. Valid values are 'size' and 'commit'. | No       | ``      |
-| limit              | integer | Optional: The maximum number of rows to return.                                    | No       | `10`    |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| database_name | string | Optional: A specific database name pattern to search for. | No | `` |
+| include_templates | boolean | Optional: Whether to include template databases in the results. | No | `false` |
+| database_owner | string | Optional: A specific database owner name pattern to search for. | No | `` |
+| default_tablespace | string | Optional: A specific default tablespace name pattern to search for. | No | `` |
+| order_by | string | Optional: The field to order the results by. Valid values are 'size' and 'commit'. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `10` |
+
 
 ---
 
@@ -174,18 +179,21 @@ List the top N (default 50) currently running queries (state='active') from pg_s
 
 Identifies all locks held by active processes showing the process ID, user, query text, and an aggregated list of all transactions and specific locks (relation, mode, grant status) associated with each process.
 
+
+
 ---
 
 ### list_query_stats
 
-Lists performance statistics for executed queries ordered by total time, filtering by database name pattern if provided. This skill requires the pg_stat_statements extension to be installed. The skill returns the database name, query text, execution count, timing metrics (total, min, max, mean), rows affected, and buffer cache I/O statistics (hits and reads).
+Lists performance statistics for executed queries ordered by total time, filtering by database name pattern if provided. This tool requires the pg_stat_statements extension to be installed. The tool returns the database name, query text, execution count, timing metrics (total, min, max, mean), rows affected, and buffer cache I/O statistics (hits and reads).
 
 #### Parameters
 
-| Name          | Type    | Description                                                        | Required | Default |
-| :------------ | :------ | :----------------------------------------------------------------- | :------- | :------ |
-| database_name | string  | Optional: The database name to list query stats for.               | No       | ``      |
-| limit         | integer | Optional: The maximum number of results to return. Defaults to 50. | No       | `50`    |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| database_name | string | Optional: The database name to list query stats for. | No | `` |
+| limit | integer | Optional: The maximum number of results to return. Defaults to 50. | No | `50` |
+
 
 ---
 
@@ -195,9 +203,11 @@ Identifies and lists database transactions that exceed a specified time limit. F
 
 #### Parameters
 
-| Name         | Type    | Description                                                                                                 | Required | Default     |
-| :----------- | :------ | :---------------------------------------------------------------------------------------------------------- | :------- | :---------- |
-| min_duration | string  | Optional: Only show transactions running at least this long (e.g., '1 minute', '15 minutes', '30 seconds'). | No       | `5 minutes` |
-| limit        | integer | Optional: The maximum number of long-running transactions to return. Defaults to 20.                        | No       | `20`        |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| min_duration | string | Optional: Only show transactions running at least this long (e.g., '1 minute', '15 minutes', '30 seconds'). | No | `5 minutes` |
+| limit | integer | Optional: The maximum number of long-running transactions to return. Defaults to 20. | No | `20` |
+
 
 ---
+
