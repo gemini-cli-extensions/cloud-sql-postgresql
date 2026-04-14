@@ -33,7 +33,7 @@ Before you begin, ensure you have the following:
     The CLI will prompt you to confirm the installation. Accept it to proceed.
 
 3.  **Testing Changes:** After installation, start the Gemini CLI (`gemini`).
-    You can now interact with the `cloud-sql-postgresql` tools to manually test your changes
+    You can now interact with the `cloud-sql-postgresql` skills to manually test your changes
     against your connected database.
 
 ## Testing
