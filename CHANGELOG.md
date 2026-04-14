@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.4.0](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.3.0...0.4.0) (2026-04-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* update repo name ([mcp-toolbox#​2968](https://redirect.github.com/googleapis/mcp-toolbox/issues/2968))
+
+### Features
+
+* **cloudsqlpg:** Run `SELECT 1` after successful connection attempt ([mcp-toolbox#​2997](https://redirect.github.com/googleapis/mcp-toolbox/issues/2997)) ([6ed9700](https://redirect.github.com/googleapis/mcp-toolbox/commit/6ed9700e15f08b31e65eb0afa605f4a8ea937e66)) ([7e70dc8](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/7e70dc8fefdb76fc24004adabbaf21d64d0c5c6e))
+* **skills:** Add Claude Code support to generated scripts ([mcp-toolbox#​2966](https://redirect.github.com/googleapis/mcp-toolbox/issues/2966)) ([a1609e1](https://redirect.github.com/googleapis/mcp-toolbox/commit/a1609e10a2eaf4ea68eae36acec3eed355b8a052)) ([d210a15](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/d210a15ca1a965da6a22ba43b62d3b657806777f))
+* **skills:** Add codex user agent ([mcp-toolbox#​2973](https://redirect.github.com/googleapis/mcp-toolbox/issues/2973)) ([070e939](https://redirect.github.com/googleapis/mcp-toolbox/commit/070e9399c02f088d43175ce6bf343378beb7f584)) ([d210a15](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/d210a15ca1a965da6a22ba43b62d3b657806777f))
+* **skills:** Tool invocation via npx ([mcp-toolbox#​2916](https://redirect.github.com/googleapis/mcp-toolbox/issues/2916)) ([377dc5b](https://redirect.github.com/googleapis/mcp-toolbox/commit/377dc5b00145a0044eef39314dd6b0ef5966fcd7)) ([d210a15](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/d210a15ca1a965da6a22ba43b62d3b657806777f))
+* add claude code plugin config ([#137](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/137)) ([c3392b3](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/c3392b31686173ea6f62ec575ad58952dd06140b))
+* add codex plugin config ([#138](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/138)) ([071d0ec](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/071d0ec09d631ba3665ef2b2bad6a6dde76796ba))
+* add new vectorassist skills ([#159](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/159)) ([03874ac](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/03874acfa9570b854df59af4c7458b9d8fa3308e))
+* **skills:** update skill scripts for the new toolbox binary ([#144](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/144)) ([71f5b11](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/71f5b1174965cbd626f1f5d88ec07bb2c4d92655))
+
+
+### Bug Fixes
+
+* **skills:** Fix skill generation template ([mcp-toolbox#​2914](https://redirect.github.com/googleapis/mcp-toolbox/issues/2914)) ([a01a15e](https://redirect.github.com/googleapis/mcp-toolbox/commit/a01a15ed1aa9a83eda8362578fed2e3a3c8dde99)) ([d210a15](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/d210a15ca1a965da6a22ba43b62d3b657806777f))
+* **skills:** Prevent empty strings overriding optional env vars in node scripts ([mcp-toolbox#​2963](https://redirect.github.com/googleapis/mcp-toolbox/issues/2963)) ([c52adeb](https://redirect.github.com/googleapis/mcp-toolbox/commit/c52adeba76fc13d0e6e415f6393def0648e478d6)) ([d210a15](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/d210a15ca1a965da6a22ba43b62d3b657806777f))
+
 ## [0.3.0](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.2.4...0.3.0) (2026-03-27)
 
 
