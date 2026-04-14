@@ -15,7 +15,9 @@ All scripts can be executed using Node.js. Replace `<param_name>` and `<param_va
 
 Note: The scripts automatically load the environment variables from various .env files. Do not ask the user to set vars unless skill executions fails due to env var absence.
 
+
 ## Scripts
+
 
 ### execute_sql
 
@@ -23,9 +25,10 @@ Use this tool to execute a single SQL statement.
 
 #### Parameters
 
-| Name | Type   | Description         | Required | Default |
-| :--- | :----- | :------------------ | :------- | :------ |
-| sql  | string | The sql to execute. | Yes      |         |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| sql | string | The sql to execute. | Yes |  |
+
 
 ---
 
@@ -35,13 +38,14 @@ Lists available user indexes in the database, excluding system schemas (pg_catal
 
 #### Parameters
 
-| Name        | Type    | Description                                                                                | Required | Default |
-| :---------- | :------ | :----------------------------------------------------------------------------------------- | :------- | :------ |
-| schema_name | string  | Optional: a text to filter results by schema name. The input is used within a LIKE clause. | No       | ``      |
-| table_name  | string  | Optional: a text to filter results by table name. The input is used within a LIKE clause.  | No       | ``      |
-| index_name  | string  | Optional: a text to filter results by index name. The input is used within a LIKE clause.  | No       | ``      |
-| only_unused | boolean | Optional: If true, only returns indexes that have never been used.                         | No       | `false` |
-| limit       | integer | Optional: The maximum number of rows to return. Default is 50                              | No       | `50`    |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| schema_name | string | Optional: a text to filter results by schema name. The input is used within a LIKE clause. | No | `` |
+| table_name | string | Optional: a text to filter results by table name. The input is used within a LIKE clause. | No | `` |
+| index_name | string | Optional: a text to filter results by index name. The input is used within a LIKE clause. | No | `` |
+| only_unused | boolean | Optional: If true, only returns indexes that have never been used. | No | `false` |
+| limit | integer | Optional: The maximum number of rows to return. Default is 50 | No | `50` |
+
 
 ---
 
@@ -51,11 +55,12 @@ Lists all schemas in the database ordered by schema name and excluding system an
 
 #### Parameters
 
-| Name        | Type    | Description                                                   | Required | Default |
-| :---------- | :------ | :------------------------------------------------------------ | :------- | :------ |
-| schema_name | string  | Optional: A specific schema name pattern to search for.       | No       | ``      |
-| owner       | string  | Optional: A specific schema owner name pattern to search for. | No       | ``      |
-| limit       | integer | Optional: The maximum number of schemas to return.            | No       | `10`    |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| schema_name | string | Optional: A specific schema name pattern to search for. | No | `` |
+| owner | string | Optional: A specific schema owner name pattern to search for. | No | `` |
+| limit | integer | Optional: The maximum number of schemas to return. | No | `10` |
+
 
 ---
 
@@ -65,11 +70,12 @@ Lists sequences in the database. Returns sequence name, schema name, sequence ow
 
 #### Parameters
 
-| Name          | Type    | Description                                                   | Required | Default |
-| :------------ | :------ | :------------------------------------------------------------ | :------- | :------ |
-| schema_name   | string  | Optional: A specific schema name pattern to search for.       | No       | ``      |
-| sequence_name | string  | Optional: A specific sequence name pattern to search for.     | No       | ``      |
-| limit         | integer | Optional: The maximum number of rows to return. Default is 50 | No       | `50`    |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| schema_name | string | Optional: A specific schema name pattern to search for. | No | `` |
+| sequence_name | string | Optional: A specific sequence name pattern to search for. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. Default is 50 | No | `50` |
+
 
 ---
 
@@ -79,11 +85,12 @@ Retrieves stored procedure metadata returning schema name, procedure name, proce
 
 #### Parameters
 
-| Name        | Type    | Description                                                                     | Required | Default |
-| :---------- | :------ | :------------------------------------------------------------------------------ | :------- | :------ |
-| role_name   | string  | Optional: The owner name to filter the stored procedures by. Defaults to NULL.  | No       |         |
-| schema_name | string  | Optional: The schema name to filter the stored procedures by. Defaults to NULL. | No       |         |
-| limit       | integer | Optional: The maximum number of stored procedures to return. Defaults to 20.    | No       | `20`    |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| role_name | string | Optional: The owner name to filter the stored procedures by. Defaults to NULL. | No |  |
+| schema_name | string | Optional: The schema name to filter the stored procedures by. Defaults to NULL. | No |  |
+| limit | integer | Optional: The maximum number of stored procedures to return. Defaults to 20. | No | `20` |
+
 
 ---
 
@@ -93,25 +100,27 @@ Lists detailed schema information (object type, columns, constraints, indexes, t
 
 #### Parameters
 
-| Name          | Type   | Description                                                                                       | Required | Default    |
-| :------------ | :----- | :------------------------------------------------------------------------------------------------ | :------- | :--------- |
-| table_names   | string | Optional: A comma-separated list of table names. If empty, details for all tables will be listed. | No       | ``         |
-| output_format | string | Optional: Use 'simple' for names only or 'detailed' for full info.                                | No       | `detailed` |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| table_names | string | Optional: A comma-separated list of table names. If empty, details for all tables will be listed. | No | `` |
+| output_format | string | Optional: Use 'simple' for names only or 'detailed' for full info. | No | `detailed` |
+
 
 ---
 
 ### list_triggers
 
-Lists all non-internal triggers in a database. Returns trigger name, schema name, table name, whether its enabled or disabled, timing (e.g BEFORE/AFTER of the event), the events that cause the trigger to fire such as INSERT, UPDATE, or DELETE, whether the trigger activates per ROW or per STATEMENT, the handler function executed by the trigger and full definition.
+Lists all non-internal triggers in a database. Returns trigger name, schema name, table name, whether its enabled or disabled, timing (e.g BEFORE/AFTER of the event), the  events that cause the trigger to fire such as INSERT, UPDATE, or DELETE, whether the trigger activates per ROW or per STATEMENT, the handler function executed by the trigger and full definition.
 
 #### Parameters
 
-| Name         | Type    | Description                                              | Required | Default |
-| :----------- | :------ | :------------------------------------------------------- | :------- | :------ |
-| trigger_name | string  | Optional: A specific trigger name pattern to search for. | No       | ``      |
-| schema_name  | string  | Optional: A specific schema name pattern to search for.  | No       | ``      |
-| table_name   | string  | Optional: A specific table name pattern to search for.   | No       | ``      |
-| limit        | integer | Optional: The maximum number of rows to return.          | No       | `50`    |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| trigger_name | string | Optional: A specific trigger name pattern to search for. | No | `` |
+| schema_name | string | Optional: A specific schema name pattern to search for. | No | `` |
+| table_name | string | Optional: A specific table name pattern to search for. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
+
 
 ---
 
@@ -121,10 +130,12 @@ Lists views in the database from pg_views with a default limit of 50 rows. Retur
 
 #### Parameters
 
-| Name        | Type    | Description                                     | Required | Default |
-| :---------- | :------ | :---------------------------------------------- | :------- | :------ |
-| view_name   | string  | Optional: A specific view name to search for.   | No       | ``      |
-| schema_name | string  | Optional: A specific schema name to search for. | No       | ``      |
-| limit       | integer | Optional: The maximum number of rows to return. | No       | `50`    |
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| view_name | string | Optional: A specific view name to search for. | No | `` |
+| schema_name | string | Optional: A specific schema name to search for. | No | `` |
+| limit | integer | Optional: The maximum number of rows to return. | No | `50` |
+
 
 ---
+
