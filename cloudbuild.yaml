@@ -6,7 +6,7 @@ steps:
       - 'build'
       - '-t'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/cloud-sql-postgresql:latest'
-      - '.'
+      - '.'   # The "." evaluates Dockerfile
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
@@ -22,7 +22,7 @@ steps:
       - 'cloud-sql-postgresql-server'
       - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/cloud-sql-postgresql:latest'
       - '--region=us-central1'
-      - '--allow-unauthenticated'
+      - '--no-allow-unauthenticated'
       - '--port=8080'
       - '--timeout=300'
       - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID,CLOUD_SQL_POSTGRES_INSTANCE=omkar-demo-postgres-1,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_PASSWORD=[PASSWORD],CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
@@ -34,6 +34,13 @@ steps:
       - '-c'
       - |
         set -e
+        # ----------------------------
+        echo "=== INSIDE /workspace ==="
+        ls -la /workspace
+        
+        echo "=== INSIDE /evalbench ==="
+        ls -la /evalbench
+        # ----------------------------
         cd /evalbench
 
         export EVAL_GCP_PROJECT_ID=$PROJECT_ID
@@ -52,15 +59,6 @@ steps:
         echo "Checking bind success in server (writing to stderr)..."
         sed -i 's|server.add_insecure_port("0.0.0.0:%s" % PORT)|bound_port = server.add_insecure_port("0.0.0.0:%s" % PORT)\n        import sys\n        sys.stderr.write(f"BOUND_PORT: {bound_port}\\n")\n        if bound_port == 0: raise RuntimeError("Failed to bind to port!")|' /evalbench/evalbench/eval_server.py
 
-        echo "Patching eval_service.py to fix TypeError in get_reporters..."
-        sed -i 's|reporters = get_reporters(config.get("reporting"), job_id, run_time)|reporters = get_reporters(config.get("reporting") or {}, job_id, run_time)|' /evalbench/evalbench/eval_service.py
-
-        echo "Patching util/session.py to make ADK import lazy..."
-        sed -i 's|from google.adk.sessions import VertexAiSessionService||' /evalbench/evalbench/util/session.py
-        sed -i 's|    def __init__(self, config):|    def __init__(self, config):\n        from google.adk.sessions import VertexAiSessionService|' /evalbench/evalbench/util/session.py
-        echo "Patching databases/util.py to make SecretManagerClient lazy..."
-        sed -i 's|CLIENT = secretmanager_v1.SecretManagerServiceClient()|CLIENT = None\ndef get_client():\n    global CLIENT\n    if CLIENT is None:\n        CLIENT = secretmanager_v1.SecretManagerServiceClient()\n    return CLIENT|' /evalbench/evalbench/databases/util.py || echo "Failed to patch databases/util.py"
-        sed -i 's|CLIENT.access_secret_version|get_client().access_secret_version|' /evalbench/evalbench/databases/util.py || echo "Failed to patch databases/util.py usage"
         cd evalbench
         export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
         export PYTHONPATH=./evalproto:.
