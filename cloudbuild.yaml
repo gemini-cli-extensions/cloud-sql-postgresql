@@ -6,7 +6,7 @@ steps:
       - 'build'
       - '-t'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/cloud-sql-postgresql:latest'
-      - '.'   # The "." evaluates Dockerfile
+      - '.'
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
