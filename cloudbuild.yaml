@@ -34,13 +34,6 @@ steps:
       - '-c'
       - |
         set -e
-        # ----------------------------
-        echo "=== INSIDE /workspace ==="
-        ls -la /workspace
-        
-        echo "=== INSIDE /evalbench ==="
-        ls -la /evalbench
-        # ----------------------------
         cd /evalbench
 
         export EVAL_GCP_PROJECT_ID=$PROJECT_ID
