@@ -25,11 +25,13 @@ steps:
       - '--no-allow-unauthenticated'
       - '--port=8080'
       - '--timeout=300'
-      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID,CLOUD_SQL_POSTGRES_INSTANCE=omkar-demo-postgres-1,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_PASSWORD=[PASSWORD],CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
+      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID,CLOUD_SQL_POSTGRES_INSTANCE=omkar-demo-postgres-1,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
+      - '--set-secrets=CLOUD_SQL_POSTGRES_PASSWORD=cloud-sql-postgres-password:latest'
 
   # --- STEP 3: Fully Integrated Evaluation to Persist Results ---
   - name: 'us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/eval_server:latest'
     entrypoint: 'bash'
+    secretEnv: ['DB_PASSWORD']
     args:
       - '-c'
       - |
@@ -87,3 +89,8 @@ steps:
         export PYTHONPATH=./evalbench:./evalbench/evalproto
         
         python3 evalbench/client/eval_client.py --experiment=/workspace/evals/run_config.yaml --endpoint=local || { echo "Client failed! Server logs:"; cat /evalbench/evalbench/server.log; exit 1; }
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/$PROJECT_ID/secrets/cloud-sql-postgres-password/versions/latest
+    env: 'DB_PASSWORD'
