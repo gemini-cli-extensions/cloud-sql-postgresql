@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 steps:
 
   # --- STEP 1: Build and Push Docker Image ---
@@ -39,11 +42,11 @@ steps:
       - '--no-allow-unauthenticated'
       - '--port=8080'
       - '--timeout=300'
-      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID,CLOUD_SQL_POSTGRES_INSTANCE=omkar-demo-postgres-1,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
-      - '--set-secrets=CLOUD_SQL_POSTGRES_PASSWORD=cloud-sql-postgres-password:latest'
+      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID,CLOUD_SQL_POSTGRES_INSTANCE=daily-ci-evals-db,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
+      - '--set-secrets=CLOUD_SQL_POSTGRES_PASSWORD=daily-ci-evals-db-password:latest'
 
   # --- STEP 3: Fully Integrated Evaluation to Persist Results ---
-  - name: 'us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/eval_server:latest'
+  - name: 'us-central1-docker.pkg.dev/cloud-db-nl2sql/evalbench/eval_server:latest'
     entrypoint: 'bash'
     secretEnv: ['DB_PASSWORD']
     args:
@@ -106,5 +109,5 @@ steps:
 
 availableSecrets:
   secretManager:
-  - versionName: projects/$PROJECT_ID/secrets/cloud-sql-postgres-password/versions/latest
+  - versionName: projects/$PROJECT_ID/secrets/daily-ci-evals-db-password/versions/latest
     env: 'DB_PASSWORD'

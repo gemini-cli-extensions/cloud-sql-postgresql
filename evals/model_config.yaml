@@ -15,7 +15,7 @@
 gemini_cli_version: "@google/gemini-cli@0.26.0"
 generator: gemini_cli
 env:
-  GOOGLE_CLOUD_PROJECT: "omkar-playground"
+  GOOGLE_CLOUD_PROJECT: "ext-test-cloud-sql-postgres"
   GOOGLE_CLOUD_LOCATION: "us-central1"
   GOOGLE_GENAI_USE_VERTEXAI: "true"
   GEMINI_API_MODEL: "gemini-2.5-pro"
@@ -23,8 +23,8 @@ setup:
   extensions:
     "/workspace":
       settings:
-        CLOUD_SQL_POSTGRES_PROJECT: "omkar-playground"
-        CLOUD_SQL_POSTGRES_INSTANCE: "omkar-demo-postgres-1"
+        CLOUD_SQL_POSTGRES_PROJECT: "ext-test-cloud-sql-postgres"
+        CLOUD_SQL_POSTGRES_INSTANCE: "daily-ci-evals-db"
         CLOUD_SQL_POSTGRES_REGION: "us-central1"
         CLOUD_SQL_POSTGRES_DATABASE: "postgres"
         CLOUD_SQL_POSTGRES_USER: "postgres"
