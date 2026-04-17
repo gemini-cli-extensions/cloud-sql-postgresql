@@ -44,6 +44,7 @@ steps:
       - '--timeout=300'
       - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID,CLOUD_SQL_POSTGRES_INSTANCE=daily-ci-evals-db,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
       - '--set-secrets=CLOUD_SQL_POSTGRES_PASSWORD=daily-ci-evals-db-password:latest'
+      - '--service-account=evals-ci-runner@ext-test-cloud-sql-postgres.iam.gserviceaccount.com'
 
   # --- STEP 3: Fully Integrated Evaluation to Persist Results ---
   - name: 'us-central1-docker.pkg.dev/cloud-db-nl2sql/evalbench/eval_server:latest'
@@ -58,11 +59,8 @@ steps:
         export EVAL_GCP_PROJECT_ID=$PROJECT_ID
         export EVAL_GCP_PROJECT_REGION=us-central1
 
-        echo "Compiling protobuf files..."
-        python3 -m grpc_tools.protoc --proto_path=evalbench/evalproto --python_out=evalbench/evalproto --grpc_python_out=evalbench/evalproto evalbench/evalproto/*.proto
-
         echo "Patching client to use insecure credentials..."
-        # sed -i 's/"localhost:50051"/"127.0.0.1:50051"/g' evalbench/client/eval_client.py
+
         sed -i 's/grpc.alts_channel_credentials()/None/g' evalbench/client/eval_client.py
         sed -i 's/grpc.aio.secure_channel(address, channel_creds)/grpc.aio.insecure_channel(address)/g' evalbench/client/eval_client.py
 
@@ -77,12 +75,8 @@ steps:
         export CLOUD_RUN=True
         export PORT=50051
 
-
-
         echo "Starting Evaluation Server in background..."
-        # NEW: Added </dev/null in case it was waiting for input
-        python3 -u ./eval_server.py --localhost </dev/null &
-        SERVER_PID=$$!
+        python3 -u ./eval_server.py --localhost </dev/null 2>&1 | tee server.log &
         
         echo "Waiting for port 50051 to open..."
         python3 -c "
