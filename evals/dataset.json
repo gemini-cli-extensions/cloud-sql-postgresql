@@ -3,7 +3,7 @@
     {
       "id": "cloud-sql-debug-01",
       "starting_prompt": "I need to debug the database.",
-      "conversation_plan": "Ask the agent to list instances in project omkar-playground. Once listed, ask it to check the CPU usage of the first instance. Finally, ask if that usage is considered high.",
+      "conversation_plan": "Ask the agent to list instances in project ext-test-cloud-sql-postgres. Once listed, ask it to check the CPU usage of the first instance. Finally, ask if that usage is considered high.",
       "expected_trajectory": [
         "list_instances"
       ],

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-gemini_cli_version: "@google/gemini-cli@0.26.0"
+gemini_cli_version: "@google/gemini-cli@0.38.1"
 generator: gemini_cli
 env:
   GOOGLE_CLOUD_PROJECT: "ext-test-cloud-sql-postgres"
