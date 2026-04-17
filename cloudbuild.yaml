@@ -1,0 +1,107 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+
+  # --- STEP 1: Build and Push Docker Image ---
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/cloud-sql-postgresql:latest'
+      - '.'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/cloud-sql-postgresql:latest'
+
+  # --- STEP 2: Deploy to Cloud Run ---
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'cloud-sql-postgresql-server'
+      - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/toolbox-evals/cloud-sql-postgresql:latest'
+      - '--region=us-central1'
+      - '--no-allow-unauthenticated'
+      - '--port=8080'
+      - '--timeout=300'
+      - '--set-env-vars=CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID,CLOUD_SQL_POSTGRES_INSTANCE=daily-ci-evals-db,CLOUD_SQL_POSTGRES_REGION=us-central1,CLOUD_SQL_POSTGRES_DATABASE=postgres,CLOUD_SQL_POSTGRES_USER=postgres,CLOUD_SQL_POSTGRES_IP_TYPE=PUBLIC'
+      - '--set-secrets=CLOUD_SQL_POSTGRES_PASSWORD=daily-ci-evals-db-password:latest'
+      - '--service-account=evals-ci-runner@ext-test-cloud-sql-postgres.iam.gserviceaccount.com'
+
+  # --- STEP 3: Fully Integrated Evaluation to Persist Results ---
+  - name: 'us-central1-docker.pkg.dev/cloud-db-nl2sql/evalbench/eval_server:latest'
+    entrypoint: 'bash'
+    secretEnv: ['DB_PASSWORD']
+    args:
+      - '-c'
+      - |
+        set -e
+        cd /evalbench
+
+        export EVAL_GCP_PROJECT_ID=$PROJECT_ID
+        export EVAL_GCP_PROJECT_REGION=us-central1
+
+        echo "Patching client to use insecure credentials..."
+
+        sed -i 's/grpc.alts_channel_credentials()/None/g' evalbench/client/eval_client.py
+        sed -i 's/grpc.aio.secure_channel(address, channel_creds)/grpc.aio.insecure_channel(address)/g' evalbench/client/eval_client.py
+
+        echo "Patching server to listen on all IPv4 interfaces (0.0.0.0)..."
+        sed -i 's/"\[::\]:%s"/"0.0.0.0:%s"/g' /evalbench/evalbench/eval_server.py
+        echo "Checking bind success in server (writing to stderr)..."
+        sed -i 's|server.add_insecure_port("0.0.0.0:%s" % PORT)|bound_port = server.add_insecure_port("0.0.0.0:%s" % PORT)\n        import sys\n        sys.stderr.write(f"BOUND_PORT: {bound_port}\\n")\n        if bound_port == 0: raise RuntimeError("Failed to bind to port!")|' /evalbench/evalbench/eval_server.py
+
+        cd evalbench
+        export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+        export PYTHONPATH=./evalproto:.
+        export CLOUD_RUN=True
+        export PORT=50051
+
+        echo "Starting Evaluation Server in background..."
+        python3 -u ./eval_server.py --localhost </dev/null 2>&1 | tee server.log &
+        
+        echo "Waiting for port 50051 to open..."
+        python3 -c "
+        import socket
+        import time
+        for i in range(20):
+            try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s.connect(('127.0.0.1', 50051))
+                print('Port is open!')
+                exit(0)
+            except Exception as e:
+                print(f'Port not open yet: {e}')
+                time.sleep(1)
+        print('Port failed to open')
+        exit(1)
+        " || { echo "Server failed to bind port. Check logs above."; exit 1; }
+        
+        echo "Server is running. Launching Evaluation Client..."
+        cd /evalbench
+        export PYTHONPATH=./evalbench:./evalbench/evalproto
+        
+        python3 evalbench/client/eval_client.py --experiment=/workspace/evals/run_config.yaml --endpoint=local || { echo "Client failed! Server logs:"; cat /evalbench/evalbench/server.log; exit 1; }
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/$PROJECT_ID/secrets/daily-ci-evals-db-password/versions/latest
+    env: 'DB_PASSWORD'
