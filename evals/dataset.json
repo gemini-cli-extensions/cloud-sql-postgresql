@@ -1,14 +1,56 @@
 {
   "scenarios": [
     {
-      "id": "cloud-sql-debug-01",
-      "starting_prompt": "I need to debug the database.",
-      "conversation_plan": "Ask the agent to list instances in project ext-test-cloud-sql-postgres. Once listed, ask it to check the CPU usage of the first instance. Finally, ask if that usage is considered high.",
+      "id": "cloud-sql-list-instances",
+      "starting_prompt": "Show me all the Cloud SQL instances in this project.",
+      "conversation_plan": "Ask the agent to list the Cloud SQL instances in the current project.",
       "expected_trajectory": [
         "list_instances"
       ],
       "kind": "tool",
-      "max_turns": 15
+      "max_turns": 5
+    },
+    {
+      "id": "cloud-sql-data-explore",
+      "starting_prompt": "What schemas and tables do we have in this database? Please list them.",
+      "conversation_plan": "Ask the agent to list the schemas in the database. Then ask to list the tables.",
+      "expected_trajectory": [
+        "list_schemas",
+        "list_tables"
+      ],
+      "kind": "tool",
+      "max_turns": 5
+    },
+    {
+      "id": "cloud-sql-perf-troubleshoot",
+      "starting_prompt": "The database is running slow. Are there any active queries running for more than 10 seconds or any locks?",
+      "conversation_plan": "Ask the agent to check for active queries running longer than 10 seconds. Then ask to check for locks.",
+      "expected_trajectory": [
+        "list_active_queries",
+        "list_locks"
+      ],
+      "kind": "tool",
+      "max_turns": 5
+    },
+    {
+      "id": "cloud-sql-metrics-cpu",
+      "starting_prompt": "Can you show me the CPU utilization for instance 'daily-ci-evals-db' in project 'ext-test-cloud-sql-postgres' for the last 5 minutes?",
+      "conversation_plan": "Ask the agent to query the CPU utilization metric for the specified instance and project using PromQL.",
+      "expected_trajectory": [
+        "get_system_metrics"
+      ],
+      "kind": "tool",
+      "max_turns": 4
+    },
+    {
+      "id": "cloud-sql-unused-indexes",
+      "starting_prompt": "Are there any unused indexes in the database that we can clean up?",
+      "conversation_plan": "Ask the agent to list unused indexes in the database.",
+      "expected_trajectory": [
+        "list_indexes"
+      ],
+      "kind": "tool",
+      "max_turns": 4
     }
   ]
 }

@@ -21,7 +21,7 @@ env:
 setup:
   extensions:
     "/workspace":
-      settings: 
+      settings:
         CLOUD_SQL_POSTGRES_PROJECT: "ext-test-cloud-sql-postgres"
         CLOUD_SQL_POSTGRES_INSTANCE: "daily-ci-evals-db"
         CLOUD_SQL_POSTGRES_REGION: "us-central1"

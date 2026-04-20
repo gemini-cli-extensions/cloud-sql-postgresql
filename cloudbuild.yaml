@@ -49,7 +49,8 @@ steps:
   # --- STEP 3: Fully Integrated Evaluation to Persist Results ---
   - name: 'us-central1-docker.pkg.dev/cloud-db-nl2sql/evalbench/eval_server:latest'
     entrypoint: 'bash'
-    secretEnv: ['DB_PASSWORD']
+    # Decrypts the secret from Secret Manager into the DB_PASSWORD environment variable
+    secretEnv: ['DB_PASSWORD'] 
     args:
       - '-c'
       - |
@@ -58,6 +59,8 @@ steps:
 
         export EVAL_GCP_PROJECT_ID=$PROJECT_ID
         export EVAL_GCP_PROJECT_REGION=us-central1
+        # Maps the decrypted DB_PASSWORD to the exact variable expected by gemini_cli and extension skills
+        export CLOUD_SQL_POSTGRES_PASSWORD=$$DB_PASSWORD
 
         echo "Patching client to use insecure credentials..."
 
