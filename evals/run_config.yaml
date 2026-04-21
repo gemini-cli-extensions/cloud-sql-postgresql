@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+extension_id: cloud-sql-postgresql
+
 dataset_config: /workspace/evals/dataset.json
 dataset_format: gemini-cli-format
 
@@ -26,4 +28,5 @@ scorers:
     model_config: /workspace/evals/gemini_2.5_pro_model.yaml
 
 reporting:
-  bigquery: {}
+  bigquery:
+    gcp_project_id: cloud-db-nl2sql
