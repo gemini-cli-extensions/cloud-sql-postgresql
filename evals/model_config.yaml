@@ -20,12 +20,13 @@ env:
   GOOGLE_GENAI_USE_VERTEXAI: "true"
 setup:
   extensions:
-    "/workspace":
+    # Points to the symlink created in cloudbuild.yaml to match the extension ID
+    "/workspace/cloud-sql-postgresql":
       settings:
         CLOUD_SQL_POSTGRES_PROJECT: "ext-test-cloud-sql-postgres"
         CLOUD_SQL_POSTGRES_INSTANCE: "daily-ci-evals-db"
         CLOUD_SQL_POSTGRES_REGION: "us-central1"
         CLOUD_SQL_POSTGRES_DATABASE: "postgres"
         CLOUD_SQL_POSTGRES_USER: "postgres"
-        CLOUD_SQL_POSTGRES_PASSWORD: ${CLOUD_SQL_POSTGRES_PASSWORD}
+        CLOUD_SQL_POSTGRES_PASSWORD: '${CLOUD_SQL_POSTGRES_PASSWORD}'
         CLOUD_SQL_POSTGRES_IP_TYPE: "PUBLIC"

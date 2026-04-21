@@ -26,12 +26,18 @@ steps:
       - '-c'
       - |
         set -e
+        # Workaround for evalbench bug: settings are only applied if path basename matches extension ID
+        ln -s /workspace /workspace/cloud-sql-postgresql
         cd /evalbench
 
         export EVAL_GCP_PROJECT_ID=$PROJECT_ID
         export EVAL_GCP_PROJECT_REGION=us-central1
         # Maps the decrypted DB_PASSWORD to the exact variable expected by gemini_cli and extension skills
         export CLOUD_SQL_POSTGRES_PASSWORD=$$DB_PASSWORD
+
+        # Substitute environment variables in model_config.yaml
+        python3 /workspace/evals/substitute_env.py
+
         export EVALBENCH_INSECURE=True
         export EVALBENCH_HOST=0.0.0.0
         cd evalbench
@@ -42,28 +48,14 @@ steps:
 
         echo "Starting Evaluation Server in background..."
         python3 -u ./eval_server.py --localhost </dev/null 2>&1 | tee server.log &
-        
+
         echo "Waiting for port 50051 to open..."
-        python3 -c "
-        import socket
-        import time
-        for i in range(20):
-            try:
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                s.connect(('127.0.0.1', 50051))
-                print('Port is open!')
-                exit(0)
-            except Exception as e:
-                print(f'Port not open yet: {e}')
-                time.sleep(1)
-        print('Port failed to open')
-        exit(1)
-        " || { echo "Server failed to bind port. Check logs above."; exit 1; }
-        
+        python3 /workspace/evals/wait_for_port.py || { echo "Server failed to bind port."; exit 1; }
+
         echo "Server is running. Launching Evaluation Client..."
         cd /evalbench
         export PYTHONPATH=./evalbench:./evalbench/evalproto
-        
+
         python3 evalbench/client/eval_client.py --experiment=/workspace/evals/run_config.yaml --endpoint=local || { echo "Client failed! Server logs:"; cat /evalbench/evalbench/server.log; exit 1; }
 
 availableSecrets:
