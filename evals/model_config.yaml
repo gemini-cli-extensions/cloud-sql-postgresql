@@ -29,11 +29,3 @@ setup:
         CLOUD_SQL_POSTGRES_USER: "postgres"
         CLOUD_SQL_POSTGRES_PASSWORD: ${CLOUD_SQL_POSTGRES_PASSWORD}
         CLOUD_SQL_POSTGRES_IP_TYPE: "PUBLIC"
-
-  # mcp_servers:
-  #   "cloud-sql-postgresql":
-  #     httpUrl: "CLOUD_RUN_URL_PLACEHOLDER"
-  #     authProviderType: google_credentials
-  #     oauth:
-  #       scopes:
-  #       - https://www.googleapis.com/auth/cloud-platform
