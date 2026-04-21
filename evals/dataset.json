@@ -1,55 +1,73 @@
 {
   "scenarios": [
     {
-      "id": "cloud-sql-list-instances",
-      "starting_prompt": "Show me all the Cloud SQL instances in this project.",
-      "conversation_plan": "Ask the agent to list the Cloud SQL instances in the current project.",
+      "id": "cloud-sql-debug-instance",
+      "starting_prompt": "Check on my databases in project ext-test-cloud-sql-postgres.",
+      "conversation_plan": "Ask the agent to list all Cloud SQL instances in the project. Once all instances are listed, if 'daily-ci-evals-db' exists, get its details and validate it is RUNNABLE.",
       "expected_trajectory": [
-        "list_instances"
+        "list_instances",
+        "get_instance"
       ],
-      "kind": "tool",
-      "max_turns": 5
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
+      },
+      "kind": "tools",
+      "max_turns": 4
     },
     {
-      "id": "cloud-sql-data-explore",
-      "starting_prompt": "What schemas and tables do we have in this database? Please list them.",
-      "conversation_plan": "Ask the agent to list the schemas in the database. Then ask to list the tables.",
+      "id": "cloud-sql-schema-tables-explore",
+      "starting_prompt": "I want to understand the structure of my database.",
+      "conversation_plan": "First, ask the agent to list the schemas in the database. After the agent provides the schemas, ask it to list the tables specifically for the 'public' schema.",
       "expected_trajectory": [
         "list_schemas",
         "list_tables"
       ],
-      "kind": "tool",
-      "max_turns": 5
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
+      },
+      "kind": "tools",
+      "max_turns": 6
     },
     {
-      "id": "cloud-sql-perf-troubleshoot",
-      "starting_prompt": "The database is running slow. Are there any active queries running for more than 10 seconds or any locks?",
-      "conversation_plan": "Ask the agent to check for active queries running longer than 10 seconds. Then ask to check for locks.",
+      "id": "cloud-sql-performance-check",
+      "starting_prompt": "Our database performance seems degraded.",
+      "conversation_plan": "Start by asking the agent to check for any active queries that are running for a long time (e.g., more than 10 seconds). After the agent responds, follow up by asking if there are any database locks that might be causing issues.",
       "expected_trajectory": [
         "list_active_queries",
         "list_locks"
       ],
-      "kind": "tool",
-      "max_turns": 5
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
+      },
+      "kind": "tools",
+      "max_turns": 6
     },
     {
-      "id": "cloud-sql-metrics-cpu",
-      "starting_prompt": "Can you show me the CPU utilization for instance 'daily-ci-evals-db' in project 'ext-test-cloud-sql-postgres' for the last 5 minutes?",
-      "conversation_plan": "Ask the agent to query the CPU utilization metric for the specified instance and project using PromQL.",
+      "id": "cloud-sql-metrics-cpu-investigation",
+      "starting_prompt": "I'm worried about the database load for daily-ci-evals-db.",
+      "conversation_plan": "First, ask the agent to check the CPU utilization for the instance 'daily-ci-evals-db' for the last 5 minutes. After the agent provides the CPU data, ask it to check the overall database stats to see connection counts or transaction volume.",
       "expected_trajectory": [
-        "get_system_metrics"
+        "get_system_metrics",
+        "list_database_stats"
       ],
-      "kind": "tool",
-      "max_turns": 4
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
+      },
+      "kind": "tools",
+      "max_turns": 6
     },
     {
-      "id": "cloud-sql-unused-indexes",
-      "starting_prompt": "Are there any unused indexes in the database that we can clean up?",
-      "conversation_plan": "Ask the agent to list unused indexes in the database.",
+      "id": "cloud-sql-instance-not-found",
+      "starting_prompt": "Get details for the instance 'missing-db-123'.",
+      "conversation_plan": "The user asks for details of an instance named 'missing-db-123' that doesn't exist. The agent should try to get it, fail, and inform the user. The user will then ask to list instances to find the correct name.",
       "expected_trajectory": [
-        "list_indexes"
+        "get_instance",
+        "list_instances"
       ],
-      "kind": "tool",
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
+      },
+      "kind": "tools",
       "max_turns": 4
     }
   ]
