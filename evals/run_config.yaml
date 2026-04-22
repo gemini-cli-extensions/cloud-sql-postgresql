@@ -23,15 +23,10 @@ model_config: /workspace/evals/model_config.yaml
 simulated_user_model_config: /workspace/evals/gemini_2.5_pro_model.yaml
 
 scorers:
-  # Structural
-  trajectory_matcher: {}
-  
   # Qualitative (Judge-based)
   goal_completion:
     model_config: /workspace/evals/gemini_2.5_pro_model.yaml
   behavioral_metrics:
-    model_config: /workspace/evals/gemini_2.5_pro_model.yaml
-  parameter_analysis:
     model_config: /workspace/evals/gemini_2.5_pro_model.yaml
 
   # Performance

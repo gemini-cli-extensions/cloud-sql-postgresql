@@ -32,6 +32,14 @@ steps:
 
         export EVAL_GCP_PROJECT_ID=$PROJECT_ID
         export EVAL_GCP_PROJECT_REGION=us-central1
+        export GOOGLE_CLOUD_PROJECT=$PROJECT_ID
+        export CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID
+        export CLOUD_SQL_POSTGRES_INSTANCE=$_CLOUD_SQL_INSTANCE
+        export CLOUD_SQL_POSTGRES_REGION=$_CLOUD_SQL_REGION
+        export CLOUD_SQL_POSTGRES_DATABASE=$_CLOUD_SQL_DATABASE
+        export CLOUD_SQL_POSTGRES_USER=$_CLOUD_SQL_USER
+        export CLOUD_SQL_POSTGRES_IP_TYPE=$_CLOUD_SQL_IP_TYPE
+
         # Maps the decrypted DB_PASSWORD to the exact variable expected by gemini_cli and extension skills
         export CLOUD_SQL_POSTGRES_PASSWORD=$$DB_PASSWORD
 

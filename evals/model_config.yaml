@@ -15,7 +15,8 @@
 gemini_cli_version: "@google/gemini-cli@0.38.1"
 generator: gemini_cli
 env:
-  GOOGLE_CLOUD_PROJECT: "ext-test-cloud-sql-postgres"
+  GOOGLE_CLOUD_PROJECT: "${GOOGLE_CLOUD_PROJECT}"
+
   GOOGLE_CLOUD_LOCATION: "global"
   GOOGLE_GENAI_USE_VERTEXAI: "true"
 setup:
@@ -23,10 +24,10 @@ setup:
     # Points to the symlink created in cloudbuild.yaml to match the extension ID
     "/workspace/cloud-sql-postgresql":
       settings:
-        CLOUD_SQL_POSTGRES_PROJECT: "ext-test-cloud-sql-postgres"
-        CLOUD_SQL_POSTGRES_INSTANCE: "daily-ci-evals-db"
-        CLOUD_SQL_POSTGRES_REGION: "us-central1"
-        CLOUD_SQL_POSTGRES_DATABASE: "postgres"
-        CLOUD_SQL_POSTGRES_USER: "postgres"
+        CLOUD_SQL_POSTGRES_PROJECT: "${CLOUD_SQL_POSTGRES_PROJECT}"
+        CLOUD_SQL_POSTGRES_INSTANCE: "${CLOUD_SQL_POSTGRES_INSTANCE}"
+        CLOUD_SQL_POSTGRES_REGION: "${CLOUD_SQL_POSTGRES_REGION}"
+        CLOUD_SQL_POSTGRES_DATABASE: "${CLOUD_SQL_POSTGRES_DATABASE}"
+        CLOUD_SQL_POSTGRES_USER: "${CLOUD_SQL_POSTGRES_USER}"
         CLOUD_SQL_POSTGRES_PASSWORD: '${CLOUD_SQL_POSTGRES_PASSWORD}'
-        CLOUD_SQL_POSTGRES_IP_TYPE: "PUBLIC"
+        CLOUD_SQL_POSTGRES_IP_TYPE: "${CLOUD_SQL_POSTGRES_IP_TYPE}"
