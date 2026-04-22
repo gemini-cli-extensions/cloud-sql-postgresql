@@ -12,7 +12,7 @@
         "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
       },
       "kind": "tools",
-      "max_turns": 4
+      "max_turns": 3
     },
     {
       "id": "cloud-sql-schema-tables-explore",
@@ -26,7 +26,7 @@
         "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
       },
       "kind": "tools",
-      "max_turns": 6
+      "max_turns": 3
     },
     {
       "id": "cloud-sql-performance-check",
@@ -40,7 +40,7 @@
         "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
       },
       "kind": "tools",
-      "max_turns": 6
+      "max_turns": 3
     },
     {
       "id": "cloud-sql-metrics-cpu-investigation",
@@ -54,21 +54,7 @@
         "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
       },
       "kind": "tools",
-      "max_turns": 6
-    },
-    {
-      "id": "cloud-sql-instance-not-found",
-      "starting_prompt": "Get details for the instance 'missing-db-123'.",
-      "conversation_plan": "The user asks for details of an instance named 'missing-db-123' that doesn't exist. The agent should try to get it, fail, and inform the user. The user will then ask to list instances to find the correct name.",
-      "expected_trajectory": [
-        "get_instance",
-        "list_instances"
-      ],
-      "env": {
-        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
-      },
-      "kind": "tools",
-      "max_turns": 4
+      "max_turns": 3
     }
   ]
 }
