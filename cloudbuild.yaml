@@ -46,25 +46,13 @@ steps:
         # Substitute environment variables in model_config.yaml
         python3 /workspace/evals/substitute_env.py
 
-        export EVALBENCH_INSECURE=True
-        export EVALBENCH_HOST=0.0.0.0
-        cd evalbench
-        export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
-        export PYTHONPATH=./evalproto:.
-        export CLOUD_RUN=True
-        export PORT=50051
-
-        echo "Starting Evaluation Server in background..."
-        python3 -u ./eval_server.py --localhost </dev/null 2>&1 | tee server.log &
-
-        echo "Waiting for port 50051 to open..."
-        python3 /workspace/evals/wait_for_port.py || { echo "Server failed to bind port."; exit 1; }
-
-        echo "Server is running. Launching Evaluation Client..."
         cd /evalbench
         export PYTHONPATH=./evalbench:./evalbench/evalproto
+        export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 
-        python3 evalbench/client/eval_client.py --experiment=/workspace/evals/run_config.yaml --endpoint=local || { echo "Client failed! Server logs:"; cat /evalbench/evalbench/server.log; exit 1; }
+        echo "Launching Standalone Evaluation..."
+        python3 evalbench/evalbench.py --experiment_config=/workspace/evals/run_config.yaml
+
 
 availableSecrets:
   secretManager:
