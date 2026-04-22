@@ -16,7 +16,6 @@ gemini_cli_version: "@google/gemini-cli@0.38.1"
 generator: gemini_cli
 env:
   GOOGLE_CLOUD_PROJECT: "${GOOGLE_CLOUD_PROJECT}"
-
   GOOGLE_CLOUD_LOCATION: "global"
   GOOGLE_GENAI_USE_VERTEXAI: "true"
 setup:
