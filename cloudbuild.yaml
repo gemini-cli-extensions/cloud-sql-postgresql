@@ -26,17 +26,18 @@ steps:
       - '-c'
       - |
         set -e
-        
-        # Only run on release branches
-        if [[ "$_HEAD_BRANCH" != release-please-* ]]; then
-          echo "Not a release-please branch. Exiting."
-          exit 0
-        fi
-        echo "Release branch detected. Proceeding with Evalbench..."
+
+        # Fetch PR data using curl approach
+        PR_DATA=$(curl -s -H "Authorization: token $$GITHUB_TOKEN" \
+          "https://api.github.com/repos/$REPO_FULL_NAME/pulls/$_PR_NUMBER")
+
+        # Extract labels and title from PR data
+        PR_LABELS=$(echo "$PR_DATA" | jq -r '.labels[].name' | paste -sd ',')
+        PR_TITLE=$(echo "$PR_DATA" | jq -r '.title')
 
         # Determine Release Version
-        if [[ '$_PR_LABELS' =~ 'autorelease: triggered' ]]; then
-          if [[ '$_PR_TITLE' =~ release\ ([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+        if [[ '$PR_LABELS' =~ 'autorelease: triggered' ]]; then
+          if [[ '$PR_TITLE' =~ release\ ([0-9]+\.[0-9]+\.[0-9]+) ]]; then
             export RELEASE_VERSION="$${BASH_REMATCH[1]}"
           else
             export RELEASE_VERSION="unknown"
@@ -77,3 +78,5 @@ availableSecrets:
   secretManager:
   - versionName: projects/$PROJECT_ID/secrets/daily-ci-evals-db-password/versions/latest
     env: 'DB_PASSWORD'
+  - versionName: projects/$PROJECT_ID/secrets/GITHUB_TOKEN/versions/latest
+    env: 'GITHUB_TOKEN'
