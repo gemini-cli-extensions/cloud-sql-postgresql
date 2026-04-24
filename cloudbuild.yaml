@@ -21,11 +21,18 @@ steps:
   - name: 'us-central1-docker.pkg.dev/cloud-db-nl2sql/evalbench/eval_server:latest'
     entrypoint: 'bash'
     # Decrypts the secret from Secret Manager into the DB_PASSWORD environment variable
-    secretEnv: ['DB_PASSWORD'] 
+    secretEnv: ['DB_PASSWORD', 'GITHUB_TOKEN']
     args:
       - '-c'
       - |
         set -e
+
+        # Only run on release branches
+        if [[ "$_HEAD_BRANCH" != release-please-* ]]; then
+          echo "Not a release-please branch. Exiting."
+          exit 0
+        fi
+        echo "Release branch detected. Fetching PR data from GitHub API..."
 
         # Fetch PR data using curl approach
         PR_DATA=$(curl -s -H "Authorization: token $$GITHUB_TOKEN" \
