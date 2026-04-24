@@ -38,13 +38,13 @@ steps:
         PR_DATA=$(curl -s -H "Authorization: token $$GITHUB_TOKEN" \
           "https://api.github.com/repos/$REPO_FULL_NAME/pulls/$_PR_NUMBER")
 
-        # Extract labels and title from PR data
-        PR_LABELS=$(echo "$PR_DATA" | jq -r '.labels[].name' | paste -sd ',')
-        PR_TITLE=$(echo "$PR_DATA" | jq -r '.title')
+        # Extract labels and title from PR data (Use $$ to escape bash variables)
+        PR_LABELS=$(echo "$$PR_DATA" | jq -r '.labels[].name' | paste -sd ',')
+        PR_TITLE=$(echo "$$PR_DATA" | jq -r '.title')
 
-        # Determine Release Version
-        if [[ '$PR_LABELS' =~ 'autorelease: triggered' ]]; then
-          if [[ '$PR_TITLE' =~ release\ ([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+        # Determine Release Version (Use double quotes and $$ for bash variables)
+        if [[ "$$PR_LABELS" == *"autorelease: triggered"* ]]; then
+          if [[ "$$PR_TITLE" =~ release\ ([0-9]+\.[0-9]+\.[0-9]+) ]]; then
             export RELEASE_VERSION="$${BASH_REMATCH[1]}"
           else
             export RELEASE_VERSION="unknown"
