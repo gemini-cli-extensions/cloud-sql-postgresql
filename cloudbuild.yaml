@@ -34,12 +34,20 @@ steps:
         fi
         echo "Release branch detected. Fetching PR data from GitHub API..."
 
-        # Fetch PR data using curl approach
-        PR_DATA=$(curl -s -H "Authorization: token $$GITHUB_TOKEN" \
+        # Fetch PR data and status code
+        HTTP_STATUS=$(curl -s -o pr_data.json -w "%{http_code}" -H "Authorization: token $$GITHUB_TOKEN" \
           "https://api.github.com/repos/$REPO_FULL_NAME/pulls/$_PR_NUMBER")
 
+        if [ "$$HTTP_STATUS" -ne 200 ]; then
+          echo "Error fetching PR data: HTTP $$HTTP_STATUS"
+          cat pr_data.json
+          exit 1
+        fi
+
+        PR_DATA=$(cat pr_data.json)
+
         # Extract labels and title from PR data (Use $$ to escape bash variables)
-        PR_LABELS=$(echo "$$PR_DATA" | jq -r '.labels[].name' | paste -sd ',')
+        PR_LABELS=$(echo "$$PR_DATA" | jq -r '[.labels[].name] | join(",")')
         PR_TITLE=$(echo "$$PR_DATA" | jq -r '.title')
 
         # Determine Release Version (Use double quotes and $$ for bash variables)
