@@ -26,12 +26,24 @@ steps:
       - '-c'
       - |
         set -e
+
+        # Determine Release Version
+        if [[ '$_PR_LABELS' =~ 'autorelease: triggered' ]]; then
+          if [[ '$_PR_TITLE' =~ release\ ([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+            export RELEASE_VERSION="$${BASH_REMATCH[1]}"
+          else
+            export RELEASE_VERSION="unknown"
+          fi
+        else
+          export RELEASE_VERSION="unknown"
+        fi
+
         # Workaround for evalbench bug: settings are only applied if path basename matches extension ID
         ln -s /workspace /workspace/cloud-sql-postgresql
         cd /evalbench
 
         export EVAL_GCP_PROJECT_ID=$PROJECT_ID
-        export EVAL_GCP_PROJECT_REGION=us-central1
+        export EVAL_GCP_PROJECT_REGION=$_CLOUD_SQL_REGION
         export GOOGLE_CLOUD_PROJECT=$PROJECT_ID
         export CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID
         export CLOUD_SQL_POSTGRES_INSTANCE=$_CLOUD_SQL_INSTANCE

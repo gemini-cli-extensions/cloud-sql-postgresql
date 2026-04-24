@@ -13,6 +13,7 @@
 # limitations under the License.
 
 extension_id: cloud-sql-postgresql
+release_version: ${RELEASE_VERSION}
 
 dataset_config: /workspace/evals/dataset.json
 dataset_format: gemini-cli-format
