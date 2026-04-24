@@ -20,7 +20,6 @@ dataset_format: gemini-cli-format
 
 orchestrator: geminicli
 model_config: /workspace/evals/model_config.yaml
-# You can reference default simulated user models provided by the evalbench repo:
 simulated_user_model_config: /workspace/evals/gemini_2.5_pro_model.yaml
 
 scorers:
