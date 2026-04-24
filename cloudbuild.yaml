@@ -26,6 +26,13 @@ steps:
       - '-c'
       - |
         set -e
+        
+        # Only run on release branches
+        if [[ "$_HEAD_BRANCH" != release-please-* ]]; then
+          echo "Not a release-please branch. Exiting."
+          exit 0
+        fi
+        echo "Release branch detected. Proceeding with Evalbench..."
 
         # Determine Release Version
         if [[ '$_PR_LABELS' =~ 'autorelease: triggered' ]]; then
