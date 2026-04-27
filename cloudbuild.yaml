@@ -78,6 +78,9 @@ steps:
         # Maps the decrypted DB_PASSWORD to the exact variable expected by gemini_cli and extension skills
         export CLOUD_SQL_POSTGRES_PASSWORD=$$DB_PASSWORD
 
+        # Combine CI metadata with run config
+        cat /workspace/evals/ci_metadata.yaml >> /workspace/evals/run_config.yaml
+
         # Substitute environment variables in model_config.yaml
         python3 /workspace/evals/substitute_env.py
 
