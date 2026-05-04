@@ -1,0 +1,102 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+steps:
+  - id: "detect-changes"
+    name: "gcr.io/cloud-builders/git"
+    waitFor: ["-"]
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        git fetch --unshallow || true
+        git fetch origin $_BASE_BRANCH > /dev/null 2>&1
+        git diff --name-only origin/$_BASE_BRANCH...HEAD > /workspace/changed_files.txt
+
+  - id: "generate-skills"
+    name: "node:20"
+    waitFor: ["detect-changes"]
+    entrypoint: "bash"
+    env:
+      - "CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID"
+      - "CLOUD_SQL_POSTGRES_INSTANCE=$_CLOUD_SQL_POSTGRES_INSTANCE"
+      - "CLOUD_SQL_POSTGRES_DATABASE=$_DATABASE_NAME"
+      - "CLOUD_SQL_POSTGRES_REGION=$_REGION"
+    secretEnv:
+      ["CLOUD_SQL_POSTGRES_USER", "CLOUD_SQL_POSTGRES_PASSWORD", "GITHUB_TOKEN"]
+    args:
+      - -c
+      - |
+        PATTERN="^toolbox_version.txt$"
+
+        if ! grep -qE "$$PATTERN" /workspace/changed_files.txt; then
+          echo "No relevant changes for toolbox_version.txt. Skipping generation."
+          exit 0
+        fi
+
+        VERSION=$(cat toolbox_version.txt | tr -d '\n')
+        echo "Detected toolbox version: $$VERSION"
+
+        echo "Generating skills via npx..."
+        npx @toolbox-sdk/server@$${VERSION} --prebuilt cloud-sql-postgres skills-generate \
+          --name "cloud-sql-postgres-lifecycle" \
+          --description "Use these skills when you need to manage the lifecycle of your instances, including performing backups and restores, checking major version upgrade compatibility, and monitoring overall instance status." \
+          --toolset=lifecycle \
+          --toolbox_version=$${VERSION} \
+          --license-header "// Copyright 2026 Google LLC
+        //
+        // Licensed under the Apache License, Version 2.0 (the \"License\");
+        // you may not use this file except in compliance with the License.
+        // You may obtain a copy of the License at
+        //
+        //      http://www.apache.org/licenses/LICENSE-2.0
+        //
+        // Unless required by applicable law or agreed to in writing, software
+        // distributed under the License is distributed on an \"AS IS\" BASIS,
+        // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        // See the License for the specific language governing permissions and
+        // limitations under the License." \
+          --additional-notes="Note: The scripts automatically load the environment variables from various .env files. Do not ask the user to set vars unless skill executions fails due to env var absence."
+
+        if [ -z "$(git status --porcelain)" ]; then
+          echo "No new files generated. Exiting."
+          exit 0
+        fi
+
+        git config --global user.email "cloudbuild@google.com"
+        git config --global user.name "Cloud Build Bot"
+        git remote set-url origin https://x-access-token:$$GITHUB_TOKEN@github.com/gemini-cli-extensions/cloud-sql-postgresql.git
+        git add .
+        git commit -m "chore: auto-generate lifecycle skills based on toolbox_version.txt update"
+        git push origin HEAD:$_HEAD_BRANCH
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_ID/secrets/cloud_sql_pg_user/versions/latest
+      env: CLOUD_SQL_POSTGRES_USER
+    - versionName: projects/$PROJECT_ID/secrets/cloud_sql_pg_pass/versions/latest
+      env: CLOUD_SQL_POSTGRES_PASSWORD
+    - versionName: projects/$PROJECT_ID/secrets/github_token/versions/latest
+      env: GITHUB_TOKEN
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  automapSubstitutions: true
+  substitutionOption: "ALLOW_LOOSE"
+  dynamicSubstitutions: true
+
+substitutions:
+  _DATABASE_NAME: "test_database"
+  _REGION: "us-central1"
+  _CLOUD_SQL_POSTGRES_INSTANCE: "cloud-sql-pg-testing"
