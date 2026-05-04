@@ -55,9 +55,9 @@ steps:
 
 availableSecrets:
   secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/CLOUD_SQL_PG_USER/versions/latest
+    - versionName: projects/$PROJECT_ID/secrets/cloud_sql_pg_user/versions/latest
       env: 'CLOUD_SQL_POSTGRES_USER'
-    - versionName: projects/$PROJECT_ID/secrets/CLOUD_SQL_PG_PASS/versions/latest
+    - versionName: projects/$PROJECT_ID/secrets/cloud_sql_pg_pass/versions/latest
       env: 'CLOUD_SQL_POSTGRES_PASSWORD'
     - versionName: projects/$PROJECT_ID/secrets/GITHUB_PAT/versions/latest
       env: 'GITHUB_TOKEN'
