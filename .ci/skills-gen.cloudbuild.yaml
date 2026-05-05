@@ -58,7 +58,7 @@ steps:
         # Authenticate and push
         git remote set-url origin https://x-access-token:$$GITHUB_TOKEN@github.com/gemini-cli-extensions/cloud-sql-postgresql.git
         git add .
-        git commit -m "chore: auto-generate lifecycle skills based on toolbox_version.txt update"
+        git commit -m "chore: auto-generate skills based on toolbox_version.txt update"
         git push origin HEAD:$_HEAD_BRANCH
 
 availableSecrets:
