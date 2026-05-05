@@ -31,9 +31,8 @@ steps:
         export VERSION=$$(cat toolbox_version.txt | tr -d '\n')
         echo "Detected toolbox version: $$VERSION"
         
-        # Ensure the script is executable, then run it
-        chmod +x ./scripts/generate_skills.sh
-        ./scripts/generate_skills.sh
+        chmod +x ./.ci/scripts/generate_skills.sh
+        ./.ci/scripts/generate_skills.sh
 
   - id: "commit-and-push"
     name: "gcr.io/cloud-builders/git"
