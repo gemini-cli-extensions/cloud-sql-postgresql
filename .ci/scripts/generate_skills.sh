@@ -26,12 +26,14 @@ LICENSE_HEADER="// Copyright 2026 Google LLC
 
 ADDITIONAL_NOTES="Note: The scripts automatically load the environment variables from various .env files. Do not ask the user to set vars unless skill executions fails due to env var absence."
 
-# Base Command Function
+# Execution Logic
 generate_skill() {
-  local SKILL_NAME="$1"
-  local SKILL_DESC="$2"
-  local TOOLSET="$3"
+  local TOOLSET="$2"
+  local SKILL_DESC="$3"
+  local SKILL_NAME="cloud-sql-postgres-$TOOLSET"
 
+  echo "Generating skill: $SKILL_NAME (toolset: $TOOLSET)..."
+  
   npx "@toolbox-sdk/server@${VERSION}" --prebuilt cloud-sql-postgres skills-generate \
     --name "$SKILL_NAME" \
     --description "$SKILL_DESC" \
@@ -40,44 +42,33 @@ generate_skill() {
     --additional-notes="$ADDITIONAL_NOTES"
 }
 
-# 1. Admin
-generate_skill "cloud-sql-postgres-admin" \
-  "Use these skills when you need to provision new Cloud SQL instances, create databases and users, clone existing environments, and monitor the progress of long-running operations." \
-  "admin"
+# register_skill <toolset> <description>
+register_skill() {
+  generate_skill "$1" "$2"
+}
 
-# 2. Lifecycle
-generate_skill "cloud-sql-postgres-lifecycle" \
-  "Use these skills when you need to manage the lifecycle of your instances, including performing backups and restores, checking major version upgrade compatibility, and monitoring overall instance status." \
-  "lifecycle"
+register_skill "admin" \
+  "Use these skills when you need to provision new Cloud SQL instances, create databases and users, clone existing environments, and monitor the progress of long-running operations."
 
-# 3. Data
-generate_skill "cloud-sql-postgres-data" \
-  "Use these skills when you need to explore the database structure, discover schema objects like views or stored procedures, and execute custom SQL queries to interact with your data." \
-  "data"
+register_skill "lifecycle" \
+  "Use these skills when you need to manage the lifecycle of your instances, including performing backups and restores, checking major version upgrade compatibility, and monitoring overall instance status."
 
-# 4. Monitor
-generate_skill "cloud-sql-postgres-monitor" \
-  "Use these skills when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics." \
-  "monitor"
+register_skill "data" \
+  "Use these skills when you need to explore the database structure, discover schema objects like views or stored procedures, and execute custom SQL queries to interact with your data."
 
-# 5. Health
-generate_skill "cloud-sql-postgres-health" \
-  "Use these skills when you need to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum." \
-  "monitor"
+register_skill "monitor" \
+  "Use these skills when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics."
 
-# 6. View Config
-generate_skill "cloud-sql-postgres-view-config" \
-  "Use these skills when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters." \
-  "view-config"
+register_skill "health" \
+  "Use these skills when you need to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum."
 
-# 7. Replication
-generate_skill "cloud-sql-postgres-replication" \
-  "Use these skills when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity." \
-  "replication"
+register_skill "view-config"  \
+  "Use these skills when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters."
 
-# 8. Vector Assist
-generate_skill "cloud-sql-postgres-vectorassist" \
-  "Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements" \
-  "vectorassist"
+register_skill "replication" \
+  "Use these skills when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity."
+
+register_skill "vectorassist" \
+  "Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements"
 
 echo "All skills generated successfully!"
