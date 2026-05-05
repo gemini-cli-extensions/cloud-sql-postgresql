@@ -57,7 +57,7 @@ steps:
     waitFor: ["generate-skills"]
     entrypoint: "bash"
     volumes:
-      - name: "ssh-keys" # This mounts the keys generated in Step 1
+      - name: "ssh-keys"
         path: /root/.ssh
     args:
       - -c
@@ -73,7 +73,6 @@ steps:
         git config user.name "release-please[bot]"
         git config user.email "55107282+release-please[bot]@users.noreply.github.com"
 
-        # We can now just push natively using the SSH URL!
         git remote set-url origin git@github.com:gemini-cli-extensions/cloud-sql-postgresql.git
         git add .
         git commit -m "chore: auto-generate skills based on toolbox_version.txt update"
