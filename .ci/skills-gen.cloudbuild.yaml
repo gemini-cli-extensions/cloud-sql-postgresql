@@ -22,49 +22,42 @@ steps:
       - "CLOUD_SQL_POSTGRES_DATABASE=$_DATABASE_NAME"
       - "CLOUD_SQL_POSTGRES_REGION=$_REGION"
     secretEnv:
-      [
-        "CLOUD_SQL_POSTGRES_USER",
-        "CLOUD_SQL_POSTGRES_PASSWORD",
-        "GITHUB_TOKEN"
-      ]
+      - "CLOUD_SQL_POSTGRES_USER"
+      - "CLOUD_SQL_POSTGRES_PASSWORD"
+    args:
+      - -c
+      - |
+        # Read the version and export it so the script can use it
+        export VERSION=$$(cat toolbox_version.txt | tr -d '\n')
+        echo "Detected toolbox version: $$VERSION"
+        
+        # Ensure the script is executable, then run it
+        chmod +x ./scripts/generate_skills.sh
+        ./scripts/generate_skills.sh
+
+  - id: "commit-and-push"
+    name: "gcr.io/cloud-builders/git"
+    waitFor: ["generate-skills"]
+    entrypoint: "bash"
+    secretEnv:
+      - "GITHUB_TOKEN"
     args:
       - -c
       - |
         git config --global --add safe.directory '*'
-
-        VERSION=$$(cat toolbox_version.txt | tr -d '\n')
-        echo "Detected toolbox version: $$VERSION"
-
-        echo "Generating skills via npx..."
-        npx @toolbox-sdk/server@$$VERSION --prebuilt cloud-sql-postgres skills-generate \
-          --name "cloud-sql-postgres-lifecycle" \
-          --description "Use these skills when you need to manage the lifecycle of your instances, including performing backups and restores, checking major version upgrade compatibility, and monitoring overall instance status." \
-          --toolset=lifecycle \
-          --toolbox_version=$$VERSION \
-          --license-header "// Copyright 2026 Google LLC
-        //
-        // Licensed under the Apache License, Version 2.0 (the \"License\");
-        // you may not use this file except in compliance with the License.
-        // You may obtain a copy of the License at
-        //
-        //      http://www.apache.org/licenses/LICENSE-2.0
-        //
-        // Unless required by applicable law or agreed to in writing, software
-        // distributed under the License is distributed on an \"AS IS\" BASIS,
-        // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-        // See the License for the specific language governing permissions and
-        // limitations under the License." \
-          --additional-notes="Note: The scripts automatically load the environment variables from various .env files. Do not ask the user to set vars unless skill executions fails due to env var absence."
-
+        
+        # Check if the script actually created/changed any files
         if [ -z "$$(git status --porcelain)" ]; then
-          echo "No new files generated. Exiting."
+          echo "No new files generated. Exiting without committing."
           exit 0
         fi
 
+        echo "Changes detected. Preparing to commit..."
         git config --global user.email "cloudbuild@google.com"
         git config --global user.name "Cloud Build Bot"
-        git remote set-url origin https://x-access-token:$$GITHUB_TOKEN@github.com/gemini-cli-extensions/cloud-sql-postgresql.git
         
+        # Authenticate and push
+        git remote set-url origin https://x-access-token:$$GITHUB_TOKEN@github.com/gemini-cli-extensions/cloud-sql-postgresql.git
         git add .
         git commit -m "chore: auto-generate lifecycle skills based on toolbox_version.txt update"
         git push origin HEAD:$_HEAD_BRANCH
