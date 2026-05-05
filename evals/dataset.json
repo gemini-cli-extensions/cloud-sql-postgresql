@@ -2,14 +2,14 @@
   "scenarios": [
     {
       "id": "cloud-sql-debug-instance",
-      "starting_prompt": "Check on my databases in project ext-test-cloud-sql-postgres.",
-      "conversation_plan": "Ask the agent to list all Cloud SQL instances in the project. Once all instances are listed, if 'daily-ci-evals-db' exists, get its details and validate it is RUNNABLE.",
+      "starting_prompt": "Check on my databases in project ${GOOGLE_CLOUD_PROJECT}.",
+      "conversation_plan": "Ask the agent to list all Cloud SQL instances in the project. Once all instances are listed, if '${CLOUD_SQL_POSTGRES_INSTANCE}' exists, get its details and validate it is RUNNABLE.",
       "expected_trajectory": [
         "list_instances",
         "get_instance"
       ],
       "env": {
-        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
+        "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
       },
       "kind": "tools",
       "max_turns": 3
@@ -23,7 +23,7 @@
         "list_tables"
       ],
       "env": {
-        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
+        "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
       },
       "kind": "tools",
       "max_turns": 3
@@ -37,21 +37,21 @@
         "list_locks"
       ],
       "env": {
-        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
+        "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
       },
       "kind": "tools",
       "max_turns": 3
     },
     {
       "id": "cloud-sql-metrics-cpu-investigation",
-      "starting_prompt": "I'm worried about the database load for daily-ci-evals-db.",
-      "conversation_plan": "First, ask the agent to check the CPU utilization for the instance 'daily-ci-evals-db' for the last 5 minutes. After the agent provides the CPU data, ask it to check the overall database stats to see connection counts or transaction volume.",
+      "starting_prompt": "I'm worried about the database load for ${CLOUD_SQL_POSTGRES_INSTANCE}.",
+      "conversation_plan": "First, ask the agent to check the CPU utilization for the instance '${CLOUD_SQL_POSTGRES_INSTANCE}' for the last 5 minutes. After the agent provides the CPU data, ask it to check the overall database stats to see connection counts or transaction volume.",
       "expected_trajectory": [
         "get_system_metrics",
         "list_database_stats"
       ],
       "env": {
-        "GOOGLE_CLOUD_PROJECT": "ext-test-cloud-sql-postgres"
+        "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
       },
       "kind": "tools",
       "max_turns": 3
