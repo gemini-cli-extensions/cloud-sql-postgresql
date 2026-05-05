@@ -75,9 +75,9 @@ generate_skill "cloud-sql-postgres-replication" \
   "Use these skills when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity." \
   "replication"
 
-# # 8. Vector Assist
-# generate_skill "cloud-sql-postgres-vectorassist" \
-#   "Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements" \
-#   "vectorassist"
+# 8. Vector Assist
+generate_skill "cloud-sql-postgres-vectorassist" \
+  "Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements" \
+  "vectorassist"
 
 echo "All skills generated successfully!"
