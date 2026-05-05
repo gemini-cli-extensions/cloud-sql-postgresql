@@ -25,7 +25,7 @@ steps:
       - -c
       - |
         # Write the secret key to the shared volume and secure it
-        echo "$$GITHUB_TOKEN" > /root/.ssh/id_ed25519
+        printf "%s\n" "$$GITHUB_TOKEN" > /root/.ssh/id_ed25519
         chmod 400 /root/.ssh/id_ed25519
 
         # Scan GitHub's server to prevent interactive prompts
