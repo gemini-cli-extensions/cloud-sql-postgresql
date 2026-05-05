@@ -26,8 +26,8 @@ SKILLS=(
   "view-config"
   "Use these skills when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters."
 
-  "replication"
-  "Use these skills when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity."
+  # "replication"
+  # "Use these skills when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity."
 
   # "vectorassist"
   # "Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements"
