@@ -2,7 +2,7 @@ import os
 import re
 
 def main():
-    yaml_paths = ['/workspace/evals/model_config.yaml', '/workspace/evals/run_config.yaml']
+    yaml_paths = ['/workspace/evals/model_config.yaml', '/workspace/evals/run_config.yaml', '/workspace/evals/dataset.json']
     for yaml_path in yaml_paths:
         if os.path.exists(yaml_path):
             with open(yaml_path, 'r') as f:
