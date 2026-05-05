@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.4.0...0.4.1) (2026-05-05)
+
+
+### Features
+
+* automate release versioning and metadata injection for CI evaluations ([#163](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/163)) ([79d7c4a](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/79d7c4a58df2ded301b034862cc8d36da7eeba73))
+
 ## [0.4.0](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.3.0...0.4.0) (2026-04-14)
 
 
