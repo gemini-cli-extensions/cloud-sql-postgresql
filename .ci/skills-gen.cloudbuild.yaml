@@ -13,8 +13,27 @@
 # limitations under the License.
 
 steps:
+  - id: "setup-ssh"
+    name: "gcr.io/cloud-builders/git"
+    entrypoint: "bash"
+    secretEnv:
+      - "GITHUB_TOKEN"
+    volumes:
+      - name: "ssh-keys"
+        path: /root/.ssh
+    args:
+      - -c
+      - |
+        # Write the secret key to the shared volume and secure it
+        echo "$$GITHUB_TOKEN" > /root/.ssh/id_ed25519
+        chmod 400 /root/.ssh/id_ed25519
+
+        # Scan GitHub's server to prevent interactive prompts
+        ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts
+
   - id: "generate-skills"
     name: "node:20"
+    waitFor: ["setup-ssh"]
     entrypoint: "bash"
     env:
       - "CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID"
@@ -27,10 +46,9 @@ steps:
     args:
       - -c
       - |
-        # Read the version and export it so the script can use it
         export VERSION=$$(cat toolbox_version.txt | tr -d '\n')
         echo "Detected toolbox version: $$VERSION"
-        
+
         chmod +x ./.ci/scripts/generate_skills.sh
         ./.ci/scripts/generate_skills.sh
 
@@ -38,14 +56,14 @@ steps:
     name: "gcr.io/cloud-builders/git"
     waitFor: ["generate-skills"]
     entrypoint: "bash"
-    secretEnv:
-      - "GITHUB_TOKEN"
+    volumes:
+      - name: "ssh-keys" # This mounts the keys generated in Step 1
+        path: /root/.ssh
     args:
       - -c
       - |
         git config --global --add safe.directory '*'
-        
-        # Check if the script actually created/changed any files
+
         if [ -z "$$(git status --porcelain)" ]; then
           echo "No new files generated. Exiting without committing."
           exit 0
@@ -54,9 +72,9 @@ steps:
         echo "Changes detected. Preparing to commit..."
         git config --global user.email "cloudbuild@google.com"
         git config --global user.name "Cloud Build Bot"
-        
-        # Authenticate and push
-        git remote set-url origin https://x-access-token:$$GITHUB_TOKEN@github.com/gemini-cli-extensions/cloud-sql-postgresql.git
+
+        # We can now just push natively using the SSH URL!
+        git remote set-url origin git@github.com:gemini-cli-extensions/cloud-sql-postgresql.git
         git add .
         git commit -m "chore: auto-generate skills based on toolbox_version.txt update"
         git push origin HEAD:$_HEAD_BRANCH
@@ -64,11 +82,11 @@ steps:
 availableSecrets:
   secretManager:
     - versionName: projects/$PROJECT_ID/secrets/cloud_sql_pg_user/versions/latest
-      env: 'CLOUD_SQL_POSTGRES_USER'
+      env: "CLOUD_SQL_POSTGRES_USER"
     - versionName: projects/$PROJECT_ID/secrets/cloud_sql_pg_pass/versions/latest
-      env: 'CLOUD_SQL_POSTGRES_PASSWORD'
+      env: "CLOUD_SQL_POSTGRES_PASSWORD"
     - versionName: projects/$PROJECT_ID/secrets/github_token_cloud_sql_postgresql/versions/latest
-      env: 'GITHUB_TOKEN'
+      env: "GITHUB_TOKEN"
 
 options:
   logging: CLOUD_LOGGING_ONLY
