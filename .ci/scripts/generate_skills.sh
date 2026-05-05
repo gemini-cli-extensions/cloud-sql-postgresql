@@ -20,17 +20,20 @@ SKILLS=(
   "data"
   "Use these skills when you need to explore the database structure, discover schema objects like views or stored procedures, and execute custom SQL queries to interact with your data."
 
+  "health"
+  "Use these skills when you need to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum."
+
   "monitor"
-  "Use these skills when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics. You can also use them to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum."
+  "Use these skills when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics."
 
   "view-config"
   "Use these skills when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters."
 
-  # "replication"
-  # "Use these skills when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity."
+  "replication"
+  "Use these skills when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity."
 
-  # "vectorassist"
-  # "Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements"
+  "vectorassist"
+  "Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements"
 )
 
 echo "VALIDATING TOOLSETS BEFORE GENERATION"
