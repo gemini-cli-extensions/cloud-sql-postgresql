@@ -14,19 +14,21 @@
 
 claude_code_version: "@anthropic-ai/claude-code@2.1.85"
 generator: claude_code
-model: "claude-opus-4-1@20250805" # Suggested by Vertex deployment error
+model: "claude-opus-4-6"
 
 use_vertex: true
 vertex_project_id: "${GOOGLE_CLOUD_PROJECT}"
-vertex_region: "us-central1"
+vertex_region: "us-east5"
 
 env:
   GOOGLE_CLOUD_PROJECT: "${GOOGLE_CLOUD_PROJECT}"
+  CLOUD_SQL_POSTGRES_PROJECT: "${CLOUD_SQL_POSTGRES_PROJECT}"
+  CLOUD_SQL_POSTGRES_INSTANCE: "${CLOUD_SQL_POSTGRES_INSTANCE}"
+  CLOUD_SQL_POSTGRES_REGION: "${CLOUD_SQL_POSTGRES_REGION}"
+  CLOUD_SQL_POSTGRES_DATABASE: "${CLOUD_SQL_POSTGRES_DATABASE}"
+  CLOUD_SQL_POSTGRES_USER: "${CLOUD_SQL_POSTGRES_USER}"
+  CLOUD_SQL_POSTGRES_PASSWORD: '${CLOUD_SQL_POSTGRES_PASSWORD}'
+  CLOUD_SQL_POSTGRES_IP_TYPE: "${CLOUD_SQL_POSTGRES_IP_TYPE}"
 
 setup:
-  mcp_servers:
-    "cloud-sql":
-      httpUrl: "https://sqladmin.googleapis.com/mcp"
-      authProviderType: google_credentials
-      headers:
-        X-Goog-User-Project: "${GOOGLE_CLOUD_PROJECT}"
+  skills_dir: "/workspace/cloud-sql-postgresql"
