@@ -16,7 +16,7 @@ dataset_config: /workspace/evals/dataset.json
 dataset_format: gemini-cli-format
 
 orchestrator: geminicli
-model_config: /workspace/evals/model_config.yaml
+model_config: /workspace/evals/gemini_cli_model.yaml
 simulated_user_model_config: /workspace/evals/gemini_2.5_pro_model.yaml
 
 scorers:
@@ -39,4 +39,3 @@ scorers:
 reporting:
   bigquery:
     gcp_project_id: "${EVAL_REPORTING_PROJECT}"
-

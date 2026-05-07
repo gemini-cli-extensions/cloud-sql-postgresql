@@ -45,8 +45,8 @@ steps:
         PR_TITLE=$(echo "$$PR_DATA" | jq -r '.title')
 
         # Check if execution labels are present using exact matching via jq
-        if ! jq -e '.labels | any(.name == "autorelease: pending" or .name == "ci:run-evals")' pr_data.json > /dev/null; then
-          echo "PR does not have 'autorelease: pending' or 'ci:run-evals' label. Skipping execution."
+        if ! jq -e '.labels | any(.name == "autorelease: pending" or .name == "ci:run-evals" or .name == "ci:run-evals-gemini" or .name == "ci:run-evals-claude")' pr_data.json > /dev/null; then
+          echo "PR does not have required labels. Skipping execution."
           exit 0
         fi
         echo "Execution label detected. Processing release version context..."
@@ -72,7 +72,6 @@ steps:
         export GOOGLE_CLOUD_PROJECT=$PROJECT_ID
         export EVAL_REPORTING_PROJECT=$_EVAL_REPORTING_PROJECT
 
-
         # Set environment variables for extension
         export CLOUD_SQL_POSTGRES_PROJECT=$PROJECT_ID
         export CLOUD_SQL_POSTGRES_INSTANCE=$_CLOUD_SQL_INSTANCE
@@ -84,18 +83,28 @@ steps:
         # Maps the decrypted DB_PASSWORD to the exact variable expected by gemini_cli and extension skills
         export CLOUD_SQL_POSTGRES_PASSWORD=$$DB_PASSWORD
 
-        # Combine CI metadata with run config
-        cat /workspace/evals/ci_metadata.yaml >> /workspace/evals/run_config.yaml
+        # Combine CI metadata with all available run configs
+        for config in /workspace/evals/*run_config.yaml; do
+          if [ -f "$config" ]; then
+            echo "Appending CI metadata to $config"
+            cat /workspace/evals/ci_metadata.yaml >> "$config"
+          fi
+        done
 
-        # Substitute environment variables in model_config.yaml
+        # Substitute environment variables in all configs
         python3 /workspace/evals/substitute_env.py
 
         cd /evalbench
         export PYTHONPATH=./evalbench:./evalbench/evalproto
         export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 
-        echo "Launching Standalone Evaluation..."
-        python3 evalbench/evalbench.py --experiment_config=/workspace/evals/run_config.yaml
+        # Run evaluations for all available run configs
+        for config in /workspace/evals/*run_config.yaml; do
+          if [ -f "$config" ]; then
+            echo "Launching Evaluation for config: $config"
+            python3 evalbench/evalbench.py --experiment_config="$config"
+          fi
+        done
 
 
 availableSecrets:
