@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-claude_code_version: "@anthropic-ai/claude-code@2.1.85"
+claude_code_version: "@anthropic-ai/claude-code@2.1.119"
 generator: claude_code
 model: "claude-opus-4-7"
 
