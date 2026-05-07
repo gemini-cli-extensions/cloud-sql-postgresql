@@ -14,15 +14,18 @@
 
 claude_code_version: "@anthropic-ai/claude-code@2.1.85"
 generator: claude_code
-model: "claude-opus-4-6"
+model: "claude-opus-4-7"
 
 use_vertex: true
 vertex_project_id: "${GOOGLE_CLOUD_PROJECT}"
-vertex_region: "us-east5"
+vertex_region: "global"
 
 env:
-  CLOUD_ML_REGION: "us-east5"
+  # Global environment variables
+  CLOUD_ML_REGION: "global"
   GOOGLE_CLOUD_PROJECT: "${GOOGLE_CLOUD_PROJECT}"
+
+  # Cloud SQL PostgreSQL extension configuration
   CLOUD_SQL_POSTGRES_PROJECT: "${CLOUD_SQL_POSTGRES_PROJECT}"
   CLOUD_SQL_POSTGRES_INSTANCE: "${CLOUD_SQL_POSTGRES_INSTANCE}"
   CLOUD_SQL_POSTGRES_REGION: "${CLOUD_SQL_POSTGRES_REGION}"
