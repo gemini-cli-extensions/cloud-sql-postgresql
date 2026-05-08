@@ -132,9 +132,7 @@ claude
 /plugin install cloud-sql-postgresql@claude-plugins-official
 ```
 
-_(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.)_
-In case you do not see the plugin, update your marketplace.
-
+_(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.)
 </details>
 
 <details>
