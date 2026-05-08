@@ -1,0 +1,72 @@
+{
+  "scenarios": [
+    {
+      "id": "cloud-sql-debug-instance",
+      "starting_prompt": "Check on my databases in project ${GOOGLE_CLOUD_PROJECT}.",
+      "conversation_plan": "Ask the agent to list all Cloud SQL instances in the project. Once all instances are listed, if '${CLOUD_SQL_POSTGRES_INSTANCE}' exists, get its details and validate it is RUNNABLE.",
+      "expected_trajectory": [
+        "list_instances.js",
+        "get_instance.js"
+      ],
+      "expected_skills": [
+        "cloud-sql-postgres-admin"
+      ],
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
+      },
+      "kind": "tools",
+      "max_turns": 3
+    },
+    {
+      "id": "cloud-sql-schema-tables-explore",
+      "starting_prompt": "I want to understand the structure of my database.",
+      "conversation_plan": "First, ask the agent to list the schemas in the database. After the agent provides the schemas, ask it to list the tables specifically for the 'public' schema.",
+      "expected_trajectory": [
+        "list_schemas.js",
+        "list_tables.js"
+      ],
+      "expected_skills": [
+        "cloud-sql-postgres-data"
+      ],
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
+      },
+      "kind": "tools",
+      "max_turns": 3
+    },
+    {
+      "id": "cloud-sql-performance-check",
+      "starting_prompt": "Our database performance seems degraded.",
+      "conversation_plan": "Start by asking the agent to check for any active queries that are running for a long time (e.g., more than 10 seconds). After the agent responds, follow up by asking if there are any database locks that might be causing issues.",
+      "expected_trajectory": [
+        "list_active_queries.js",
+        "list_locks.js"
+      ],
+      "expected_skills": [
+        "cloud-sql-postgres-monitor"
+      ],
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
+      },
+      "kind": "tools",
+      "max_turns": 3
+    },
+    {
+      "id": "cloud-sql-metrics-cpu-investigation",
+      "starting_prompt": "I'm worried about the database load for ${CLOUD_SQL_POSTGRES_INSTANCE}.",
+      "conversation_plan": "First, ask the agent to check the CPU utilization for the instance '${CLOUD_SQL_POSTGRES_INSTANCE}' for the last 5 minutes. After the agent provides the CPU data, ask it to check the overall database stats to see connection counts or transaction volume.",
+      "expected_trajectory": [
+        "get_system_metrics.js",
+        "list_database_stats.js"
+      ],
+      "expected_skills": [
+        "cloud-sql-postgres-monitor"
+      ],
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
+      },
+      "kind": "tools",
+      "max_turns": 3
+    }
+  ]
+}

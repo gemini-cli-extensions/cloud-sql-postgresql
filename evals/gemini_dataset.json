@@ -8,6 +8,9 @@
         "list_instances",
         "get_instance"
       ],
+      "expected_skills": [
+        "cloud-sql-postgres-admin"
+      ],
       "env": {
         "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
       },
@@ -21,6 +24,9 @@
       "expected_trajectory": [
         "list_schemas",
         "list_tables"
+      ],
+      "expected_skills": [
+        "cloud-sql-postgres-data"
       ],
       "env": {
         "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
@@ -36,6 +42,9 @@
         "list_active_queries",
         "list_locks"
       ],
+      "expected_skills": [
+        "cloud-sql-postgres-monitor"
+      ],
       "env": {
         "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
       },
@@ -49,6 +58,9 @@
       "expected_trajectory": [
         "get_system_metrics",
         "list_database_stats"
+      ],
+      "expected_skills": [
+        "cloud-sql-postgres-monitor"
       ],
       "env": {
         "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT}"
