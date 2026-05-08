@@ -71,7 +71,7 @@ When adding new skills or modifying existing behavior, you should add or update 
 1.  Open `evals/gemini_dataset.json` (and/or `evals/claude_dataset.json`).
 2.  Add a new scenario block with a unique `id`, a clear `starting_prompt`, a detailed `conversation_plan`, and the `expected_trajectory` of tool calls.
 3.  Apply the `ci:run-evals` label while creating your pull request to trigger the evaluation pipeline.
-4.  Evaluation metrics and outcomes are uploaded to BigQuery and can be monitored on the team's centralized evaluation dashboards.
+4.  The evaluation pipeline runs securely via Cloud Build. A maintainer will review the internal logs and results to verify your scenarios pass successfully.
 
 ### Other GitHub Checks
 
