@@ -48,6 +48,31 @@ All tools are currently tested in the [MCP Toolbox GitHub](https://github.com/go
 
 The skills themselves are validated using the `skills-validate.yml` workflow.
 
+### Automated Skill Evaluations (EvalBench)
+
+This repository uses the [EvalBench framework](https://github.com/GoogleCloudPlatform/evalbench) to automatically evaluate the quality, multi-turn conversational capabilities, and skill execution of the extension.
+
+Evaluations run automatically via Cloud Build (`cloudbuild.yaml`) on pull requests when the `ci:run-evals` or `autorelease: pending` label is applied. Because tests run against a live Cloud SQL instance, credentials are securely injected by Secret Manager during CI.
+
+#### Understanding Evaluation Files
+
+All evaluation configurations and datasets are located in the [`evals/`](evals/) directory:
+
+*   **Conversational Datasets (`*_dataset.json`):** Define test scenarios for different models (e.g., `gemini_dataset.json`, `claude_dataset.json`). Each scenario contains:
+    *   `starting_prompt`: The initial prompt sent to the agent.
+    *   `conversation_plan`: Instructions for the simulated user LLM to drive multi-turn interactions.
+    *   `expected_trajectory`: The sequence of tool/skill calls expected to successfully complete the task.
+*   **Run Configurations (`*_run_config.yaml`):** Configure the EvalBench orchestrator, target model configs, and qualitative/performance scorers (e.g., goal completion, behavioral metrics, latency, token consumption).
+
+#### Maintaining and Adding Scenarios
+
+When adding new skills or modifying existing behavior, you should add or update corresponding scenarios in the dataset files:
+
+1.  Open `evals/gemini_dataset.json` (and/or `evals/claude_dataset.json`).
+2.  Add a new scenario block with a unique `id`, a clear `starting_prompt`, a detailed `conversation_plan`, and the `expected_trajectory` of tool calls.
+3.  Apply the `ci:run-evals` label while creating your pull request to trigger the evaluation pipeline.
+4.  The evaluation pipeline runs securely via Cloud Build. A maintainer will review the internal logs and results to verify your scenarios pass successfully.
+
 ### Other GitHub Checks
 
 *   **License Header Check:** A workflow ensures all necessary files contain the
