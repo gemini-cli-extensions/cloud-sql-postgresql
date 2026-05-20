@@ -23,6 +23,7 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
     - [Claude Code](#claude-code)
     - [Codex](#codex)
     - [Antigravity](#antigravity)
+    - [Skills CLI (npx skills)](#skills-cli)
 - [Usage Examples](#usage-examples)
 - [Supported Skills](#supported-skills)
 - [Additional Agent Skills](#additional-agent-skills)
@@ -74,7 +75,11 @@ Please keep these env vars handy during the installation process:
 
 ### Installation & Usage
 
-To start interacting with your database, install the skills for your preferred AI agent, then launch the agent and use natural language to ask questions or perform tasks.
+To start interacting with your database, we strongly recommend following the agent-specific instructions below for your preferred AI agent. These are the natively supported and most direct methods for installation.
+
+Alternatively, for users managing multiple agents, you can use the universal [Skills CLI (`npx skills`)](#skills-cli) as a fallback option.
+
+Once installed, launch your preferred AI agent and use natural language to ask questions or perform tasks.
 
 For the latest version, check the [releases page][releases].
 
@@ -209,6 +214,32 @@ cp -R cloud-sql-postgresql/skills/* ~/.gemini/antigravity/skills/
 Set your environment vars as described in the [configuration section](#configuration).
 
 _(Tip: Antigravity automatically discovers skills in these directories at the start of a session.)_
+
+</details>
+
+<details>
+<summary id="skills-cli">Skills CLI (npx skills)</summary>
+
+**1. Install all skills:**
+
+```bash
+npx skills add https://github.com/gemini-cli-extensions/cloud-sql-postgresql
+```
+
+You can install a specific version of skills by appending a `#<tag>` or `#<branch>` to the end of the repository URL. For example, to install version `0.4.0`:
+
+```bash
+npx skills add https://github.com/gemini-cli-extensions/cloud-sql-postgresql#0.4.0
+```
+
+Alternatively, you can install specific skillsets by using the `--skill` flag. For example, to install only the data and monitor skills:
+
+```bash
+npx skills add https://github.com/gemini-cli-extensions/cloud-sql-postgresql --skill cloud-sql-postgres-data --skill cloud-sql-postgres-monitor
+```
+
+**2. Set env vars:**
+In your terminal, set your environment vars as described in the [configuration section](#configuration).
 
 </details>
 
