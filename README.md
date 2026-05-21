@@ -187,6 +187,21 @@ _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify 
 <details>
 <summary id="antigravity">Antigravity</summary>
 
+You can install skills using the `npx skills` command or manually by copying files.
+
+#### Option A: Install via Skills CLI
+
+Run the following command in your terminal to automatically download and register all skills for Antigravity:
+
+```bash
+npx skills add https://github.com/gemini-cli-extensions/cloud-sql-postgresql/tree/0.4.0 -a antigravity -y
+```
+
+**2. Set env vars:**
+Set your environment vars as described in the [configuration section](#configuration).
+
+#### Option B: Manual Installation
+
 **1. Clone the Repo:**
 
 ```bash
@@ -208,7 +223,7 @@ cp -R cloud-sql-postgresql/skills/* ~/.gemini/antigravity/skills/
 **3. Set env vars:**
 Set your environment vars as described in the [configuration section](#configuration).
 
-_(Tip: Antigravity automatically discovers skills in these directories at the start of a session.)_
+_(Tip: Antigravity automatically discovers skills in these directories at the start of a session. You can verify they are active by running the `/skills` command in your active session.)_
 
 </details>
 
