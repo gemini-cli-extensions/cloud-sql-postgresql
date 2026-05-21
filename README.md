@@ -3,7 +3,7 @@
 > [!NOTE]
 > Currently in beta (pre-v1.0), and may see breaking changes until the first stable release (v1.0).
 
-This repository provides a set of agent skills to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. These skills can be used with various AI agents, including [Antigravity CLI](https://antigravity.google/product/antigravity-cli), Claude Code, and Codex, to manage your databases, execute queries, explore schemas, and troubleshoot issues using natural language prompts.
+This repository provides a set of agent skills to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. These skills can be used with various AI agents, including [Antigravity](https://antigravity.google/), [Claude Code](https://claude.com/product/claude-code) and [Codex](https://chatgpt.com/codex/), to manage your databases, execute queries, explore schemas, and troubleshoot issues using natural language prompts.
 
 > [!IMPORTANT]
 > **We Want Your Feedback!**
@@ -88,21 +88,6 @@ For the latest version, check the [releases page][releases].
 You can use either of these two agents for Antigravity:
 - [Antigravity CLI](https://github.com/google-gemini/gemini-cli) version **v1.6.0** or higher
 - [Antigravity 2.0](https://antigravity.google/product/antigravity-2) version **v2.0.0** or higher.
-
-You can install skills using the `npx skills` command or manually by copying files.
-
-#### Option A: Install via Skills CLI
-
-Run the following command in your terminal to automatically download and register all skills for Antigravity:
-
-```bash
-npx skills add https://github.com/gemini-cli-extensions/cloud-sql-postgresql/tree/0.4.0 -a antigravity -y
-```
-
-**2. Set env vars:**
-Set your environment vars as described in the [configuration section](#configuration).
-
-#### Option B: Manual Installation
 
 **1. Clone the Repo:**
 
@@ -200,6 +185,21 @@ _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify 
 </details>
 
 <!-- {x-release-please-end} -->
+
+## Installing using skills package.
+
+You can install skills using the `npx skills` command.
+
+Run the following command in your terminal to automatically download and register the skills:
+
+```bash
+npx skills add https://github.com/gemini-cli-extensions/cloud-sql-postgresql/tree/0.4.0
+```
+
+For detailed info check out the [Skills npm package](https://www.npmjs.com/package/skills).
+
+**2. Set env vars:**
+Set your environment vars as described in the [configuration section](#configuration).
 
 ## Usage Examples
 
