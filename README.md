@@ -89,6 +89,20 @@ You can use either of these two agents for Antigravity:
 - [Antigravity CLI](https://github.com/google-gemini/gemini-cli) version **v1.6.0** or higher
 - [Antigravity 2.0](https://antigravity.google/product/antigravity-2) version **v2.0.0** or higher.
 
+> [!TIP]
+> **Migrating from Gemini CLI?**
+> If you previously installed this extension with `gemini extensions install`, you can convert it to an Antigravity plugin instead of reinstalling from scratch:
+>
+> - **On first launch of Antigravity CLI**, accept the Migration Options prompt to automatically convert your installed Gemini CLI extensions to Antigravity plugins.
+> - **Or, from your terminal**, run:
+>
+>   ```bash
+>   agy plugin import gemini
+>   ```
+> See the [official Gemini CLI → Antigravity migration guide](https://antigravity.google/docs/gcli-migration) for details on plugins, context files (`GEMINI.md` / `AGENTS.md`), and MCP server config differences (note: Antigravity uses `mcp_config.json` and the `serverUrl` field instead of `url`).
+
+#### Antigravity 2.0 (IDE)
+
 **1. Clone the Repo:**
 
 ```bash
@@ -110,7 +124,32 @@ cp -R cloud-sql-postgresql/skills/* ~/.gemini/antigravity/skills/
 **3. Set env vars:**
 Set your environment vars as described in the [configuration section](#configuration).
 
-_(Tip: Antigravity automatically discovers skills in these directories at the start of a session. You can verify they are active by running the `/skills` command in your active session.)_
+_(Tip: Antigravity 2.0 automatically discovers skills in these directories at the start of a session. You can verify they are active by running the `/skills` command in your active session.)_
+
+#### Antigravity CLI
+
+**1. Clone the Repo:**
+
+```bash
+git clone --branch 0.4.0 https://github.com/gemini-cli-extensions/cloud-sql-postgresql.git
+```
+
+**2. Install the skills:**
+
+Choose a location for the skills:
+- **Global (all workspaces):** `~/.gemini/antigravity-cli/skills/`
+- **Workspace-specific:** `<workspace-root>/.agents/skills/`
+
+Copy the skill folders from the cloned repository's `skills/` directory to your chosen location:
+
+```bash
+cp -R cloud-sql-postgresql/skills/* ~/.gemini/antigravity-cli/skills/
+```
+
+**3. Set env vars:**
+Set your environment vars as described in the [configuration section](#configuration).
+
+_(Tip: Antigravity CLI automatically discovers skills in these directories at the start of a session. You can verify they are active by running the `/skills` command in your active session.)_
 
 </details>
 
