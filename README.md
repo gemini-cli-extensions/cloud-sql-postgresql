@@ -19,7 +19,7 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
 - [Getting Started](#getting-started)
   - [Configuration](#configuration)
   - [Installation & Usage](#installation--usage)
-    - [Antigravity CLI](#antigravity-cli)
+    - [Antigravity](#antigravity)
     - [Claude Code](#claude-code)
     - [Codex](#codex)
 - [Usage Examples](#usage-examples)
@@ -39,9 +39,11 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
 Before you begin, ensure you have the following:
 
 - One of these AI agents installed
-  - [Antigravity CLI](https://github.com/google-gemini/gemini-cli) version **v1.6.0** or higher
-  - [Claude Code](https://claude.com/product/claude-code) version **v2.1.94** or higher
-  - [Codex](https://developers.openai.com/codex) **v0.117.0** or higher
+  - Antigravity
+     - [Antigravity CLI](https://github.com/google-gemini/gemini-cli) version **v1.6.0** or higher
+     - [Antigravity 2.0](https://antigravity.google/product/antigravity-2) version **v2.0.0** or higher.
+  - [Claude Code](https://claude.com/product/claude-code) version **v2.1.94** or higher.
+  - [Codex](https://developers.openai.com/codex) **v0.117.0** or higher.
 - A Google Cloud project with the **Cloud SQL Admin API** enabled.
 - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 - IAM Permissions:
@@ -81,8 +83,11 @@ For the latest version, check the [releases page][releases].
 <!-- {x-release-please-start-version} -->
 
 <details open>
-<summary id="antigravity-cli">Antigravity CLI</summary>
+<summary id="antigravity">Antigravity</summary>
 
+You can use either of these two agents for Antigravity:
+- [Antigravity CLI](https://github.com/google-gemini/gemini-cli) version **v1.6.0** or higher
+- [Antigravity 2.0](https://antigravity.google/product/antigravity-2) version **v2.0.0** or higher.
 
 You can install skills using the `npx skills` command or manually by copying files.
 
