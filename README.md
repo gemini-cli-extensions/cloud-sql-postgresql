@@ -184,8 +184,6 @@ _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify 
 
 </details>
 
-<!-- {x-release-please-end} -->
-
 ## Installing using skills package.
 
 You can install skills using the `npx skills` command.
@@ -200,6 +198,8 @@ For detailed info check out the [Skills npm package](https://www.npmjs.com/packa
 
 **2. Set env vars:**
 Set your environment vars as described in the [configuration section](#configuration).
+
+<!-- {x-release-please-end} -->
 
 ## Usage Examples
 
