@@ -89,7 +89,17 @@ You can use either of these two agents for Antigravity:
 - [Antigravity CLI](https://github.com/google-gemini/gemini-cli) version **v1.6.0** or higher
 - [Antigravity 2.0](https://antigravity.google/product/antigravity-2) version **v2.0.0** or higher.
 
-_(Tip: **Migrating from Gemini CLI?** If you previously installed this extension with `gemini extensions install`, you can convert it to an Antigravity plugin instead of reinstalling from scratch — either accept the Migration Options prompt on first launch of Antigravity CLI, or run `agy plugin import gemini` from your terminal. See [Migrating from Gemini CLI](https://antigravity.google/docs/gcli-migration) for details on plugins, context files (`GEMINI.md` / `AGENTS.md`), and MCP server config differences.)_
+<blockquote>
+💡 <strong>Tip — Migrating from Gemini CLI?</strong><br>
+If you previously installed this extension with <code>gemini extensions install</code>, you can convert it to an Antigravity plugin instead of reinstalling from scratch:
+<ul>
+  <li><strong>On first launch of Antigravity CLI</strong>, accept the Migration Options prompt to automatically convert your installed Gemini CLI extensions to Antigravity plugins.</li>
+  <li><strong>Or, from your terminal</strong>, run:
+    <pre><code class="language-bash">agy plugin import gemini</code></pre>
+  </li>
+</ul>
+See <a href="https://antigravity.google/docs/gcli-migration">Migrating from Gemini CLI</a> for details on plugins, context files (<code>GEMINI.md</code> / <code>AGENTS.md</code>), and MCP server config differences.
+</blockquote>
 
 #### Antigravity 2.0 (IDE)
 
