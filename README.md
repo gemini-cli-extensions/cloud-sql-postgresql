@@ -99,7 +99,7 @@ You can use either of these two agents for Antigravity:
 >   ```bash
 >   agy plugin import gemini
 >   ```
-> See the [official Gemini CLI → Antigravity migration guide](https://antigravity.google/docs/gcli-migration) for details on plugins, context files (`GEMINI.md` / `AGENTS.md`), and MCP server config differences (note: Antigravity uses `mcp_config.json` and the `serverUrl` field instead of `url`).
+> See the [Migrating from Gemini CLI](https://antigravity.google/docs/gcli-migration) for details on plugins, context files (`GEMINI.md` / `AGENTS.md`), and MCP server config differences.
 
 #### Antigravity 2.0 (IDE)
 
