@@ -223,7 +223,7 @@ _(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify 
 
 </details>
 
-## Installing using skills package.
+## Installing using [open agent skills tool](https://github.com/vercel-labs/skills)
 
 You can install skills using the `npx skills` command.
 
