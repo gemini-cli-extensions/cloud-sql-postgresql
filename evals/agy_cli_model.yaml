@@ -17,6 +17,13 @@ generator: agy_cli
 
 model: "Gemini 3.1 Pro (High)"
 
+# agy is OAuth-only. The harness seeds these auth files into the sandbox from
+# Secret Manager (needs ADC + secretAccessor on the build/runtime SA), so no
+# interactive login or entrypoint seeding is required. Values are Secret
+# Manager resource paths; `latest` is fine since OAuth tokens rotate.
+agy_oauth_token_secret: "projects/${GOOGLE_CLOUD_PROJECT}/secrets/AGY_OAUTH_TOKEN/versions/latest"
+agy_installation_id_secret: "projects/${GOOGLE_CLOUD_PROJECT}/secrets/AGY_INSTALLATION_ID/versions/latest"
+
 env:
   GOOGLE_CLOUD_PROJECT: "ext-test-cloud-sql-postgres"
   GOOGLE_CLOUD_LOCATION: "global"

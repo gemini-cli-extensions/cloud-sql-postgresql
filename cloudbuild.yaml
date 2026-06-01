@@ -21,7 +21,7 @@ steps:
   - name: 'us-central1-docker.pkg.dev/cloud-db-nl2sql/evalbench/eval_server:test'
     entrypoint: 'bash'
     # Decrypts the secret from Secret Manager into the DB_PASSWORD environment variable
-    secretEnv: ['DB_PASSWORD', 'GITHUB_TOKEN', 'AGY_OAUTH_TOKEN', 'AGY_INSTALLATION_ID']
+    secretEnv: ['DB_PASSWORD', 'GITHUB_TOKEN']
     args:
       - '-c'
       - |
@@ -83,15 +83,6 @@ steps:
         # Maps the decrypted DB_PASSWORD to the exact variable expected by gemini_cli and extension skills
         export CLOUD_SQL_POSTGRES_PASSWORD=$$DB_PASSWORD
 
-        # Seed agy auth: this step overrides the image ENTRYPOINT (entrypoint: bash),
-        # so entrypoint.sh never runs -- seed the token files here instead. HOME is
-        # /builder/home in a Cloud Build step, which is exactly where the harness reads.
-        AGY_DIR="$$HOME/.gemini/antigravity-cli"
-        mkdir -p "$$AGY_DIR"
-        printf '%s' "$$AGY_OAUTH_TOKEN" > "$$AGY_DIR/antigravity-oauth-token"
-        printf '%s' "$$AGY_INSTALLATION_ID" > "$$AGY_DIR/installation_id"
-        chmod 600 "$$AGY_DIR/antigravity-oauth-token" "$$AGY_DIR/installation_id"
-
         # Combine CI metadata with all available run configs
         for config in /workspace/evals/*run_config.yaml; do
           if [ -f "$config" ]; then
@@ -122,7 +113,3 @@ availableSecrets:
     env: 'DB_PASSWORD'
   - versionName: projects/$PROJECT_ID/secrets/GITHUB_TOKEN/versions/latest
     env: 'GITHUB_TOKEN'
-  - versionName: projects/$PROJECT_ID/secrets/AGY_OAUTH_TOKEN/versions/latest
-    env: 'AGY_OAUTH_TOKEN'
-  - versionName: projects/$PROJECT_ID/secrets/AGY_INSTALLATION_ID/versions/latest
-    env: 'AGY_INSTALLATION_ID'
