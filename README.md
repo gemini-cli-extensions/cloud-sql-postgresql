@@ -165,13 +165,20 @@ In your terminal, set your environment vars as described in the [configuration s
 claude
 ```
 
-**3. Install the plugin:**
+**3. Add the marketplace:**
 
 ```bash
-/plugin install cloud-sql-postgresql@claude-plugins-official
+/plugin marketplace add https://github.com/gemini-cli-extensions/cloud-sql-postgresql.git#0.4.0
 ```
 
-_(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.)
+**4. Install the plugin:**
+
+```bash
+/plugin install cloud-sql-postgresql@cloud-sql-postgresql-marketplace
+```
+
+_(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.)_
+
 </details>
 
 <details>
