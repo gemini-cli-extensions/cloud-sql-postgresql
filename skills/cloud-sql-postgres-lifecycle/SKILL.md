@@ -27,7 +27,7 @@ Creates a backup on a Cloud SQL instance.
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| project | string | The GCP project ID. This is pre-configured; do not ask for it unless the user explicitly provides a different one. | No |  |
+| project | string | The project ID | Yes |  |
 | instance | string | Cloud SQL instance ID. This does not include the project ID. | Yes |  |
 | location | string | Location of the backup run. | No |  |
 | backup_description | string | The description of this backup run. | No |  |
@@ -45,13 +45,13 @@ Fetches the current state of the PostgreSQL server, returning the version, wheth
 
 ### get_instance
 
-
+Gets a particular cloud sql instance.
 
 #### Parameters
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| projectId | string | The GCP project ID. This is pre-configured; do not ask for it unless the user explicitly provides a different one. | No |  |
+| projectId | string | The project ID | Yes |  |
 | instanceId | string | The instance ID | Yes |  |
 
 
@@ -65,7 +65,7 @@ Lists all type of Cloud SQL instances for a project.
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| project | string | The GCP project ID. This is pre-configured; do not ask for it unless the user explicitly provides a different one. | No |  |
+| project | string | The project ID | Yes |  |
 
 
 ---
@@ -96,7 +96,7 @@ Restores a backup on a Cloud SQL instance.
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| target_project | string | The GCP project ID. This is pre-configured; do not ask for it unless the user explicitly provides a different one. | No |  |
+| target_project | string | The project ID | Yes |  |
 | target_instance | string | Cloud SQL instance ID of the target instance. This does not include the project ID. | Yes |  |
 | backup_id | string | Identifier of the backup being restored. Can be a BackupRun ID, backup name, or BackupDR backup name. Use the full backup ID as provided, do not try to parse it | Yes |  |
 | source_project | string | GCP project ID of the instance that the backup belongs to. Only required if the backup_id is a BackupRun ID. | No |  |
@@ -107,13 +107,13 @@ Restores a backup on a Cloud SQL instance.
 
 ### wait_for_operation
 
-
+This will poll on operations API until the operation is done. For checking operation status we need projectId and operationId. Once instance is created give follow up steps on how to use the variables to bring data plane MCP server up in local and remote setup.
 
 #### Parameters
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| project | string | The GCP project ID. This is pre-configured; do not ask for it unless the user explicitly provides a different one. | No |  |
+| project | string | The project ID | Yes |  |
 | operation | string | The operation ID | Yes |  |
 
 

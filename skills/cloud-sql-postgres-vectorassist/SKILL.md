@@ -1,6 +1,6 @@
 ---
 name: cloud-sql-postgres-vectorassist
-description: Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements.
+description: Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements
 ---
 
 ## Usage
@@ -64,6 +64,19 @@ This tool defines a new vector specification by capturing the user's intent and 
 
 ---
 
+### delete_spec
+
+This tool deletes an existing vector specification using its spec_id. Use this tool when a user explicitly requests to delete, remove, or clean up an existing vector specification which was created in the context of the vector assist tools.
+
+#### Parameters
+
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| spec_id | string | Unique ID for the vector spec to delete. | Yes |  |
+
+
+---
+
 ### execute_sql
 
 Use this tool to execute a single SQL statement.
@@ -96,6 +109,52 @@ This tool generates optimized SQL queries for vector search by leveraging the me
 | filter_expressions | array | Any filter expressions to be applied on the vector search query. | No |  |
 | target_recall | float | The recall that the user would like to target with the given query. Overrides the spec-level target_recall. | No |  |
 | iterative_index_search | boolean | Perform iterative index search for filtered queries to ensure enough results are returned. | No |  |
+
+
+---
+
+### get_spec
+
+This tool retrieves the details of an existing vector specification using its unique 'spec_id'. Use this tool to retrieve a vector specification which was created in the context of the vector assist tools.
+
+#### Parameters
+
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| spec_id | string | Unique ID for the vector spec. | Yes |  |
+
+
+---
+
+### improve_query_recall
+
+Use this tool to troubleshoot and optimize existing vector search workloads when a user reports irrelevant results, poor accuracy, or degraded recall. It determines the optimal tuning parameter (such as ef_search) for an active vector index to improve the search results. The tool outputs an actionable SQL query recommendation to be executed as a next action using the 'execute_sql' tool.
+
+#### Parameters
+
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| schema_name | string | Optional parameter: Schema name of the table. | No |  |
+| table_name | string | Table name experiencing degraded vector search recall. | Yes |  |
+| vector_column_name | string | Column name containing the vector embeddings. | Yes |  |
+| index_name | string | Name of the vector index to tune. | Yes |  |
+| top_k | integer | Optional parameter: Top k value for the vector search. | No | `10` |
+| target_recall | float | Optional parameter: Target recall value for search results. | No | `0.95` |
+| distance_func | string | Optional parameter: Distance function used for the vector search similarity. | No | `cosine` |
+
+
+---
+
+### list_specs
+
+This tool lists all defined vector specifications for a given table and column name. Use this tool to list vector specifications which were created in the context of the vector assist tools.
+
+#### Parameters
+
+| Name | Type | Description | Required | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| table_name | string | Table name to list vector specifications for. | Yes |  |
+| column_name | string | Column name to list vector specifications for. | No |  |
 
 
 ---

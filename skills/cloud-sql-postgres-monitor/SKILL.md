@@ -151,7 +151,7 @@ List the top N (default 50) currently running queries (state='active') from pg_s
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
 | min_duration | string | Optional: Only show queries running at least this long (e.g., '1 minute', '1 second', '2 seconds'). | No | `1 minute` |
-| exclude_application_names | string | Optional: A comma-separated list of application names to exclude from the query results. This is useful for filtering out queries from specific applications (e.g., 'psql', 'pgAdmin', 'DBeaver'). The match is case-sensitive. Whitespace around commas and names is automatically handled. If this parameter is omitted, no applications are excluded. | No | `` |
+| exclude_application_names | string | Optional: A comma-separated list of application names to exclude from the query results. This is useful for filtering out queries from specific applications (e.g., 'psql', 'pgAdmin', 'DBeaver'). The match is case-sensitive. Whitespace around commas and names is automatically handled. If this parameter is omitted, no applications are excluded. | No |  |
 | limit | integer | Optional: The maximum number of rows to return. | No | `50` |
 
 
@@ -159,17 +159,17 @@ List the top N (default 50) currently running queries (state='active') from pg_s
 
 ### list_database_stats
 
-
+Lists the key performance and activity statistics for each PostgreSQL databasein the instance, offering insights into cache efficiency, transaction throughputrow-level activity, temporary file usage, and contention. It returns: the database name, whether the database is connectable,  database owner, default tablespace name, the percentage of data blocks found in the buffer cache rather than being read from disk (a higher value indicates better cache performance), the total number of disk blocks read from disk, the total number of times disk blocks were found already in the cache; the total number of committed transactions, the total number of rolled back transactions, the percentage of rolled back transactions compared to the total number of completed transactions, the total number of rows returned by queries, the total number of live rows fetched by scans, the total number of rows inserted, the total number of rows updated, the total number of rows deleted, the number of temporary files created by queries, the total size of all temporary files created by queries in bytes, the number of query cancellations due to conflicts with recovery, the number of deadlocks detected, the current number of active connections to the database, the timestamp of the last statistics reset, and total database size in bytes.
 
 #### Parameters
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| database_name | string | Optional: A specific database name pattern to search for. | No | `` |
+| database_name | string | Optional: A specific database name pattern to search for. | No |  |
 | include_templates | boolean | Optional: Whether to include template databases in the results. | No | `false` |
-| database_owner | string | Optional: A specific database owner name pattern to search for. | No | `` |
-| default_tablespace | string | Optional: A specific default tablespace name pattern to search for. | No | `` |
-| order_by | string | Optional: The field to order the results by. Valid values are 'size' and 'commit'. | No | `` |
+| database_owner | string | Optional: A specific database owner name pattern to search for. | No |  |
+| default_tablespace | string | Optional: A specific default tablespace name pattern to search for. | No |  |
+| order_by | string | Optional: The field to order the results by. Valid values are 'size' and 'commit'. | No |  |
 | limit | integer | Optional: The maximum number of rows to return. | No | `10` |
 
 
@@ -191,7 +191,7 @@ Lists performance statistics for executed queries ordered by total time, filteri
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| database_name | string | Optional: The database name to list query stats for. | No | `` |
+| database_name | string | Optional: The database name to list query stats for. | No |  |
 | limit | integer | Optional: The maximum number of results to return. Defaults to 50. | No | `50` |
 
 

@@ -29,13 +29,13 @@ Fetches the current state of the PostgreSQL server, returning the version, wheth
 
 ### get_instance
 
-
+Gets a particular cloud sql instance.
 
 #### Parameters
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| projectId | string | The GCP project ID. This is pre-configured; do not ask for it unless the user explicitly provides a different one. | No |  |
+| projectId | string | The project ID | Yes |  |
 | instanceId | string | The instance ID | Yes |  |
 
 
@@ -67,13 +67,13 @@ List PostgreSQL memory-related configurations (name and current setting) from pg
 
 ### list_pg_settings
 
-
+Lists configuration parameters for the postgres server ordered lexicographically, with a default limit of 50 rows. It returns the parameter name, its current setting, unit of measurement, a short description, the source of the current setting (e.g., default, configuration file, session), and whether a restart is required when the parameter value is changed.
 
 #### Parameters
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| setting_name | string | Optional: A specific configuration parameter name pattern to search for. | No | `` |
+| setting_name | string | Optional: A specific configuration parameter name pattern to search for. | No |  |
 | limit | integer | Optional: The maximum number of rows to return. | No | `50` |
 
 

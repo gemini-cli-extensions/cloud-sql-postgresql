@@ -29,13 +29,13 @@ Fetches the current state of the PostgreSQL server, returning the version, wheth
 
 ### list_pg_settings
 
-
+Lists configuration parameters for the postgres server ordered lexicographically, with a default limit of 50 rows. It returns the parameter name, its current setting, unit of measurement, a short description, the source of the current setting (e.g., default, configuration file, session), and whether a restart is required when the parameter value is changed.
 
 #### Parameters
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| setting_name | string | Optional: A specific configuration parameter name pattern to search for. | No | `` |
+| setting_name | string | Optional: A specific configuration parameter name pattern to search for. | No |  |
 | limit | integer | Optional: The maximum number of rows to return. | No | `50` |
 
 
@@ -43,15 +43,15 @@ Fetches the current state of the PostgreSQL server, returning the version, wheth
 
 ### list_publication_tables
 
-
+Lists all publication tables in the database. Returns the publication name, schema name, and table name, along with definition details indicating if it publishes all tables, whether it replicates inserts, updates, deletes, or truncates, and the publication owner.
 
 #### Parameters
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| table_names | string | Optional: Filters by a comma-separated list of table names. | No | `` |
-| publication_names | string | Optional: Filters by a comma-separated list of publication names. | No | `` |
-| schema_names | string | Optional: Filters by a comma-separated list of schema names. | No | `` |
+| table_names | string | Optional: Filters by a comma-separated list of table names. | No |  |
+| publication_names | string | Optional: Filters by a comma-separated list of publication names. | No |  |
+| schema_names | string | Optional: Filters by a comma-separated list of schema names. | No |  |
 | limit | integer | Optional: The maximum number of rows to return. | No | `50` |
 
 
@@ -73,7 +73,7 @@ Lists all the user-created roles in the instance . It returns the role name, Obj
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| role_name | string | Optional: a text to filter results by role name. The input is used within a LIKE clause. | No | `` |
+| role_name | string | Optional: a text to filter results by role name. The input is used within a LIKE clause. | No |  |
 | limit | integer | Optional: The maximum number of rows to return. Default is 10 | No | `50` |
 
 

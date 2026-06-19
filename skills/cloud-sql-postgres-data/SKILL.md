@@ -40,9 +40,9 @@ Lists available user indexes in the database, excluding system schemas (pg_catal
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| schema_name | string | Optional: a text to filter results by schema name. The input is used within a LIKE clause. | No | `` |
-| table_name | string | Optional: a text to filter results by table name. The input is used within a LIKE clause. | No | `` |
-| index_name | string | Optional: a text to filter results by index name. The input is used within a LIKE clause. | No | `` |
+| schema_name | string | Optional: a text to filter results by schema name. The input is used within a LIKE clause. | No |  |
+| table_name | string | Optional: a text to filter results by table name. The input is used within a LIKE clause. | No |  |
+| index_name | string | Optional: a text to filter results by index name. The input is used within a LIKE clause. | No |  |
 | only_unused | boolean | Optional: If true, only returns indexes that have never been used. | No | `false` |
 | limit | integer | Optional: The maximum number of rows to return. Default is 50 | No | `50` |
 
@@ -57,8 +57,8 @@ Lists all schemas in the database ordered by schema name and excluding system an
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| schema_name | string | Optional: A specific schema name pattern to search for. | No | `` |
-| owner | string | Optional: A specific schema owner name pattern to search for. | No | `` |
+| schema_name | string | Optional: A specific schema name pattern to search for. | No |  |
+| owner | string | Optional: A specific schema owner name pattern to search for. | No |  |
 | limit | integer | Optional: The maximum number of schemas to return. | No | `10` |
 
 
@@ -72,8 +72,8 @@ Lists sequences in the database. Returns sequence name, schema name, sequence ow
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| schema_name | string | Optional: A specific schema name pattern to search for. | No | `` |
-| sequence_name | string | Optional: A specific sequence name pattern to search for. | No | `` |
+| schema_name | string | Optional: A specific schema name pattern to search for. | No |  |
+| sequence_name | string | Optional: A specific sequence name pattern to search for. | No |  |
 | limit | integer | Optional: The maximum number of rows to return. Default is 50 | No | `50` |
 
 
@@ -102,7 +102,7 @@ Lists detailed schema information (object type, columns, constraints, indexes, t
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| table_names | string | Optional: A comma-separated list of table names. If empty, details for all tables will be listed. | No | `` |
+| table_names | string | Optional: A comma-separated list of table names. If empty, details for all tables will be listed. | No |  |
 | output_format | string | Optional: Use 'simple' for names only or 'detailed' for full info. | No | `detailed` |
 
 
@@ -116,9 +116,9 @@ Lists all non-internal triggers in a database. Returns trigger name, schema name
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| trigger_name | string | Optional: A specific trigger name pattern to search for. | No | `` |
-| schema_name | string | Optional: A specific schema name pattern to search for. | No | `` |
-| table_name | string | Optional: A specific table name pattern to search for. | No | `` |
+| trigger_name | string | Optional: A specific trigger name pattern to search for. | No |  |
+| schema_name | string | Optional: A specific schema name pattern to search for. | No |  |
+| table_name | string | Optional: A specific table name pattern to search for. | No |  |
 | limit | integer | Optional: The maximum number of rows to return. | No | `50` |
 
 
@@ -132,8 +132,8 @@ Lists views in the database from pg_views with a default limit of 50 rows. Retur
 
 | Name | Type | Description | Required | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| view_name | string | Optional: A specific view name to search for. | No | `` |
-| schema_name | string | Optional: A specific schema name to search for. | No | `` |
+| view_name | string | Optional: A specific view name to search for. | No |  |
+| schema_name | string | Optional: A specific schema name to search for. | No |  |
 | limit | integer | Optional: The maximum number of rows to return. | No | `50` |
 
 

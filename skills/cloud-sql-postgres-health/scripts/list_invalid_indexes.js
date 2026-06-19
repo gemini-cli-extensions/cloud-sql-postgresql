@@ -19,7 +19,7 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 
-const toolName = "define_spec";
+const toolName = "list_invalid_indexes";
 const configArgs = ["--prebuilt", "cloud-sql-postgres"];
 
 const OPTIONAL_VARS_TO_OMIT_IF_EMPTY = [
