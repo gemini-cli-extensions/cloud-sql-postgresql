@@ -54,8 +54,10 @@ RAW_URL="https://raw.githubusercontent.com/googleapis/mcp-toolbox/v${VERSION}/in
 echo "Fetching upstream config from: $RAW_URL"
 UPSTREAM_YAML=$(curl -sL --fail "$RAW_URL" || { echo "Error: Could not fetch upstream YAML for v$VERSION"; exit 1; })
 
-# Extract the list of toolsets
-UPSTREAM_TOOLSETS=$(echo "$UPSTREAM_YAML" | awk '/^toolsets:/{flag=1; next} flag && /^  [a-zA-Z0-9_-]+:/{print $1}' | sed 's/://g')
+# Extract the list of toolsets. Each toolset is its own YAML document:
+#   kind: toolset
+#   name: <toolset>
+UPSTREAM_TOOLSETS=$(echo "$UPSTREAM_YAML" | awk '$1=="kind:" && $2=="toolset"{f=1; next} f && $1=="name:"{print $2; f=0}')
 
 # Compare upstream toolsets against our supported list
 MISSING_TOOLSETS=false
