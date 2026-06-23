@@ -177,49 +177,25 @@ _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or 
 <details>
 <summary id="codex">Codex</summary>
 
-**1. Clone the Repo:**
+**1. Install marketplace:**
 
 ```bash
-git clone --branch 0.4.0 git@github.com:gemini-cli-extensions/cloud-sql-postgresql.git
+codex plugin marketplace add GoogleCloudPlatform/data-agent-kit
 ```
 
 **2. Install the plugin:**
 
 ```bash
-mkdir -p ~/.codex/plugins
-cp -R /absolute/path/to/cloud-sql-postgresql ~/.codex/plugins/cloud-sql-postgresql
+codex plugin install cloud-sql-postgresql@data-agent-kit
 ```
 
 **3. Set env vars:**
 Enter your environment vars as described in the [configuration section](#configuration).
 
-**4. Create or update marketplace.json:**
-`~/.agents/plugins/marketplace.json`
-
-```json
-{
-  "name": "my-data-cloud-google-marketplace",
-  "interface": {
-    "displayName": "Google Data Cloud Skills"
-  },
-  "plugins": [
-    {
-      "name": "cloud-sql-postgresql",
-      "source": {
-        "source": "local",
-        "path": "./plugins/cloud-sql-postgresql"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Database"
-    }
-  ]
-}
+**4. (Optional) Update the marketplace:**
+```sh
+codex plugin marketplace upgrade data-agent-kit
 ```
-
-_(Tip: Run `codex plugin list` or use the `/plugins` interactive menu to verify your installed plugins.)_
 
 </details>
 
