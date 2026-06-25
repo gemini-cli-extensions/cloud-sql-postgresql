@@ -13,12 +13,6 @@
 # limitations under the License.
 
 name: Generate Skills
-
-# Renovate's toolbox bumps come from a fork, and the built-in GITHUB_TOKEN cannot
-# push to a forked PR branch. We therefore run on pull_request_target (so the
-# secret is available) and push the regenerated skills back into the PR using
-# SKILLS_GEN_TOKEN -- a maintainer PAT whose owner has repo write access. This
-# only works while the renovate fork has "Allow edits by maintainers" enabled.
 # The commit is authored as release-please[bot] so the cla/google check passes.
 on:
   pull_request_target:
