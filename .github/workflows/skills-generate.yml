@@ -14,34 +14,55 @@
 
 name: Generate Skills
 
+# Renovate's toolbox bumps come from a fork, and the built-in GITHUB_TOKEN cannot
+# push to a forked PR branch. We therefore run on pull_request_target (so the
+# secret is available) and push the regenerated skills back into the PR using
+# SKILLS_GEN_TOKEN -- a maintainer PAT whose owner has repo write access. This
+# only works while the renovate fork has "Allow edits by maintainers" enabled.
+# The commit is authored as release-please[bot] so the cla/google check passes.
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - "toolbox_version.txt"
 
+permissions:
+  contents: read
+
 jobs:
   generate-skills:
-    # Only run for same-repo PRs (e.g. renovate's toolbox bump), where the
-    # built-in GITHUB_TOKEN can push back to the PR branch.
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    # Restrict to renovate's toolbox bumps: this job checks out the PR head and
+    # pushes back to it with a privileged token, so it must not run on arbitrary
+    # PRs.
+    if: >
+      github.actor == 'renovate-bot' &&
+      startsWith(github.head_ref, 'renovate/googleapis-mcp-toolbox')
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Check out PR branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
-          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.SKILLS_GEN_TOKEN }}
+          persist-credentials: true
 
       - name: Generate skills
         run: |
-          VERSION="$(tr -d '\n' < toolbox_version.txt)"
+          VERSION="$(tr -d '[:space:]' < toolbox_version.txt)"
+          # The version is fed to npx/curl in the generator, so reject anything
+          # that is not a plain semver before using it.
+          if ! printf '%s' "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Refusing to run: unexpected toolbox version '$VERSION'"
+            exit 1
+          fi
           echo "Detected toolbox version: $VERSION"
           export VERSION
           chmod +x ./.github/scripts/generate_skills.sh
           ./.github/scripts/generate_skills.sh
 
       - name: Commit and push regenerated skills
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
           if [ -z "$(git status --porcelain)" ]; then
             echo "No skill changes generated. Nothing to commit."
@@ -53,5 +74,5 @@ jobs:
           git config user.email "55107282+release-please[bot]@users.noreply.github.com"
 
           git add .
-          git commit -m "chore: auto-generate skills for toolbox v$(tr -d '\n' < toolbox_version.txt)"
-          git push
+          git commit -m "chore: auto-generate skills for toolbox v$(tr -d '[:space:]' < toolbox_version.txt)"
+          git push origin "HEAD:$HEAD_REF"
