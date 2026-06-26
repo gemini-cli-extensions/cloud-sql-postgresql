@@ -24,9 +24,7 @@ permissions:
 
 jobs:
   generate-skills:
-    # Restrict to renovate's toolbox bumps: this job checks out the PR head and
-    # pushes back to it with a privileged token, so it must not run on arbitrary
-    # PRs.
+    # Restrict to renovate's toolbox bumps
     if: >
       github.actor == 'renovate-bot' &&
       startsWith(github.head_ref, 'renovate/googleapis-mcp-toolbox')
