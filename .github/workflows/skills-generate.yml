@@ -14,9 +14,7 @@
 
 name: Generate Skills
 
-# Skills are regenerated on release-please's release PR, which is a branch in this
-# repo (release-please--branches--main), so the built-in GITHUB_TOKEN can push the
-# regenerated skills straight back into the PR -- no fork, no PAT. The commit is
+# Skills are regenerated on release-please's release PR. The commit is
 # authored as release-please[bot] so the cla/google check passes.
 on:
   pull_request:
@@ -26,8 +24,7 @@ permissions:
 
 jobs:
   generate-skills:
-    # Only on release-please's release PR. This branch lives in the repo, so the
-    # GITHUB_TOKEN has write access to push the regenerated skills back into it.
+    # Only on release-please's release PR.
     if: startsWith(github.head_ref, 'release-please--branches--main')
     runs-on: ubuntu-latest
     permissions:
