@@ -13,30 +13,30 @@
 # limitations under the License.
 
 name: Generate Skills
-# The commit is authored as release-please[bot] so the cla/google check passes.
+
+# Skills are regenerated on release-please's release PR, which is a branch in this
+# repo (release-please--branches--main), so the built-in GITHUB_TOKEN can push the
+# regenerated skills straight back into the PR -- no fork, no PAT. The commit is
+# authored as release-please[bot] so the cla/google check passes.
 on:
-  pull_request_target:
-    paths:
-      - "toolbox_version.txt"
+  pull_request:
 
 permissions:
   contents: read
 
 jobs:
   generate-skills:
-    # Restrict to renovate's toolbox bumps
-    if: >
-      github.actor == 'renovate-bot' &&
-      startsWith(github.head_ref, 'renovate/googleapis-mcp-toolbox')
+    # Only on release-please's release PR. This branch lives in the repo, so the
+    # GITHUB_TOKEN has write access to push the regenerated skills back into it.
+    if: startsWith(github.head_ref, 'release-please--branches--main')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out PR branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
-          token: ${{ secrets.SKILLS_GEN_TOKEN }}
-          persist-credentials: true
+          ref: ${{ github.head_ref }}
 
       - name: Generate skills
         run: |
@@ -53,8 +53,6 @@ jobs:
           ./.github/scripts/generate_skills.sh
 
       - name: Commit and push regenerated skills
-        env:
-          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
           if [ -z "$(git status --porcelain)" ]; then
             echo "No skill changes generated. Nothing to commit."
@@ -67,4 +65,4 @@ jobs:
 
           git add .
           git commit -m "chore: auto-generate skills for toolbox v$(tr -d '[:space:]' < toolbox_version.txt)"
-          git push origin "HEAD:$HEAD_REF"
+          git push
