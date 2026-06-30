@@ -14,16 +14,18 @@
 
 name: Generate Skills
 
+# Skills are regenerated on release-please's release PR. The commit is
+# authored as release-please[bot] so the cla/google check passes.
 on:
   pull_request:
-    paths:
-      - "toolbox_version.txt"
+
+permissions:
+  contents: read
 
 jobs:
   generate-skills:
-    # Only run for same-repo PRs (e.g. renovate's toolbox bump), where the
-    # built-in GITHUB_TOKEN can push back to the PR branch.
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    # Only on release-please's release PR.
+    if: startsWith(github.head_ref, 'release-please--branches--main')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -35,7 +37,13 @@ jobs:
 
       - name: Generate skills
         run: |
-          VERSION="$(tr -d '\n' < toolbox_version.txt)"
+          VERSION="$(tr -d '[:space:]' < toolbox_version.txt)"
+          # The version is fed to npx/curl in the generator, so reject anything
+          # that is not a plain semver before using it.
+          if ! printf '%s' "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Refusing to run: unexpected toolbox version '$VERSION'"
+            exit 1
+          fi
           echo "Detected toolbox version: $VERSION"
           export VERSION
           chmod +x ./.github/scripts/generate_skills.sh
@@ -53,5 +61,5 @@ jobs:
           git config user.email "55107282+release-please[bot]@users.noreply.github.com"
 
           git add .
-          git commit -m "chore: auto-generate skills for toolbox v$(tr -d '\n' < toolbox_version.txt)"
+          git commit -m "chore: auto-generate skills for toolbox v$(tr -d '[:space:]' < toolbox_version.txt)"
           git push
