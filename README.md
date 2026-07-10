@@ -174,7 +174,7 @@ codex plugin marketplace add GoogleCloudPlatform/data-agent-kit
 **2. Install the plugin:**
 
 ```bash
-codex plugin install cloud-sql-postgresql@data-agent-kit
+codex plugin add cloud-sql-postgresql@data-agent-kit
 ```
 
 **3. Set env vars:**
