@@ -202,6 +202,21 @@ For detailed info check out the [Skills npm package](https://www.npmjs.com/packa
 **2. Set env vars:**
 Set your environment vars as described in the [configuration section](#configuration).
 
+## Installing using [open agent plugins tool](https://github.com/vercel-labs/plugins)
+
+This repository is a valid [Agent Plugins](https://github.com/agentplugins/agent-plugins-spec) plugin, so you can install it into any supported agent with the `npx plugins` command.
+
+Run the following command in your terminal to automatically detect your installed agents and register the plugin:
+
+```bash
+npx plugins add gemini-cli-extensions/cloud-sql-postgresql
+```
+
+For detailed info check out the [Plugins npm package](https://www.npmjs.com/package/plugins).
+
+**2. Set env vars:**
+Set your environment vars as described in the [configuration section](#configuration).
+
 <!-- {x-release-please-end} -->
 
 ## Usage Examples

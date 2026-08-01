@@ -1,4 +1,5 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "cloud-sql-postgresql",
   "version": "0.4.0",
   "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
@@ -7,7 +8,11 @@
     "email": "data-cloud-ai-integrations@google.com"
   },
   "homepage": "https://cloud.google.com/sql",
-  "license": "Apache-2.0",
   "repository": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
-  "skills": "./skills/"
+  "license": "Apache-2.0",
+  "keywords": [
+    "cloud-sql",
+    "postgresql",
+    "database"
+  ]
 }
