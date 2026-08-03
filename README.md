@@ -22,6 +22,8 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
     - [Antigravity](#antigravity)
     - [Claude Code](#claude-code)
     - [Codex](#codex)
+- [Installing using open agent skills tool](#installing-using-open-agent-skills-tool)
+- [Installing using open agent plugins tool](#installing-using-open-agent-plugins-tool)
 - [Usage Examples](#usage-examples)
 - [Supported Skills](#supported-skills)
 - [Additional Agent Skills](#additional-agent-skills)
