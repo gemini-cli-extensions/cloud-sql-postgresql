@@ -23,7 +23,7 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
     - [Claude Code](#claude-code)
     - [Codex](#codex)
 - [Installing using open agent skills tool](#installing-using-open-agent-skills-tool)
-- [Installing using open agent plugins tool](#installing-using-open-agent-plugins-tool)
+- [Installing via a compatible Agent Plugins client](#installing-via-a-compatible-agent-plugins-client)
 - [Usage Examples](#usage-examples)
 - [Supported Skills](#supported-skills)
 - [Additional Agent Skills](#additional-agent-skills)
@@ -204,19 +204,17 @@ For detailed info check out the [Skills npm package](https://www.npmjs.com/packa
 **2. Set env vars:**
 Set your environment vars as described in the [configuration section](#configuration).
 
-## Installing using [open agent plugins tool](https://www.npmjs.com/package/plugins)
+## Installing via a compatible Agent Plugins client
 
-This repository is a valid [Agent Plugins](https://github.com/agentplugins/agent-plugins-spec) plugin, so you can install it into any supported agent with the `npx plugins` command.
+This repository is a valid [Agent Plugins](https://github.com/agentplugins/agent-plugins-spec) (v1) plugin. Any [Agent Plugins–compatible client](https://agent-plugins.org/compatible-clients) can install it directly using its own built-in plugin command — no extra tooling required — by pointing at this repository:
 
-Run the following command in your terminal to automatically detect your installed agents and register the plugin:
-
-```bash
-npx plugins add gemini-cli-extensions/cloud-sql-postgresql
+```
+https://github.com/gemini-cli-extensions/cloud-sql-postgresql
 ```
 
-For detailed info check out the [Plugins npm package](https://www.npmjs.com/package/plugins).
+Beyond harnesses covered by the native install above, compatible clients include VS Code, Cursor, GitHub Copilot, and Kiro. See your agent's documentation for its exact install command.
 
-**2. Set env vars:**
+**Set env vars:**
 Set your environment vars as described in the [configuration section](#configuration).
 
 <!-- {x-release-please-end} -->
