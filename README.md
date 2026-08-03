@@ -204,7 +204,7 @@ For detailed info check out the [Skills npm package](https://www.npmjs.com/packa
 **2. Set env vars:**
 Set your environment vars as described in the [configuration section](#configuration).
 
-## Installing using [open agent plugins tool](https://github.com/vercel-labs/plugins)
+## Installing using [open agent plugins tool](https://www.npmjs.com/package/plugins)
 
 This repository is a valid [Agent Plugins](https://github.com/agentplugins/agent-plugins-spec) plugin, so you can install it into any supported agent with the `npx plugins` command.
 
