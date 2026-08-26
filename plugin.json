@@ -14,5 +14,65 @@
     "cloud-sql",
     "postgresql",
     "database"
-  ]
+  ],
+  "extensions": {
+    "com.google.cloud.data.agent-plugins": {
+      "config": [
+        {
+          "key": "CLOUD_SQL_POSTGRES_PROJECT",
+          "title": "Project ID",
+          "description": "ID of the Google Cloud project"
+        },
+        {
+          "key": "CLOUD_SQL_POSTGRES_REGION",
+          "title": "Location",
+          "description": "Region of the Cloud SQL instance"
+        },
+        {
+          "key": "CLOUD_SQL_POSTGRES_INSTANCE",
+          "title": "Instance",
+          "description": "Name of the Cloud SQL instance"
+        },
+        {
+          "key": "CLOUD_SQL_POSTGRES_DATABASE",
+          "title": "Database",
+          "description": "Name of the database"
+        },
+        {
+          "key": "CLOUD_SQL_POSTGRES_USER",
+          "title": "User",
+          "description": "(Optional) Username of the database user (Default: IAM user)"
+        },
+        {
+          "key": "CLOUD_SQL_POSTGRES_PASSWORD",
+          "title": "Password",
+          "description": "(Optional) Password of the database user  (Default: IAM user)"
+        },
+        {
+          "key": "CLOUD_SQL_POSTGRES_IP_TYPE",
+          "title": "IP Type",
+          "description": "(Optional) Type of the IP address: PUBLIC, PRIVATE, or PSC (Default: Public)"
+        }
+      ],
+      "gemini": {
+        "contextFileName": "CLOUD-SQL-POSTGRESQL.md",
+        "mcpServerName": "cloud-sql-postgres"
+      },
+      "codex": {
+        "interface": {
+          "displayName": "Cloud SQL for PostgreSQL",
+          "shortDescription": "Interact with CloudSQL for PostgreSQL instances.",
+          "developerName": "Google LLC",
+          "category": "Database",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "defaultPrompt": [
+            "You are a highly skilled database engineer and database administrator. Your purpose is to help the developer build and interact with databases and utilize data context throughout the entire software delivery cycle."
+          ]
+        }
+      }
+    }
+  }
 }

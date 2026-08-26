@@ -1,9 +1,9 @@
-# Cloud SQL for PostgreSQL Agent Skills
+# Cloud SQL for PostgreSQL
 
 > [!NOTE]
 > Currently in beta (pre-v1.0), and may see breaking changes until the first stable release (v1.0).
 
-This repository provides a set of agent skills to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. These skills can be used with various AI agents, including [Antigravity](https://antigravity.google/), [Claude Code](https://claude.com/product/claude-code) and [Codex](https://developers.openai.com/codex), to manage your databases, execute queries, explore schemas, and troubleshoot issues using natural language prompts.
+This repository packages [MCP Toolbox](https://github.com/googleapis/mcp-toolbox)'s prebuilt `cloud-sql-postgres` server as a plugin/extension to interact with [Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres) instances. It can be used with various AI agents, including [Antigravity](https://antigravity.google/), [Claude Code](https://claude.com/product/claude-code) and [Codex](https://developers.openai.com/codex), to manage your databases, execute queries, explore schemas, and troubleshoot issues using natural language prompts.
 
 > [!IMPORTANT]
 > **We Want Your Feedback!**
@@ -14,7 +14,7 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
 
 ## Table of Contents
 
-- [Why Use Cloud SQL for PostgreSQL Agent Skills?](#why-use-cloud-sql-for-postgresql-agent-skills)
+- [Why Use Cloud SQL for PostgreSQL?](#why-use-cloud-sql-for-postgresql)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
   - [Configuration](#configuration)
@@ -22,14 +22,14 @@ This repository provides a set of agent skills to interact with [Cloud SQL for P
     - [Antigravity](#antigravity)
     - [Claude Code](#claude-code)
     - [Codex](#codex)
-- [Installing using open agent skills tool](#installing-using-open-agent-skills-tool)
 - [Installing via a compatible Agent Plugins client](#installing-via-a-compatible-agent-plugins-client)
 - [Usage Examples](#usage-examples)
-- [Supported Skills](#supported-skills)
-- [Additional Agent Skills](#additional-agent-skills)
+- [Available Tools](#available-tools)
+- [Generating Skills Instead](#generating-skills-instead)
+- [Additional Extensions](#additional-extensions)
 - [Troubleshooting](#troubleshooting)
 
-## Why Use Cloud SQL for PostgreSQL Agent Skills?
+## Why Use Cloud SQL for PostgreSQL?
 
 - **Seamless Workflow:** Integrates seamlessly into your AI agent's environment. No need to constantly switch contexts for common database tasks.
 - **Natural Language Queries:** Stop wrestling with complex commands. Explore schemas and query data by describing what you want in plain English.
@@ -46,6 +46,7 @@ Before you begin, ensure you have the following:
      - [Antigravity 2.0](https://antigravity.google/product/antigravity-2) version **v2.0.0** or higher.
   - [Claude Code](https://claude.com/product/claude-code) version **v2.1.94** or higher.
   - [Codex](https://developers.openai.com/codex) **v0.117.0** or higher.
+- [Node.js](https://nodejs.org/) — the MCP server runs via `npx`.
 - A Google Cloud project with the **Cloud SQL Admin API** enabled.
 - Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment.
 - IAM Permissions:
@@ -53,7 +54,7 @@ Before you begin, ensure you have the following:
   - Cloud SQL Admin (`roles/cloudsql.admin`)
 
 > [!NOTE]
-> If you do not configure a specific `CLOUD_SQL_POSTGRES_USER` or `CLOUD_SQL_POSTGRES_PASSWORD`, these skills default to using the active local IAM user credentials. You must also add the IAM user to your Cloud SQL instance, see [Creating a database user](https://cloud.google.com/sql/docs/postgres/add-manage-iam-users#creating-a-database-user).
+> If you do not configure a specific `CLOUD_SQL_POSTGRES_USER` or `CLOUD_SQL_POSTGRES_PASSWORD`, the server defaults to using the active local IAM user credentials. You must also add the IAM user to your Cloud SQL instance, see [Creating a database user](https://cloud.google.com/sql/docs/postgres/add-manage-iam-users#creating-a-database-user).
 
 ## Getting Started
 
@@ -76,7 +77,7 @@ Please keep these env vars handy during the installation process:
 
 ### Installation & Usage
 
-To start interacting with your database, install the skills for your preferred AI agent, then launch the agent and use natural language to ask questions or perform tasks.
+To start interacting with your database, install the extension for your preferred AI agent, then launch the agent and use natural language to ask questions or perform tasks.
 
 For the latest version, check the [releases page][releases].
 
@@ -105,28 +106,18 @@ See <a href="https://antigravity.google/docs/gcli-migration">Migrating from Gemi
 
 #### Antigravity 2.0 (IDE)
 
-**1. Clone the Repo:**
+**1. Install the plugin:**
+
+Install the plugin directly from the remote GitHub repository:
 
 ```bash
-git clone --branch 0.4.0 https://github.com/gemini-cli-extensions/cloud-sql-postgresql.git
+agy plugin install https://github.com/gemini-cli-extensions/cloud-sql-postgresql
 ```
 
-**2. Install the skills:**
-
-Choose a location for the skills:
-- **Global (all workspaces):** `~/.gemini/antigravity/skills/`
-- **Workspace-specific:** `<workspace-root>/.agents/skills/`
-
-Copy the skill folders from the cloned repository's `skills/` directory to your chosen location:
-
-```bash
-cp -R cloud-sql-postgresql/skills/* ~/.gemini/antigravity/skills/
-```
-
-**3. Set env vars:**
+**2. Set env vars:**
 Set your environment vars as described in the [configuration section](#configuration).
 
-_(Tip: Antigravity 2.0 automatically discovers skills in these directories at the start of a session. You can verify they are active by running the `/skills` command in your active session.)_
+_(Tip: You can verify the MCP server is active by running the `/mcp` command in your active session.)_
 
 #### Antigravity CLI
 
@@ -189,21 +180,6 @@ codex plugin marketplace upgrade data-agent-kit
 
 </details>
 
-## Installing using [open agent skills tool](https://github.com/vercel-labs/skills)
-
-You can install skills using the `npx skills` command.
-
-Run the following command in your terminal to automatically download and register the skills:
-
-```bash
-npx skills add https://github.com/gemini-cli-extensions/cloud-sql-postgresql/tree/0.4.0
-```
-
-For detailed info check out the [Skills npm package](https://www.npmjs.com/package/skills).
-
-**2. Set env vars:**
-Set your environment vars as described in the [configuration section](#configuration).
-
 ## Installing via a compatible Agent Plugins client
 
 This repository is a valid [Agent Plugins](https://github.com/agentplugins/agent-plugins-spec) (v1) plugin. Any [Agent Plugins–compatible client](https://agent-plugins.org/compatible-clients) can install it directly using its own built-in plugin command — no extra tooling required — by pointing at this repository:
@@ -233,24 +209,43 @@ Interact with Cloud SQL for PostgreSQL using natural language:
 - **Generate Code:**
   - "Generate a Python dataclass to represent the 'customers' table."
 
-## Supported Skills
+## Available Tools
 
-The following skills are available in this repository:
+The tools are provided by MCP Toolbox's prebuilt `cloud-sql-postgres` server, grouped into toolsets covering:
 
-- [Cloud SQL for PostgreSQL Admin](./skills/cloud-sql-postgres-admin/SKILL.md) - Use these skills when you need to provision new Cloud SQL instances, create databases and users, clone existing environments, and monitor the progress of long-running operations.
-- [Cloud SQL for PostgreSQL Data](./skills/cloud-sql-postgres-data/SKILL.md) - Use these skills when you need to explore the database structure, discover schema objects like views or stored procedures, and execute custom SQL queries to interact with your data.
-- [Cloud SQL for PostgreSQL Health](./skills/cloud-sql-postgres-health/SKILL.md) - Use these skills when you need to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum.
-- [Cloud SQL for PostgreSQL Lifecycle](./skills/cloud-sql-postgres-lifecycle/SKILL.md) - Use these skills when you need to manage the lifecycle of your instances, including performing backups and restores, checking major version upgrade compatibility, and monitoring overall instance status.
-- [Cloud SQL for PostgreSQL Monitor](./skills/cloud-sql-postgres-monitor/SKILL.md) - Use these skills when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics.
-- [Cloud SQL for PostgreSQL Replication](./skills/cloud-sql-postgres-replication/SKILL.md) - Use these skills when you need to monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity.
-- [Cloud SQL for PostgreSQL View Config](./skills/cloud-sql-postgres-view-config/SKILL.md) - Use these skills when you need to discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters.
+- **Admin** - Provision new Cloud SQL instances, create databases and users, clone existing environments, and monitor the progress of long-running operations.
+- **Data** - Explore the database structure, discover schema objects like views or stored procedures, and execute custom SQL queries to interact with your data.
+- **Health** - Audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum.
+- **Lifecycle** - Manage the lifecycle of your instances, including performing backups and restores, checking major version upgrade compatibility, and monitoring overall instance status.
+- **Monitor** - Troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics.
+- **Replication** - Monitor replication health, manage sync states between nodes, and audit database roles and security settings to ensure environment integrity.
+- **View Config** - Discover and manage PostgreSQL extensions or fine-tune engine-level settings such as memory allocation and server configuration parameters.
+- **Vector Assist** - Define, refine, and apply vector search specs, and generate queries against them.
 
-## Additional Agent Skills
+For the full, up-to-date list of tools, see the [`cloud-sql-postgres` prebuilt config](https://github.com/googleapis/mcp-toolbox/blob/main/internal/prebuiltconfigs/tools/cloud-sql-postgres.yaml) in the MCP Toolbox repository.
 
-Find additional skills to support your entire software development lifecycle at [github.com/gemini-cli-extensions](https://github.com/gemini-cli-extensions), including:
+## Generating Skills Instead
 
-- [Generic PostgreSQL skills](https://github.com/gemini-cli-extensions/postgres)
-- [Cloud SQL for PostgreSQL Observability skills](https://github.com/gemini-cli-extensions/cloud-sql-postgresql-observability)
+These tools were previously shipped as agent skills. If your agent lacks deferred
+tool loading and you prefer skills, the toolbox can still generate them from the
+same prebuilt toolsets with its `skills-generate` command:
+
+```bash
+toolbox --prebuilt cloud-sql-postgres skills-generate \
+  --name "cloud-sql-postgres-data" \
+  --toolset "data" \
+  --description "Explore schemas and run SQL against Cloud SQL for PostgreSQL"
+```
+
+See [Generate Agent Skills](https://github.com/googleapis/mcp-toolbox#generate-agent-skills)
+in the MCP Toolbox repository.
+
+## Additional Extensions
+
+Find additional extensions to support your entire software development lifecycle at [github.com/gemini-cli-extensions](https://github.com/gemini-cli-extensions), including:
+
+- [Generic PostgreSQL extension](https://github.com/gemini-cli-extensions/postgres)
+- [Cloud SQL for PostgreSQL Observability extension](https://github.com/gemini-cli-extensions/cloud-sql-postgresql-observability)
 - and more!
 
 ## Troubleshooting
@@ -261,5 +256,5 @@ Common issues:
 
 - "failed to find default credentials: google: could not find default credentials.": Ensure [Application Default Credentials](https://cloud.google.com/docs/authentication/gcloud) are available in your environment. See [Set up Application Default Credentials](https://cloud.google.com/docs/authentication/external/set-up-adc) for more information.
 - "✖ Error during discovery for server: MCP error -32000: Connection closed": The database connection has not been established. Ensure your configuration is set via environment variables.
-- "✖ MCP ERROR: Error: spawn .../toolbox ENOENT": The Toolbox binary did not download correctly. Ensure you are using the latest version of your agent.
+- "✖ MCP ERROR: Error: spawn npx ENOENT": Node.js is not installed, or `npx` is not on your `PATH`. Install Node.js, which provides `npx`.
 - "cannot execute binary file": The Toolbox binary did not download correctly. Ensure the correct binary for your OS/Architecture has been downloaded. See [Installing the server](https://mcp-toolbox.dev/documentation/introduction/#install-toolbox) for more information.

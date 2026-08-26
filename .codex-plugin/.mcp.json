@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "cloud-sql-postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@toolbox-sdk/server@1.9.0",
+        "--prebuilt",
+        "cloud-sql-postgres",
+        "--stdio"
+      ],
+      "env_vars": [
+        "CLOUD_SQL_POSTGRES_PROJECT",
+        "CLOUD_SQL_POSTGRES_REGION",
+        "CLOUD_SQL_POSTGRES_INSTANCE",
+        "CLOUD_SQL_POSTGRES_DATABASE",
+        "CLOUD_SQL_POSTGRES_USER",
+        "CLOUD_SQL_POSTGRES_PASSWORD",
+        "CLOUD_SQL_POSTGRES_IP_TYPE"
+      ]
+    }
+  }
+}
