@@ -227,17 +227,30 @@ For the full, up-to-date list of tools, see the [`cloud-sql-postgres` prebuilt c
 ## Generating Skills Instead
 
 These tools were previously shipped as agent skills. If your agent lacks deferred
-tool loading and you prefer skills, the toolbox can still generate them from the
-same prebuilt toolsets with its `skills-generate` command:
+tool loading, or you simply prefer skills, the toolbox can regenerate them from the
+same prebuilt toolsets.
+
+All eight skills at once, using the script this repository ships:
 
 ```bash
-toolbox --prebuilt cloud-sql-postgres skills-generate \
+VERSION=1.9.0 ./.github/scripts/generate_skills.sh
+```
+
+Use the toolbox version pinned in [`mcp.json`](./mcp.json). The script writes to
+`skills/`, adds the license header, and fails if the upstream config gained a
+toolset it does not know about.
+
+A single toolset, without the script:
+
+```bash
+npx @toolbox-sdk/server@1.9.0 --prebuilt cloud-sql-postgres skills-generate \
   --name "cloud-sql-postgres-data" \
   --toolset "data" \
   --description "Explore schemas and run SQL against Cloud SQL for PostgreSQL"
 ```
 
-See [Generate Agent Skills](https://github.com/googleapis/mcp-toolbox#generate-agent-skills)
+The generated scripts call the toolbox through `npx`, so no binary download is
+needed. See [Generate Agent Skills](https://github.com/googleapis/mcp-toolbox#generate-agent-skills)
 in the MCP Toolbox repository.
 
 ## Additional Extensions
