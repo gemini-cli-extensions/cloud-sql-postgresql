@@ -233,7 +233,7 @@ same prebuilt toolsets.
 All eight skills at once, using the script this repository ships:
 
 ```bash
-VERSION=1.9.0 ./.github/scripts/generate_skills.sh
+VERSION=<toolbox version> ./.github/scripts/generate_skills.sh
 ```
 
 Use the toolbox version pinned in [`mcp.json`](./mcp.json). The script writes to
@@ -243,7 +243,7 @@ toolset it does not know about.
 A single toolset, without the script:
 
 ```bash
-npx @toolbox-sdk/server@1.9.0 --prebuilt cloud-sql-postgres skills-generate \
+npx @toolbox-sdk/server@<toolbox version> --prebuilt cloud-sql-postgres skills-generate \
   --name "cloud-sql-postgres-data" \
   --toolset "data" \
   --description "Explore schemas and run SQL against Cloud SQL for PostgreSQL"
