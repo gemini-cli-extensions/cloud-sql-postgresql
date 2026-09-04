@@ -5,7 +5,7 @@
     "email": "data-cloud-ai-integrations@google.com"
   },
   "metadata": {
-    "description": "Agent skills for Cloud SQL for PostgreSQL to query, manage, and monitor databases."
+    "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data."
   },
   "plugins": [
     {
