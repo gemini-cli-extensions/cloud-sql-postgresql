@@ -1,7 +1,7 @@
 # DEVELOPER.md
 
 This document provides instructions for setting up your development environment
-and contributing to the Cloud SQL for PostgreSQL Agent skills project.
+and contributing to the Cloud SQL for PostgreSQL extension project.
 
 ## Prerequisites
 
@@ -33,8 +33,8 @@ Before you begin, ensure you have the following:
     The CLI will prompt you to confirm the installation. Accept it to proceed.
 
 3.  **Testing Changes:** After installation, start the Gemini CLI (`gemini`).
-    You can now interact with the `cloud-sql-postgresql` skills to manually test your changes
-    against your connected database.
+    You can now interact with the `cloud-sql-postgresql` MCP server tools to manually test
+    your changes against your connected database.
 
 ## Testing
 
@@ -44,13 +44,15 @@ A GitHub Actions workflow (`.github/workflows/presubmit-tests.yml`) is triggered
 for every pull request. This workflow primarily verifies that the extension can
 be successfully installed by the Gemini CLI.
 
-All tools are currently tested in the [MCP Toolbox GitHub](https://github.com/googleapis/mcp-toolbox).
+All tools are provided by the prebuilt `cloud-sql-postgres` toolset in the
+[MCP Toolbox GitHub](https://github.com/googleapis/mcp-toolbox), where they are tested.
+This extension bundles that toolbox as an MCP server (`npx @toolbox-sdk/server --prebuilt
+cloud-sql-postgres --stdio`); the pinned version lives in `mcp.json` and is updated by
+Renovate, which also rewrites the generated manifests.
 
-The skills themselves are validated using the `skills-validate.yml` workflow.
+### Automated Evaluations (EvalBench)
 
-### Automated Skill Evaluations (EvalBench)
-
-This repository uses the [EvalBench framework](https://github.com/GoogleCloudPlatform/evalbench) to automatically evaluate the quality, multi-turn conversational capabilities, and skill execution of the extension.
+This repository uses the [EvalBench framework](https://github.com/GoogleCloudPlatform/evalbench) to automatically evaluate the quality, multi-turn conversational capabilities, and tool execution of the extension.
 
 Evaluations run automatically via Cloud Build (`cloudbuild.yaml`) on pull requests when the `ci:run-evals` or `autorelease: pending` label is applied. Because tests run against a live Cloud SQL instance, credentials are securely injected by Secret Manager during CI.
 
@@ -61,12 +63,12 @@ All evaluation configurations and datasets are located in the [`evals/`](evals/)
 *   **Conversational Datasets (`*_dataset.json`):** Define test scenarios for different models (e.g., `gemini_dataset.json`, `claude_dataset.json`). Each scenario contains:
     *   `starting_prompt`: The initial prompt sent to the agent.
     *   `conversation_plan`: Instructions for the simulated user LLM to drive multi-turn interactions.
-    *   `expected_trajectory`: The sequence of tool/skill calls expected to successfully complete the task.
+    *   `expected_trajectory`: The sequence of tool calls expected to successfully complete the task.
 *   **Run Configurations (`*_run_config.yaml`):** Configure the EvalBench orchestrator, target model configs, and qualitative/performance scorers (e.g., goal completion, behavioral metrics, latency, token consumption).
 
 #### Maintaining and Adding Scenarios
 
-When adding new skills or modifying existing behavior, you should add or update corresponding scenarios in the dataset files:
+When adding support for new tools or modifying existing behavior, you should add or update corresponding scenarios in the dataset files:
 
 1.  Open `evals/gemini_dataset.json` (and/or `evals/claude_dataset.json`).
 2.  Add a new scenario block with a unique `id`, a clear `starting_prompt`, a detailed `conversation_plan`, and the `expected_trajectory` of tool calls.

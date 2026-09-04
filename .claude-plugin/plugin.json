@@ -7,7 +7,71 @@
     "email": "data-cloud-ai-integrations@google.com"
   },
   "homepage": "https://cloud.google.com/sql",
-  "license": "Apache-2.0",
   "repository": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql",
-  "skills": "./skills/"
+  "license": "Apache-2.0",
+  "userConfig": {
+    "cloud_sql_postgres_project": {
+      "title": "Project ID",
+      "description": "ID of the Google Cloud project",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_region": {
+      "title": "Location",
+      "description": "Region of the Cloud SQL instance",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_instance": {
+      "title": "Instance",
+      "description": "Name of the Cloud SQL instance",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_database": {
+      "title": "Database",
+      "description": "Name of the database",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_user": {
+      "title": "User",
+      "description": "(Optional) Username of the database user (Default: IAM user)",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_password": {
+      "title": "Password",
+      "description": "(Optional) Password of the database user  (Default: IAM user)",
+      "type": "string",
+      "sensitive": false
+    },
+    "cloud_sql_postgres_ip_type": {
+      "title": "IP Type",
+      "description": "(Optional) Type of the IP address: PUBLIC, PRIVATE, or PSC (Default: Public)",
+      "type": "string",
+      "sensitive": false
+    }
+  },
+  "mcpServers": {
+    "cloud-sql-postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@toolbox-sdk/server@1.9.0",
+        "--prebuilt",
+        "cloud-sql-postgres",
+        "--stdio"
+      ],
+      "env": {
+        "CLOUD_SQL_POSTGRES_PROJECT": "${user_config.cloud_sql_postgres_project}",
+        "CLOUD_SQL_POSTGRES_REGION": "${user_config.cloud_sql_postgres_region}",
+        "CLOUD_SQL_POSTGRES_INSTANCE": "${user_config.cloud_sql_postgres_instance}",
+        "CLOUD_SQL_POSTGRES_DATABASE": "${user_config.cloud_sql_postgres_database}",
+        "CLOUD_SQL_POSTGRES_USER": "${user_config.cloud_sql_postgres_user}",
+        "CLOUD_SQL_POSTGRES_PASSWORD": "${user_config.cloud_sql_postgres_password}",
+        "CLOUD_SQL_POSTGRES_IP_TYPE": "${user_config.cloud_sql_postgres_ip_type}"
+      }
+    }
+  }
 }

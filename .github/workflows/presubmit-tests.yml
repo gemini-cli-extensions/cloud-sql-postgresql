@@ -17,21 +17,18 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
   run-presubmit-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Install Gemini CLI
         run: npm install @google/gemini-cli
-
-      - name: Install toolbox binary
-        run: |
-          VERSION=$(cat toolbox_version.txt)
-          curl -L -o toolbox "https://storage.googleapis.com/mcp-toolbox-for-databases/v${VERSION}/linux/amd64/toolbox"
-          chmod +x toolbox
 
       - name: Install Extension
         run: npx gemini extensions validate .
