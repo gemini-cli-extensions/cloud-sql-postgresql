@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.4.0...0.4.1) (2026-09-04)
+
+
+### Features
+
+* **plugin:** migrate from generated skills to the prebuilt MCP server ([#187](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/187)) ([6191fb9](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/6191fb93757355204a5f909d41ad6c9fa2900a83))
+* **plugin:** support agent plugin spec ([#185](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/issues/185)) ([69cf787](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/commit/69cf78726668b7b922758b963212fe46744511ac))
+
 ## [0.4.0](https://github.com/gemini-cli-extensions/cloud-sql-postgresql/compare/0.3.0...0.4.0) (2026-04-14)
 
 
