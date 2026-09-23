@@ -161,13 +161,13 @@ _(Tip: Run `/plugin list` inside Claude Code to verify the plugin is active, or 
 **1. Install marketplace:**
 
 ```bash
-codex plugin marketplace add GoogleCloudPlatform/data-agent-kit
+codex plugin marketplace add GoogleCloudPlatform/data-cloud-plugins
 ```
 
 **2. Install the plugin:**
 
 ```bash
-codex plugin add cloud-sql-postgresql@data-agent-kit
+codex plugin add cloud-sql-postgresql@data-cloud-plugins
 ```
 
 **3. Set env vars:**
@@ -175,7 +175,7 @@ Enter your environment vars as described in the [configuration section](#configu
 
 **4. (Optional) Update the marketplace:**
 ```sh
-codex plugin marketplace upgrade data-agent-kit
+codex plugin marketplace upgrade data-cloud-plugins
 ```
 
 </details>
